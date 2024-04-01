@@ -1,0 +1,254 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { newtApClient } from "@/api/newtApClient";
+import type { Work } from "@/types/newt";
+
+export const getStaticPaths = async () => {
+	const client = newtApClient(true);
+
+  const { items: works } = await client.getContents<Work>({
+    appUid: "website",
+    modelUid: "work",
+  });
+
+  return works.map((work) => ({
+    params: { slug: work.slug },
+    props: { work },
+  }));
+};
+
+const { work } = Astro.props;
+---
+<BaseLayout title={work.title}>
+  <section class="body">
+
+    <div class="header">
+      <div class="title">
+        <h1>{work.title}</h1>
+        {
+          work.url && (
+            <div>
+              <a href={work.url} target="_blank">Visit website</a>
+            </div>
+          )
+        }
+      </div>
+
+      {
+        work.outline && (
+          <p class="outline">{work.outline}</p>
+        )
+      }
+    </div>
+
+    <div class="hero">
+      {
+        work.heroVisual?.fileType.match(/video/) ? (
+          <video loop muted autoplay>
+            <source src={work.heroVisual?.src} type="video/mp4" />
+          </video>
+        ) : (
+          <img src={work.heroVisual?.src} alt={work.heroVisual?.altText} />
+        )
+      }
+    </div>
+    
+    {
+      work.releaseDate && (
+        <div>
+          <h2>Release</h2>
+          <p>{new Date(work.releaseDate).toLocaleDateString("en-US", { month: "long", year: "numeric" })}</p>
+        </div>
+      )
+    }
+
+    {
+      work.client && (
+        <div>
+          <h2>Client</h2>
+          <p>{work.client.name}</p>
+        </div>
+      )
+    }
+
+    {
+      work.partners && (
+        <div>
+          <h2>Partners</h2>
+          <ul>
+            {
+              work.partners.map((partner) => (
+                <li>{partner.name}</li>
+              ))
+            }
+          </ul>
+        </div>
+      )
+    }
+
+    {
+      work.productionPeriod && (
+        <div>
+          <h2>制作期間</h2>
+          <p>{work.productionPeriod}</p>
+        </div>
+      )
+    }
+
+    {
+      work.projectTypes && (
+        <div>
+          <h2>Project Types</h2>
+          <ul>
+            {
+              work.projectTypes.map((projectType) => (
+                <li>{projectType.name}</li>
+              ))
+            }
+          </ul>
+        </div>
+      )
+    }
+
+    {
+      work.domains && (
+        <div>
+          <h2>Domains</h2>
+          <ul>
+            {
+              work.domains.map((domain) => (
+                <li>{domain.name}</li>
+              ))
+            }
+          </ul>
+        </div>
+      )
+    }
+
+    {
+      work.technologyStacks && (
+        <div>
+          <h2>Technology Stacks</h2>
+          <ul>
+            {
+              work.technologyStacks.map((technologyStack) => (
+                <li>{technologyStack.name}</li>
+              ))
+            }
+          </ul>
+        </div>
+      )
+    }
+
+    {
+      work.teams && (
+        <div>
+          <h2>Teams</h2>
+          {
+            work.teams.map((team) => (
+              <div>
+                <h3>{team.data.domain.name}</h3>
+
+                {
+                  team.data.members && (
+                    <ul>
+                      {
+                        team.data.members.map((member) => (
+                          <li>{member.name}</li>
+                        ))
+                      }
+                    </ul>
+                  )
+                }
+              </div>
+            ))
+          }
+        </div>
+      )
+    }
+
+    {
+      work.sections && work.sections.map((section) => (
+        <div class="section">
+          <div class="section-header">
+            <h2>{section.data.title}</h2>
+            <p>{section.data.description}</p>
+          </div>
+
+          <div class="section-visuals">
+            {
+              section.data.visuals && section.data.visuals.map((visual) => (
+                <div>
+                  {
+                    visual.fileType.match(/video/) ? (
+                      <video loop muted autoplay>
+                        <source src={visual.src} type="video/mp4" />
+                      </video>
+                    ) : (
+                      <img src={visual.src} alt={visual.altText} />
+                    )
+                  }
+                </div>
+              ))
+            }
+          </div>
+        </div>
+      ))
+    }
+  </section>
+</BaseLayout>
+
+<style>
+video {
+  width: 100%;
+}
+
+img {
+  width: 100%;
+}
+
+.body {
+  display: block grid;
+  gap: clamp(1.5rem, 0.833rem + 3.33vw, 4rem);
+  padding: clamp(1.5rem, 0.833rem + 3.33vw, 4rem) 0;
+}
+
+.header {
+  display: block grid;
+  gap: clamp(1.5rem, 0.833rem + 3.33vw, 4rem);
+  grid-template-columns: 3fr 1fr 4fr;
+  grid-template-areas:
+    "title . outline";
+}
+
+.title {
+  display: block grid;
+  grid-area: title;
+  gap: clamp(1rem, 0.867rem + 0.67vw, 1.5rem);
+}
+
+.outline {
+  grid-area: outline;
+}
+
+.hero {
+  /* grid-area: hero; */
+}
+
+.section {
+  display: block grid;
+  gap: clamp(1.5rem, 0.833rem + 3.33vw, 4rem);
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.section-header {
+  display: block flex;
+  flex-direction: column;
+  gap: clamp(1rem, 0.867rem + 0.67vw, 1.5rem);
+}
+
+.section-visuals {
+  display: grid;
+  gap: clamp(1.5rem, 0.833rem + 3.33vw, 4rem);
+}
+</style>

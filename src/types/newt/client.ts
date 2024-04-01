@@ -1,7 +1,9 @@
+import type { Content } from 'newt-client-js';
+
 /**
  * クライアント
  */
-export interface Client {
+export interface Client extends Content {
   /**
    * クライアント名
    */

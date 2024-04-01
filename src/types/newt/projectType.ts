@@ -1,7 +1,9 @@
+import type { Content } from 'newt-client-js';
+
 /**
  * プロジェクトタイプ
  */
-export interface ProjectType {
+export interface ProjectType extends Content {
   /**
    * プロジェクトタイプ名
    */

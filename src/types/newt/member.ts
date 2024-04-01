@@ -1,10 +1,11 @@
-import { type Domain } from './domain';
-import { type TechnologyStack } from './technologyStack';
+import type { Content } from 'newt-client-js';
+import type { Domain } from './domain';
+import type { TechnologyStack } from './technologyStack';
 
 /**
  * メンバー
  */
-export interface Member {
+export interface Member extends Content {
   /**
    * 名前
    */
@@ -18,10 +19,10 @@ export interface Member {
   /**
    * 専門領域
    */
-  domain?: Domain[];
+  domains?: Domain[];
 
   /**
    * 技術スタック
    */
-  technologyStack?: TechnologyStack[];
+  technologyStacks?: TechnologyStack[];
 }

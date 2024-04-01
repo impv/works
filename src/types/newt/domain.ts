@@ -1,7 +1,9 @@
+import type { Content } from 'newt-client-js';
+
 /**
  * 業務領域
  */
-export interface Domain {
+export interface Domain extends Content {
   /**
    * 業務領域名
    */

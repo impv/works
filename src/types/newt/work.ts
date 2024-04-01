@@ -1,50 +1,71 @@
-import { type Client } from './client';
-import { type Member } from './member';
-import { type Domain } from './domain';
-import { type TechnologyStack } from './technologyStack';
-import { type ProjectType } from './projectType';
-import { type Partner } from './partner';
-import { type File } from './file';
+import type { Content, File } from 'newt-client-js';
+import type { Client } from './client';
+import type { Member } from './member';
+import type { Domain } from './domain';
+import type { TechnologyStack } from './technologyStack';
+import type { ProjectType } from './projectType';
+import type { Partner } from './partner';
+
+/**
+ * カスタムフィールド
+ */
+interface CustomField {
+  _id: string;
+  title: string;
+}
 
 /**
  * プロジェクトにおける役割とそのメンバー
  */
 interface Role {
-  /**
-   * 役割
-   */
-  domain: Domain;
-
-  /**
-   * メンバー
-   */
-  members: Member[];
+  _id: string;
+  title: string;
+  data: {
+    /**
+     * 役割
+     */
+    domain: Domain;
+  
+    /**
+     * メンバー
+     */
+    members: Member[];
+  }
 }
 
 /**
  * コンテンツセクション
  */
 interface Section {
-  /**
-   * セクションのタイトル
-   */
+  _id: string;
   title: string;
-
-  /**
-   * 説明文
-   */
-  description?: string;
-
-  /**
-   * ビジュアル
-   */
-  visual?: File;
+  data: {
+    /**
+     * セクションのタイトル
+     */
+    title: string;
+  
+    /**
+     * 説明文
+     */
+    description?: string;
+  
+    /**
+     * ビジュアル
+     */
+    visuals?: File[];
+  }
 }
 
 /**
  * プロジェクト
  */
-export interface Work {
+export interface Work extends Content {
+  /**
+   * id
+   */
+  _id: string;
+
   /**
    * タイトル
    */
@@ -78,7 +99,7 @@ export interface Work {
   /**
    * リリース日時
    */
-  releaseDate?: Date;
+  releaseDate?: string;
 
   /**
    * 開発期間
@@ -88,7 +109,7 @@ export interface Work {
   /**
    * プロジェクトタイプ
    */
-  projectTypes?: ProjectType;
+  projectTypes?: ProjectType[];
 
   /**
    * 業務領域
