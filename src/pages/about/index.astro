@@ -1,0 +1,101 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { newtApClient } from "@/api/newtApClient";
+import type { Member, Domain } from "@/types/newt";
+import CustomTypography from "@/components/CustomTypography/index.astro";
+
+const client = newtApClient();
+
+const { items: members } = await client.getContents<Member>({
+  appUid: "website",
+  modelUid: "member",
+});
+---
+<BaseLayout title="About">
+  <section class="body">
+    <div class="header">
+      <CustomTypography as="h1" variant="title-large">About Impressive</CustomTypography>
+      <CustomTypography variant="body-large">Impressiveは、フロントエンド開発とUIデザインに特化した開発チームです。丁寧なコミュニケーションと高い技術力でお客様のビジネス課題を解決します。</CustomTypography>
+    </div>
+
+    <div class="member-index">
+      {
+        members.map((member) => (
+          <a href={`/about/${member.slug}`} class="member-index-item">
+            <div class="member-thumbnail">
+              <img src={`${member.portrait.src}?format=webp&width=380&height=380`} srcset={`${member.portrait.src}?format=webp&width=760&height=760`} alt={member.portrait.altText} width={member.portrait?.width} height={member.portrait.height} transition:name={`portrait-${member.slug}`} />
+            </div>
+            <CustomTypography as="h2" variant="body-large">{member.name}</CustomTypography>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+.body {
+  display: block grid;
+  gap: var(--gap-md);
+  padding: var(--gap-lg) 0;
+}
+
+.member-index {
+  display: grid;
+  gap: var(--gap-sm);
+  list-style: none;
+  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+}
+
+.member-index-item {
+  display: grid;
+  grid-template-rows: subgrid;
+  gap: 0.8rem;
+  grid-row: span 2;
+  color: var(--fg-default);
+  text-decoration: none;
+}
+
+.member-index-item:hover {
+  color: var(--fg-default-hover);
+}
+
+.member-thumbnail {
+  overflow: hidden;
+  aspect-ratio: 1 / 1;
+  background-color: var(--bg-subtle);
+}
+
+.member-thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(1);
+}
+
+.member-index-item:hover .member-thumbnail img {
+  filter: grayscale(0);
+}
+
+.no-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background-color: var(--fg-muted);
+  aspect-ratio: 1 / 1;
+}
+
+.header {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--gap-md);
+}
+
+@media (max-width: 768px) {
+  .header {
+    grid-template-columns: 1fr;
+  }
+}
+</style>

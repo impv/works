@@ -62,7 +62,9 @@
   --fg-default: light-dark(var(--cp-black), var(--cp-white));
   --fg-default-hover: light-dark(var(--cp-gray-7), var(--cp-gray-2));
   --fg-muted: light-dark(var(--cp-gray-5), var(--cp-gray-4));
+  --fg-muted-hover: light-dark(var(--cp-gray-7), var(--cp-gray-2));
   --fg-subtle: light-dark(var(--cp-gray-6), var(--cp-gray-5));
+  --fg-subtle-hover: light-dark(var(--cp-gray-8), var(--cp-gray-4));
   --fg-inverted: light-dark(var(--cp-white), var(--cp-black));
   --fg-disabled: light-dark(var(--cp-gray-4), var(--cp-gray-6));
   --fg-accent: light-dark(var(--cp-blue-5), var(--cp-blue-1));

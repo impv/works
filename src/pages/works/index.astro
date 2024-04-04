@@ -2,6 +2,7 @@
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { newtApClient } from "@/api/newtApClient";
 import type { Work } from "@/types/newt";
+import CustomTypography from "@/components/CustomTypography/index.astro";
 
 const client = newtApClient();
 const { items: works } = await client.getContents<Work>({
@@ -10,17 +11,66 @@ const { items: works } = await client.getContents<Work>({
 });
 ---
 <BaseLayout title="Works">
-  <div>
-    <h1>Works</h1>
-  
-    <ul>
+  <section class="body">
+    <CustomTypography as="h1" variant="title-large">Works</CustomTypography>
+
+    <div class="work-index">
       {
         works.map((work) => (
-          <li>
-            <a href={`/works/${work.slug}`}>{work.title}</a>
-          </li>
+          <a href={`/works/${work.slug}`} class="work-index-item">
+            <div class="work-thumbnail">
+              <img src={work.coverImage.src} alt={work.coverImage.altText} width={work.coverImage.width} height={work.coverImage.height} transition:name={`cover-${work.slug}`} />
+            </div>
+            <CustomTypography as="h2" variant="body-large">{work.title}</CustomTypography>
+          </a>
         ))
       }
-    </ul>
-  </div>
+    </div>
+  </section>
 </BaseLayout>
+
+<style>
+.body {
+  display: block grid;
+  gap: var(--gap-md);
+  padding: var(--gap-lg) 0;
+}
+
+.work-index {
+  display: grid;
+  gap: var(--gap-sm);
+  list-style: none;
+  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+}
+
+.work-index-item {
+  display: grid;
+  grid-template-rows: subgrid;
+  gap: 0.8rem;
+  grid-row: span 2;
+  color: var(--fg-default);
+  text-decoration: none;
+}
+
+.work-index-item:hover {
+  color: var(--fg-default-hover);
+}
+
+.work-thumbnail {
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  padding: 2.4rem;
+  background-color: var(--bg-subtle);
+}
+
+.work-index-item:hover .work-thumbnail {
+  background-color: var(--bg-muted);
+}
+
+.work-thumbnail img,
+.work-thumbnail video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+</style>

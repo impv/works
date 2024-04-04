@@ -1,4 +1,4 @@
-import type { Content, File } from 'newt-client-js';
+import type { Content, File, Image } from 'newt-client-js';
 import type { Client } from './client';
 import type { Member } from './member';
 import type { Domain } from './domain';
@@ -79,6 +79,11 @@ export interface Work extends Content {
    * チーム
    */
   team?: Member[];
+
+  /**
+   * カバー画像
+   */
+  coverImage: Image;
 
   /**
    * ヒーロービジュアル

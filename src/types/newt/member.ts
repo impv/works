@@ -1,4 +1,4 @@
-import type { Content } from 'newt-client-js';
+import type { Content, Image } from 'newt-client-js';
 import type { Domain } from './domain';
 import type { TechnologyStack } from './technologyStack';
 
@@ -25,4 +25,9 @@ export interface Member extends Content {
    * 技術スタック
    */
   technologyStacks?: TechnologyStack[];
+
+  /**
+   * プロフィール画像
+   */
+  portrait: Image;
 }
