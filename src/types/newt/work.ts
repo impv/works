@@ -7,57 +7,6 @@ import type { ProjectType } from './projectType';
 import type { Partner } from './partner';
 
 /**
- * カスタムフィールド
- */
-interface CustomField {
-  _id: string;
-  title: string;
-}
-
-/**
- * プロジェクトにおける役割とそのメンバー
- */
-interface Role {
-  _id: string;
-  title: string;
-  data: {
-    /**
-     * 役割
-     */
-    domain: Domain;
-  
-    /**
-     * メンバー
-     */
-    members: Member[];
-  }
-}
-
-/**
- * コンテンツセクション
- */
-interface Section {
-  _id: string;
-  title: string;
-  data: {
-    /**
-     * セクションのタイトル
-     */
-    title: string;
-  
-    /**
-     * 説明文
-     */
-    description?: string;
-  
-    /**
-     * ビジュアル
-     */
-    visuals?: File[];
-  }
-}
-
-/**
  * プロジェクト
  */
 export interface Work extends Content {
@@ -70,6 +19,11 @@ export interface Work extends Content {
    * タイトル
    */
   title: string;
+
+  /**
+   * サブタイトル
+   */
+  subtitle: string;
 
   /**
    * プロジェクトのスラッグ
@@ -124,7 +78,7 @@ export interface Work extends Content {
   /**
    * チーム
    */
-  teams?: Role[];
+  team?: Member[];
 
   /**
    * ヒーロービジュアル
@@ -132,8 +86,8 @@ export interface Work extends Content {
   heroVisual?: File;
 
   /**
-   * コンテンツセクション
+   * 動画・画像
    */
-  sections?: Section[];
+  visuals?: File[];
 }
   

@@ -2,6 +2,9 @@
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { newtApClient } from "@/api/newtApClient";
 import type { Work } from "@/types/newt";
+import CustomTypography from "@/components/CustomTypography/index.astro";
+import CustomList from "@/components/CustomList/index.astro";
+import CustomTag from "@/components/CustomTag/index.astro";
 
 export const getStaticPaths = async () => {
 	const client = newtApClient(true);
@@ -19,24 +22,54 @@ export const getStaticPaths = async () => {
 
 const { work } = Astro.props;
 ---
+<script>
+// show-detailsボタンをクリックしたら、bodyにshow-detailsクラスを追加する
+document.querySelector(".show-details-button")?.addEventListener("click", () => {
+  document.querySelector(".body")?.classList.toggle("show-details");
+});
+</script>
+
 <BaseLayout title={work.title}>
   <section class="body">
 
     <div class="header">
       <div class="title">
-        <h1>{work.title}</h1>
+        <CustomTypography as="h1" variant="title-large">
+          {work.title}
+        </CustomTypography>
+
+        {
+          work.projectTypes && (
+            <ul class="title-tags">
+              {
+                work.projectTypes.map((projectType) => (
+                  <li class="title-tags-item">
+                    <CustomTypography variant="body-large">
+                      {projectType.name}
+                    </CustomTypography>
+                  </li>
+                ))
+              }
+            </ul>
+          )
+        }
+
         {
           work.url && (
-            <div>
-              <a href={work.url} target="_blank">Visit website</a>
-            </div>
+            <CustomTypography>
+              <a href={work.url} target="_blank" rel="noopener noreferrer">
+                Visit website
+              </a>
+            </CustomTypography>
           )
         }
       </div>
 
       {
-        work.outline && (
-          <p class="outline">{work.outline}</p>
+        work.subtitle && (
+          <CustomTypography variant="title-medium" class="subtitle">
+            {work.subtitle}
+          </CustomTypography>
         )
       }
     </div>
@@ -52,148 +85,209 @@ const { work } = Astro.props;
         )
       }
     </div>
+
+    <div class="detail">
+      {
+        work.outline && (
+          <div class="outline">
+            <CustomTypography variant="body-large">
+              {work.outline}
+            </CustomTypography>
+  
+            <CustomTypography as="button" variant="body-large" class="show-details-button">
+              <span class="label-show">
+                Show details
+              </span>
+
+              <span class="label-hide">
+                Hide details
+              </span>
+            </CustomTypography>
+          </div>
+        )
+      }
+      
+      <div class="specs">
+        {
+          work.releaseDate && (
+            <div class="spec-block">
+              <CustomTypography as="h2" variant="title-medium">
+                Published
+              </CustomTypography>
+              <CustomTypography>
+                {new Date(work.releaseDate).toLocaleDateString("en-US", { month: "long", year: "numeric" })}
+              </CustomTypography>
+            </div>
+          )
+        }
     
-    {
-      work.releaseDate && (
-        <div>
-          <h2>Release</h2>
-          <p>{new Date(work.releaseDate).toLocaleDateString("en-US", { month: "long", year: "numeric" })}</p>
-        </div>
-      )
-    }
-
-    {
-      work.client && (
-        <div>
-          <h2>Client</h2>
-          <p>{work.client.name}</p>
-        </div>
-      )
-    }
-
-    {
-      work.partners && (
-        <div>
-          <h2>Partners</h2>
-          <ul>
-            {
-              work.partners.map((partner) => (
-                <li>{partner.name}</li>
-              ))
-            }
-          </ul>
-        </div>
-      )
-    }
-
-    {
-      work.productionPeriod && (
-        <div>
-          <h2>制作期間</h2>
-          <p>{work.productionPeriod}</p>
-        </div>
-      )
-    }
-
-    {
-      work.projectTypes && (
-        <div>
-          <h2>Project Types</h2>
-          <ul>
-            {
-              work.projectTypes.map((projectType) => (
-                <li>{projectType.name}</li>
-              ))
-            }
-          </ul>
-        </div>
-      )
-    }
-
-    {
-      work.domains && (
-        <div>
-          <h2>Domains</h2>
-          <ul>
-            {
-              work.domains.map((domain) => (
-                <li>{domain.name}</li>
-              ))
-            }
-          </ul>
-        </div>
-      )
-    }
-
-    {
-      work.technologyStacks && (
-        <div>
-          <h2>Technology Stacks</h2>
-          <ul>
-            {
-              work.technologyStacks.map((technologyStack) => (
-                <li>{technologyStack.name}</li>
-              ))
-            }
-          </ul>
-        </div>
-      )
-    }
-
-    {
-      work.teams && (
-        <div>
-          <h2>Teams</h2>
-          {
-            work.teams.map((team) => (
-              <div>
-                <h3>{team.data.domain.name}</h3>
-
+        {
+          work.productionPeriod && (
+            <div class="spec-block">
+              <CustomTypography as="h2" variant="title-medium">
+                Timespan
+              </CustomTypography>
+              <CustomTypography>
+                {work.productionPeriod}
+              </CustomTypography>
+            </div>
+          )
+        }
+    
+        {
+          work.client && (
+            <div class="spec-block">
+              <CustomTypography as="h2" variant="title-medium">
+                Client
+              </CustomTypography>
+              <CustomTypography>
                 {
-                  team.data.members && (
-                    <ul>
-                      {
-                        team.data.members.map((member) => (
-                          <li>{member.name}</li>
-                        ))
-                      }
-                    </ul>
+                  work.client.website ? (
+                    <a href={work.client.website} target="_blank" rel="noopener noreferrer">
+                      {work.client.name}
+                    </a>
+                  ) : (
+                    work.client.name
                   )
                 }
-              </div>
-            ))
-          }
-        </div>
-      )
-    }
+              </CustomTypography>
+            </div>
+          )
+        }
+    
+        {
+          work.partners && (
+            <div class="spec-block">
+              <CustomTypography as="h2" variant="title-medium">
+                Partners
+              </CustomTypography>
+              <CustomList>
+                {
+                  work.partners.map((partner) => (
+                    <li>
+                      <CustomTypography>
+                        {
+                          partner.website ? (
+                            <a href={partner.website} target="_blank" rel="noopener noreferrer">
+                              {partner.name}
+                            </a>
+                          ) : (
+                            partner.name
+                          )
+                        }
+                      </CustomTypography>
+                    </li>
+                  ))
+                }
+              </CustomList>
+            </div>
+          )
+        }
+    
+        {
+          work.team && (
+            <div class="spec-block">
+              <CustomTypography as="h2" variant="title-medium">
+                Team
+              </CustomTypography>
+              <CustomList>
+                {
+                  work.team.map((member) => (
+                    <li>
+                      <CustomTypography>
+                        <a href={`/members/${member.slug}`}>
+                          {member.name}
+                        </a>
+                      </CustomTypography>
+                    </li>
+                  ))
+                }
+              </CustomList>
+            </div>
+          )
+        }
+    
+        {
+          work.projectTypes && (
+            <div class="spec-block">
+              <CustomTypography as="h2" variant="title-medium">Project types</CustomTypography>
+              <CustomList>
+                {
+                  work.projectTypes.map((projectType) => (
+                    <li>
+                      <CustomTypography>
+                        {projectType.name}
+                      </CustomTypography>
+                    </li>
+                  ))
+                }
+              </CustomList>
+            </div>
+          )
+        }
+    
+        {
+          work.domains && (
+            <div class="spec-block">
+              <CustomTypography as="h2" variant="title-medium">
+                Our domains
+              </CustomTypography>
+              <ul class="tags">
+                {
+                  work.domains.map((domain) => (
+                    <li>
+                      <CustomTag>
+                        {domain.name}
+                      </CustomTag>
+                    </li>
+                  ))
+                }
+              </ul>
+            </div>
+          )
+        }
+    
+        {
+          work.technologyStacks && (
+            <div class="spec-block">
+              <CustomTypography as="h2" variant="title-medium">
+                Tech stacks
+              </CustomTypography>
+              <ul class="tags">
+                {
+                  work.technologyStacks.map((technologyStack) => (
+                    <li>
+                      <CustomTag>
+                        {technologyStack.name}
+                      </CustomTag>
+                    </li>
+                  ))
+                }
+              </ul>
+            </div>
+          )
+        }
+      </div>
+    </div>
 
     {
-      work.sections && work.sections.map((section) => (
-        <div class="section">
-          <div class="section-header">
-            <h2>{section.data.title}</h2>
-            <p>{section.data.description}</p>
-          </div>
-
-          <div class="section-visuals">
-            {
-              section.data.visuals && section.data.visuals.map((visual) => (
-                <div>
-                  {
-                    visual.fileType.match(/video/) ? (
-                      <video loop muted autoplay>
-                        <source src={visual.src} type="video/mp4" />
-                      </video>
-                    ) : (
-                      <img src={visual.src} alt={visual.altText} />
-                    )
-                  }
-                </div>
-              ))
-            }
-          </div>
+      work.visuals &&  (
+        <div class="visuals">
+          {work.visuals.map((visual) => (
+            <div>
+              {
+                visual.fileType.match(/video/) ? (
+                  <video loop muted autoplay>
+                    <source src={visual.src} type="video/mp4" />
+                  </video>
+                ) : (
+                  <img src={visual.src} alt={visual.altText} />
+                )
+              }
+            </div>
+          ))}
         </div>
-      ))
+      )
     }
   </section>
 </BaseLayout>
@@ -201,54 +295,178 @@ const { work } = Astro.props;
 <style>
 video {
   width: 100%;
+  box-shadow: var(--shadow-lv-1);
 }
 
 img {
   width: 100%;
+  box-shadow: var(--shadow-lv-1);
+}
+
+.header {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--gap-md);
+  grid-column-start: 1;
+  grid-column-end: 3;
 }
 
 .body {
   display: block grid;
-  gap: clamp(1.5rem, 0.833rem + 3.33vw, 4rem);
-  padding: clamp(1.5rem, 0.833rem + 3.33vw, 4rem) 0;
-}
-
-.header {
-  display: block grid;
-  gap: clamp(1.5rem, 0.833rem + 3.33vw, 4rem);
-  grid-template-columns: 3fr 1fr 4fr;
-  grid-template-areas:
-    "title . outline";
+  gap: var(--gap-md);
+  grid-template-columns: repeat(2, 1fr);
+  padding: var(--gap-lg) 0;
 }
 
 .title {
-  display: block grid;
-  grid-area: title;
-  gap: clamp(1rem, 0.867rem + 0.67vw, 1.5rem);
+  display: grid;
+  gap: 1.6rem;
 }
 
-.outline {
-  grid-area: outline;
+.title-tags {
+  display: flex;
+  gap: 0.8rem;
+  list-style-type: none;
+  color: var(--fg-muted);
+  flex-wrap: wrap;
+}
+
+.title-tags-item {
+  display: flex;
+  gap: 0.8rem;
+  align-items: center;
+}
+
+.title-tags-item + .title-tags-item::before {
+  content: "/";
 }
 
 .hero {
-  /* grid-area: hero; */
+  grid-column-start: 1;
+  grid-column-end: 3;
 }
 
-.section {
-  display: block grid;
-  gap: clamp(1.5rem, 0.833rem + 3.33vw, 4rem);
+.detail {
+  display: flex;
+  flex-direction: column;
+  align-self: flex-start;
+  gap: var(--gap-md);
+  padding: var(--gap-md) 0;
+}
+
+.visuals {
+  display: grid;
+  gap: var(--gap-sm);
+  grid-column-start: 1;
+  grid-column-end: 3;
   grid-template-columns: repeat(2, 1fr);
 }
 
-.section-header {
-  display: block flex;
-  flex-direction: column;
-  gap: clamp(1rem, 0.867rem + 0.67vw, 1.5rem);
+.specs {
+  display: none;
 }
 
-.section-visuals {
+.show-details .detail {
+  position: sticky;
+  top: var(--gap-md);
+}
+
+.show-details .visuals {
+  grid-column-start: 2;
+  grid-column-end: 3;
+  padding: var(--gap-sm) 0;
+  grid-template-columns: 1fr;
+}
+
+.show-details .specs {
   display: grid;
-  gap: clamp(1.5rem, 0.833rem + 3.33vw, 4rem);
+  gap: var(--gap-sm);
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+}
+
+.outline {
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+}
+
+.label-show {
+  display: inline;
+  cursor: pointer;
+}
+
+.label-hide {
+  display: none;
+  cursor: pointer;
+}
+
+.show-details .label-hide {
+  display: inline;
+}
+
+.show-details .label-show {
+  display: none;
+}
+
+.tags {
+  display: flex;
+  gap: 0.8rem;
+  list-style-type: none;
+  flex-wrap: wrap;
+
+}
+
+.spec-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.show-details-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--fg-accent);
+  text-decoration: underline;
+  padding: 0;
+  display: inline;
+  align-self: flex-start;
+}
+
+.show-details-button:hover {
+  text-decoration: none;
+}
+
+@media (max-width: 768px) {
+  .header {
+    grid-template-columns: 1fr;
+  }
+
+  .detail {
+    grid-column-start: 1;
+    grid-column-end: 3;
+    position: relative;
+    top: 0;
+  }
+
+  .show-details .detail {
+    position: relative;
+    top: 0;
+  }
+
+  .visuals {
+    grid-column-start: 1;
+    grid-column-end: 3;
+    grid-template-columns: 1fr;
+  }
+
+  .show-details .visuals {
+    grid-column-start: 1;
+    grid-column-end: 3;
+  }
+
+  .spec-block {
+    gap: 0.4rem;
+  }
 }
 </style>

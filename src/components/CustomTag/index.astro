@@ -1,0 +1,46 @@
+---
+import "@/styles/variables.css";
+import CustomTypography from "@/components/CustomTypography/index.astro";
+
+interface Props {
+  as? : "span" | "a";
+  class? : string;
+}
+
+const {
+  as = "span",
+  class: className = "",
+  ...rest
+}: Props = Astro.props;
+
+const Element = as;
+---
+
+<Element class:list={[
+  className,
+  "tag",
+]} {...rest}>
+  <CustomTypography variant="body-small">
+    <slot />
+  </CustomTypography>
+</Element>
+
+<style>
+  .tag {
+    display: inline-block;
+    padding: calc(0.4rem - 1px) 0.8rem;
+    border-radius: 0.25rem;
+    border: 1px solid var(--border-default);
+    border-radius: 4px;
+  }
+
+  a.tag {
+    text-decoration: none;
+    color: var(--text-primary);
+    background-color: var(--bg-muted);
+  }
+
+  a.tag:hover {
+    background-color: var(--bg-subtle);
+  }
+</style>

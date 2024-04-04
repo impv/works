@@ -1,0 +1,76 @@
+---
+import "@fontsource/ibm-plex-sans-jp";
+import "@/styles/variables.css";
+
+interface Props {
+  as?: string;
+  variant?: "display" | "title-large" | "title-medium" | "title-small" | "body-large" | "body-medium" | "body-small" | "caption";
+  bold?: boolean;
+  class?: string;
+}
+
+const {
+  as = "p",
+  variant = "body-medium",
+  bold = false,
+  class: className,
+  ...rest
+}: Props = Astro.props;
+
+const Element = as;
+---
+
+<Element class:list={[
+  className,
+  variant,
+  { "bold": bold },
+  "typography",
+]} {...rest}>
+  <slot />
+</Element>
+
+<style>
+.typography {
+  font-family: 'Helvetica', 'IBM Plex Sans JP', sans-serif;
+  line-height: 1.7145;
+}
+
+.display {
+  font-size: var(--font-size-display);
+}
+
+.title-large {
+  font-size: var(--font-size-title-large);
+  font-weight: bold;
+}
+
+.title-medium {
+  font-size: var(--font-size-title-medium);
+  font-weight: bold;
+}
+
+.title-small {
+  font-size: var(--font-size-title-small);
+  font-weight: bold;
+}
+
+.body-large {
+  font-size: var(--font-size-body-large);
+}
+
+.body-medium {
+  font-size: var(--font-size-body-medium);
+}
+
+.body-small {
+  font-size: var(--font-size-body-small);
+}
+
+.caption {
+  font-size: var(--font-size-caption);
+}
+
+.bold {
+  font-weight: bold;
+}
+</style>

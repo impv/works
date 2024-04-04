@@ -1,0 +1,155 @@
+:root {
+  color-scheme: light dark;
+  
+  --cp-black: light-dark(#1F2328, #1C2128);
+  --cp-white: light-dark(#FFFFFF, #CDD9E5);
+
+  --cp-gray-0: light-dark(#F6F8FA, #CDD9E5);
+  --cp-gray-1: light-dark(#EAEEF2, #ADBAC7);
+  --cp-gray-2: light-dark(#D0D7DE, #909DAB);
+  --cp-gray-3: light-dark(#AFB8C1, #768390);
+  --cp-gray-4: light-dark(#8C959F, #636E7B);
+  --cp-gray-5: light-dark(#6E7781, #545D68);
+  --cp-gray-6: light-dark(#57606A, #444C56);
+  --cp-gray-7: light-dark(#424A53, #373E47);
+  --cp-gray-8: light-dark(#32383F, #32383F);
+  --cp-gray-9: light-dark(#22272E, #22272E);
+
+  --cp-blue-0: light-dark(#DDF4FF, #C6E6FF);
+  --cp-blue-1: light-dark(#B6E3FF, #96D0FF);
+  --cp-blue-2: light-dark(#80CCFF, #6CB6FF);
+  --cp-blue-3: light-dark(#54AEFF, #539BF5);
+  --cp-blue-4: light-dark(#218BFF, #4184E4);
+  --cp-blue-5: light-dark(#0969DA, #316DCA);
+  --cp-blue-6: light-dark(#0550AE, #255AB2);
+  --cp-blue-7: light-dark(#033D8B, #1B4B91);
+  --cp-blue-8: light-dark(#0A3069, #143D79);
+  --cp-blue-9: light-dark(#002155, #0F2D5C);
+
+  --cp-green-0: light-dark(#DAFBE1, #B4F1B4);
+  --cp-green-1: light-dark(#ACEEBB, #8DDB8C);
+  --cp-green-2: light-dark(#6FDD8B, #6BC46D);
+  --cp-green-3: light-dark(#4AC26B, #57AB5A);
+  --cp-green-4: light-dark(#2DA44E, #46954A);
+  --cp-green-5: light-dark(#1A7F37, #347D39);
+  --cp-green-6: light-dark(#116329, #2B6A30);
+  --cp-green-7: light-dark(#044F1E, #245829);
+  --cp-green-8: light-dark(#003D16, #1B4721);
+  --cp-green-9: light-dark(#003D16, #113417);
+
+  --cp-yellow-0: light-dark(#FFF8C5, #FBE090);
+  --cp-yellow-1: light-dark(#FAE17D, #EAC55F);
+  --cp-yellow-2: light-dark(#EAC54F, #DAAA3F);
+  --cp-yellow-3: light-dark(#D4A72C, #C69026);
+  --cp-yellow-4: light-dark(#BF8700, #AE7C14);
+  --cp-yellow-5: light-dark(#9A6700, #966600);
+  --cp-yellow-6: light-dark(#7D4E00, #805400);
+  --cp-yellow-7: light-dark(#633C01, #6C4400);
+  --cp-yellow-8: light-dark(#4D2D00, #593600);
+  --cp-yellow-9: light-dark(#3B2300, #452700);
+
+  --cp-red-0: light-dark(#FFEBE9, #FFD8D3);
+  --cp-red-1: light-dark(#FFCECB, #FFB8B0);
+  --cp-red-2: light-dark(#FFABA8, #FF938A);
+  --cp-red-3: light-dark(#FF8182, #F47067);
+  --cp-red-4: light-dark(#FA4549, #E5534B);
+  --cp-red-5: light-dark(#CF222E, #C93C37);
+  --cp-red-6: light-dark(#A40E26, #AD2E2C);
+  --cp-red-7: light-dark(#82071E, #922323);
+  --cp-red-8: light-dark(#660018, #78191B);
+  --cp-red-9: light-dark(#4C0014, #5D0F12);
+
+  --fg-default: light-dark(var(--cp-black), var(--cp-white));
+  --fg-default-hover: light-dark(var(--cp-gray-7), var(--cp-gray-2));
+  --fg-muted: light-dark(var(--cp-gray-5), var(--cp-gray-4));
+  --fg-subtle: light-dark(var(--cp-gray-6), var(--cp-gray-5));
+  --fg-inverted: light-dark(var(--cp-white), var(--cp-black));
+  --fg-disabled: light-dark(var(--cp-gray-4), var(--cp-gray-6));
+  --fg-accent: light-dark(var(--cp-blue-5), var(--cp-blue-1));
+  --fg-accent-hover: light-dark(var(--cp-blue-6), var(--cp-blue-2));
+  --fg-success: light-dark(var(--cp-green-5), var(--cp-green-1));
+  --fg-success-hover: light-dark(var(--cp-green-6), var(--cp-green-2));
+  --fg-attention: light-dark(var(--cp-yellow-4), var(--cp-yellow-1));
+  --fg-attention-hover: light-dark(var(--cp-yellow-5), var(--cp-yellow-2));
+  --fg-danger: light-dark(var(--cp-red-5), var(--cp-red-1));
+  --fg-danger-hover: light-dark(var(--cp-red-6), var(--cp-red-2));
+
+  --bg-default: light-dark(var(--cp-white), var(--cp-black));
+  --bg-muted: light-dark(var(--cp-gray-0), var(--cp-gray-9));
+  --bg-subtle: light-dark(var(--cp-gray-1), var(--cp-gray-8));
+  --bg-inverted: light-dark(var(--cp-black), var(--cp-white));
+  --bg-disabled: light-dark(var(--cp-gray-0), var(--cp-gray-9));
+  --bg-disabled-emphasis: light-dark(var(--cp-gray-5), var(--cp-gray-3));
+  --bg-accent: light-dark(var(--cp-blue-0), var(--cp-blue-8));
+  --bg-accent-emphasis: light-dark(var(--cp-blue-5), var(--cp-blue-3));
+  --bg-success: light-dark(var(--cp-green-0), var(--cp-green-8));
+  --bg-success-emphasis: light-dark(var(--cp-green-5), var(--cp-green-3));
+  --bg-attention: light-dark(var(--cp-yellow-0), var(--cp-yellow-8));
+  --bg-attention-emphasis: light-dark(var(--cp-yellow-5), var(--cp-yellow-3));
+  --bg-danger: light-dark(var(--cp-red-0), var(--cp-red-8));
+  --bg-danger-emphasis: light-dark(var(--cp-red-5), var(--cp-red-3));
+
+  --border-default: light-dark(var(--cp-gray-3), var(--cp-gray-6));
+  --border-muted: light-dark(var(--cp-gray-2), var(--cp-gray-7));
+  --border-subtle: light-dark(var(--cp-gray-4), var(--cp-gray-5));
+  --border-disabled: light-dark(var(--cp-gray-1), var(--cp-gray-8));
+  --border-accent: light-dark(var(--cp-blue-1), var(--cp-blue-7));
+  --border-accent-emphasis: light-dark(var(--cp-blue-5), var(--cp-blue-3));
+  --border-success: light-dark(var(--cp-green-1), var(--cp-green-7));
+  --border-success-emphasis: light-dark(var(--cp-green-5), var(--cp-green-3));
+  --border-attention: light-dark(var(--cp-yellow-1), var(--cp-yellow-7));
+  --border-attention-emphasis: light-dark(var(--cp-yellow-5), var(--cp-yellow-3));
+  --border-danger: light-dark(var(--cp-red-1), var(--cp-red-7));
+  --border-danger-emphasis: light-dark(var(--cp-red-5), var(--cp-red-3));
+
+  --vw-min: 320px;
+  --vw-max: 1520px;
+
+  --gap-lg: 4.8rem;
+  --gap-md: 3.2rem;
+  --gap-sm: 2.4rem;
+
+  --font-size-display: 13.6rem;
+  --font-size-title-large: 3.6rem;
+  --font-size-title-medium: 2rem;
+  --font-size-title-small: 2rem;
+  --font-size-body-large: 1.6rem;
+  --font-size-body-medium: 1.4rem;
+  --font-size-body-small: 1.2rem;
+  --font-size-caption: 1rem;
+
+  --shadow-lv-1: 0px 53px 15px 0px rgba(0, 0, 0, 0.00), 0px 34px 13px 0px rgba(0, 0, 0, 0.01), 0px 19px 11px 0px rgba(0, 0, 0, 0.05), 0px 8px 8px 0px rgba(0, 0, 0, 0.09), 0px 2px 5px 0px rgba(0, 0, 0, 0.10);
+}
+
+@media (min-width: 768px) {
+  :root {
+    --gap-lg: 6.4rem;
+    --gap-md: 4.8rem;
+    --gap-sm: 3.2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --gap-lg: 7.2rem;
+    --gap-md: 6.4rem;
+    --gap-sm: 4.8rem;
+
+    --font-size-display: 13.6rem;
+    --font-size-title-large: 4.8rem;
+    --font-size-title-medium: 2.8rem;
+    --font-size-title-small: 2.4rem;
+    --font-size-body-large: 2rem;
+    --font-size-body-medium: 1.6rem;
+    --font-size-body-small: 1.4rem;
+    --font-size-caption: 1.2rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  :root {
+    --gap-lg: 8.4rem;
+    --gap-md: 7.2rem;
+    --gap-sm: 5.6rem;
+  }
+}

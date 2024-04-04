@@ -1,0 +1,130 @@
+---
+interface Props {
+  height?: string;
+  class?: string;
+}
+
+const {
+  height = "84px",
+  class: className
+}: Props = Astro.props;
+
+const baseGradientRatio = "12.5%";
+const baseBlurRadius = "0.4px";
+---
+
+<div class:list={[
+  className,
+  "progressive-blur",
+]}>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+</div>
+
+<style define:vars={{ height, baseBlurRadius, baseGradientRatio }}>
+.progressive-blur {
+  pointer-events: none;
+  height: var(--height);
+  position: fixed;
+  inset: 0 0 auto 0;
+}
+
+.progressive-blur > div,
+.progressive-blur::before,
+.progressive-blur::after {
+  position: absolute;
+  inset: 0;
+}
+
+.progressive-blur::before {
+  content: "";
+  z-index: 1;
+  backdrop-filter: blur(var(--baseBlurRadius));
+  mask: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 1) calc(var(--baseGradientRatio)),
+    rgba(0, 0, 0, 1) calc(var(--baseGradientRatio) * 2),
+    rgba(0, 0, 0, 0) calc(var(--baseGradientRatio) * 3)
+  );
+}
+.progressive-blur > div:nth-of-type(1) {
+  z-index: 2;
+  backdrop-filter: blur(calc(var(--baseBlurRadius) * 2));
+  mask: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0) calc(var(--baseGradientRatio)),
+    rgba(0, 0, 0, 1) calc(var(--baseGradientRatio) * 2),
+    rgba(0, 0, 0, 1) calc(var(--baseGradientRatio) * 3),
+    rgba(0, 0, 0, 0) calc(var(--baseGradientRatio) * 4)
+  );
+}
+.progressive-blur > div:nth-of-type(2) {
+  z-index: 3;
+  backdrop-filter: blur(calc(var(--baseBlurRadius) * 4));
+  mask: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0) calc(var(--baseGradientRatio) * 2),
+    rgba(0, 0, 0, 1) calc(var(--baseGradientRatio) * 3),
+    rgba(0, 0, 0, 1) calc(var(--baseGradientRatio) * 4),
+    rgba(0, 0, 0, 0) calc(var(--baseGradientRatio) * 5)
+  );
+}
+.progressive-blur > div:nth-of-type(3) {
+  z-index: 4;
+  backdrop-filter: blur(calc(var(--baseBlurRadius) * 8));
+  mask: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0) calc(var(--baseGradientRatio) * 3),
+    rgba(0, 0, 0, 1) calc(var(--baseGradientRatio) * 4),
+    rgba(0, 0, 0, 1) calc(var(--baseGradientRatio) * 5),
+    rgba(0, 0, 0, 0) calc(var(--baseGradientRatio) * 6)
+  );
+}
+.progressive-blur > div:nth-of-type(4) {
+  z-index: 5;
+  backdrop-filter: blur(calc(var(--baseBlurRadius) * 16));
+  mask: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0) calc(var(--baseGradientRatio) * 4),
+    rgba(0, 0, 0, 1) calc(var(--baseGradientRatio) * 5),
+    rgba(0, 0, 0, 1) calc(var(--baseGradientRatio) * 6),
+    rgba(0, 0, 0, 0) calc(var(--baseGradientRatio) * 7)
+  );
+}
+.progressive-blur > div:nth-of-type(5) {
+  z-index: 6;
+  backdrop-filter: blur(calc(var(--baseBlurRadius) * 32));
+  mask: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0) calc(var(--baseGradientRatio) * 5),
+    rgba(0, 0, 0, 1) calc(var(--baseGradientRatio) * 6),
+    rgba(0, 0, 0, 1) calc(var(--baseGradientRatio) * 7),
+    rgba(0, 0, 0, 0) calc(var(--baseGradientRatio) * 8)
+  );
+}
+.progressive-blur > div:nth-of-type(6) {
+  z-index: 7;
+  backdrop-filter: blur(calc(var(--baseBlurRadius) * 64));
+  mask: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0) calc(var(--baseGradientRatio) * 6),
+    rgba(0, 0, 0, 1) calc(var(--baseGradientRatio) * 7),
+    rgba(0, 0, 0, 1) calc(var(--baseGradientRatio) * 8)
+  );
+}
+.progressive-blur::after {
+  content: "";
+  z-index: 8;
+  backdrop-filter: blur(calc(var(--baseBlurRadius) * 128));
+  mask: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0) calc(var(--baseGradientRatio) * 7),
+    rgba(0, 0, 0, 1) calc(var(--baseGradientRatio) * 8)
+  );
+}
+</style>
