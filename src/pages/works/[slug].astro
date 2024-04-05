@@ -1,13 +1,13 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import { newtApClient } from "@/api/newtApClient";
+import { newtApiClient } from "@/api/newtApiClient";
 import type { Work } from "@/types/newt";
 import CustomTypography from "@/components/CustomTypography/index.astro";
 import CustomList from "@/components/CustomList/index.astro";
 import CustomTag from "@/components/CustomTag/index.astro";
 
 export const getStaticPaths = async () => {
-	const client = newtApClient(true);
+	const client = newtApiClient(true);
 
   const { items: works } = await client.getContents<Work>({
     appUid: "website",

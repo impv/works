@@ -1,11 +1,12 @@
 ---
-import { newtApClient } from "@/api/newtApClient";
+import { newtApiClient } from "@/api/newtApiClient";
+import { getFeed } from "@/api/rssClient";
 import type { Domain } from "@/types/newt";
 
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import CustomTypography from "@/components/CustomTypography/index.astro";
 
-const client = newtApClient();
+const client = newtApiClient();
 
 const { items: domains } = await client.getContents<Domain>({
   appUid: "website",
@@ -14,6 +15,10 @@ const { items: domains } = await client.getContents<Domain>({
 		order: ["-_sys.customOrder"]
 	},
 });
+
+const { items: feed } = await getFeed({
+	limit: 5,
+})
 ---
 <BaseLayout title="Top">
 	<section class="body">
@@ -45,7 +50,7 @@ const { items: domains } = await client.getContents<Domain>({
 									{domain.name}
 								</CustomTypography>
 			
-								<CustomTypography variant="body-large">
+								<CustomTypography variant="body-large" class="domain-description">
 									{domain.description}
 								</CustomTypography>
 							</div>
@@ -53,6 +58,37 @@ const { items: domains } = await client.getContents<Domain>({
 					</div>
 				</div>
 			)
+		}
+
+		{
+			feed && feed.length > 0 && (
+				<div class="podcasts">
+					<CustomTypography as="h2" variant="title-large">
+						Podcast
+					</CustomTypography>
+
+					<div class="podcast-list">
+						{feed.map((item) => (
+							<div class="podcast-list-item">
+								<CustomTypography as="h3" variant="title-medium">
+									<a href={item.link} target="_blank" rel="noopener noreferrer">
+										{item.title}
+									</a>
+								</CustomTypography>
+			
+								<CustomTypography variant="body-large" class="domain-description">
+									{new Date(item.pubDate).toLocaleDateString("en-US", { month: "long", year: "numeric", day: "numeric"})}
+								</CustomTypography>
+							</div>
+						))}
+					</div>
+
+					<CustomTypography variant="body-large" as="a" href="https://podcasters.spotify.com/pod/show/impv-timz/" target="_blank" rel="noopener noreferrer" class="more-link">
+						Show more
+					</CustomTypography>
+				</div>
+			)
+		
 		}
 
 	</section>
@@ -66,6 +102,7 @@ const { items: domains } = await client.getContents<Domain>({
 		"hero hero"
 		"lead ."
 		"domains domains"
+		"podcasts podcasts"
 	;
   gap: var(--gap-lg);
   padding: var(--gap-lg) 0;
@@ -86,12 +123,13 @@ const { items: domains } = await client.getContents<Domain>({
 	grid-area: domains;
 	display: grid;
 	gap: var(--gap-sm);
+	padding: var(--gap-md) 0;
 }
 
 .domain-list {
 	display: grid;
 	grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
-	gap: var(--gap-sm);
+	gap: var(--gap-md);
 }
 
 .domain-list-item {
@@ -101,12 +139,41 @@ const { items: domains } = await client.getContents<Domain>({
 	grid-row: span 2;
 }
 
+.podcasts {
+	grid-area: podcasts;
+	display: grid;
+	gap: var(--gap-sm);
+	padding: var(--gap-md) 0;
+}
+
+.podcast-list {
+	display: grid;
+	border-bottom: 1px solid var(--border-default);
+}
+
+.podcast-list-item {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 0.8rem;
+	grid-template-rows: subgrid;
+	grid-row: span 2;
+	padding: 2.4rem 0;
+	border-top: 1px solid var(--border-default);
+	flex-wrap: wrap;
+}
+
+.more-link {
+	justify-self: flex-end;
+}
+
 @media (max-width: 1024px) {
 	.body {
 		grid-template-areas:
 			"hero hero"
 			"lead lead"
 			"domains domains"
+			"podcasts podcasts"
 		;
 	}
 }
@@ -118,6 +185,7 @@ const { items: domains } = await client.getContents<Domain>({
 			"hero"
 			"lead"
 			"domains"
+			"podcasts"
 		;
 	}
 

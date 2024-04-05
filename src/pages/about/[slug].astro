@@ -1,14 +1,15 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import { newtApClient } from "@/api/newtApClient";
+import { newtApiClient } from "@/api/newtApiClient";
+import { getFeed, filterItemsByMemberSlugs } from "@/api/rssClient";
 import type { Member, Work } from "@/types/newt";
 import CustomTypography from "@/components/CustomTypography/index.astro";
 import CustomTag from "@/components/CustomTag/index.astro";
 
 export const getStaticPaths = async () => {
-	const client = newtApClient();
+	const client = newtApiClient();
 
-	const [memberResponse, workResponse] = await Promise.all([
+	const [memberResponse, workResponse, rssResponse] = await Promise.all([
 		client.getContents<Member>({
 			appUid: "website",
 			modelUid: "member",
@@ -20,6 +21,7 @@ export const getStaticPaths = async () => {
 				limit: 1000,
 			}
 		}),
+		getFeed(),
 	]);
 
 	const { items: members } = memberResponse;
@@ -35,12 +37,13 @@ export const getStaticPaths = async () => {
 			props: {
 				member,
 				works: memberWorks,
+				podcasts: filterItemsByMemberSlugs(rssResponse.items, [member.slug]),
 			},
 		};
 	});
 };
 
-const { member, works } = Astro.props;
+const { member, works, podcasts } = Astro.props;
 ---
 <BaseLayout title={member.name}>
 	<section class="body">
@@ -111,6 +114,35 @@ const { member, works } = Astro.props;
 				</div>
 			)
 		}
+
+		{
+			podcasts && podcasts.length > 0 && (
+				<div class="podcasts">
+					<CustomTypography as="h2" variant="title-medium">
+						Podcasts
+					</CustomTypography>
+
+					<div class="podcast-list">
+						{
+							podcasts.map((podcast) => (
+								<div class="podcast-list-item">
+									<CustomTypography as="h3" variant="title-small">
+										<a href={podcast.link} target="_blank" rel="noopener noreferrer">
+											{podcast.title}
+										</a>
+									</CustomTypography>
+				
+									<CustomTypography variant="body-large" class="podcast-list-item-date">
+										{new Date(podcast.pubDate).toLocaleDateString("en-US", { month: "long", year: "numeric", day: "numeric"})}
+									</CustomTypography>
+								</div>
+							))
+						}
+					</div>
+				</div>
+			)
+		
+		}
 	</section>
 </BaseLayout>
 
@@ -125,7 +157,9 @@ const { member, works } = Astro.props;
 	grid-template-areas:
 		"header portrait"
 		"tech-stacks portrait"
-		"works works";
+		"works works"
+		"podcasts podcasts"
+	;
 }
 
 .title-tags {
@@ -220,6 +254,37 @@ const { member, works } = Astro.props;
   object-fit: contain;
 }
 
+.podcasts {
+	grid-area: podcasts;
+	display: grid;
+	gap: 2.4rem;
+}
+
+.podcast-list {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(40%, 1fr));
+	gap: 0 var(--gap-sm);
+}
+
+.podcast-list-item {
+	display: grid;
+	gap: 0.4rem;
+	grid-template-rows: subgrid;
+	grid-row: span 2;
+	padding: 1.6rem 0;
+	border-top: 1px solid var(--border-default);
+	border-bottom: 1px solid var(--border-default);
+	margin-top: -1px;
+}
+
+.podcast-list-item-date {
+	color: var(--fg-muted);
+}
+
+.more-link {
+	justify-self: flex-end;
+}
+
 @media (max-width: 768px) {
 	.body {
 		grid-template-columns: 1fr;
@@ -227,7 +292,13 @@ const { member, works } = Astro.props;
 			"header"
 			"portrait"
 			"tech-stacks"
-			"works";
+			"works"
+			"podcasts"
+		;
+	}
+
+	.podcast-list {
+		grid-template-columns: 1fr;
 	}
 }
 </style>

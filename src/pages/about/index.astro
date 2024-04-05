@@ -1,10 +1,10 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import { newtApClient } from "@/api/newtApClient";
+import { newtApiClient } from "@/api/newtApiClient";
 import type { Member } from "@/types/newt";
 import CustomTypography from "@/components/CustomTypography/index.astro";
 
-const client = newtApClient();
+const client = newtApiClient();
 
 const { items: members } = await client.getContents<Member>({
   appUid: "website",
