@@ -13,4 +13,9 @@ export interface Domain extends Content {
    * 業務領域のスラッグ
    */
   slug: string;
+
+  /**
+   * 説明
+   */
+  description: string;
 }

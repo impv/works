@@ -22,17 +22,6 @@ export const getStaticPaths = async () => {
 
 const { work } = Astro.props;
 ---
-<script>
-const handleShowDetails = () => {
-  document.querySelector(".show-details-button")?.addEventListener("click", () => {
-    document.querySelector(".body")?.classList.toggle("show-details");
-  });
-};
-
-handleShowDetails();
-
-document.addEventListener("astro:after-swap", handleShowDetails);
-</script>
 
 <BaseLayout title={work.title}>
   <section class="body">
@@ -82,200 +71,24 @@ document.addEventListener("astro:after-swap", handleShowDetails);
     <div class="hero" transition:name={`cover-${work.slug}`}>
       {
         work.heroVisual?.fileType.match(/video/) ? (
-          <video loop muted autoplay>
+          <video loop muted autoplay width={work.heroVisual?.width} height={work.heroVisual?.height} poster={work.coverImage.src}>
             <source src={work.heroVisual?.src} type="video/mp4" />
           </video>
         ) : (
-          <img src={work.heroVisual?.src} alt={work.heroVisual?.altText} />
+          <img src={`${work.heroVisual?.src}?format=webm`} alt={work.heroVisual?.altText} width={work.heroVisual?.width} height={work.heroVisual?.height} />
         )
       }
     </div>
 
-    <div class="detail">
-      {
-        work.outline && (
-          <div class="outline">
-            <CustomTypography variant="body-large">
-              {work.outline}
-            </CustomTypography>
-  
-            <CustomTypography as="button" variant="body-large" class="show-details-button">
-              <span class="label-show">
-                Show details
-              </span>
-
-              <span class="label-hide">
-                Hide details
-              </span>
-            </CustomTypography>
-          </div>
-        )
-      }
-      
-      <div class="specs">
-        {
-          work.releaseDate && (
-            <div class="spec-block">
-              <CustomTypography as="h2" variant="title-small">
-                Published
-              </CustomTypography>
-              <CustomTypography>
-                {new Date(work.releaseDate).toLocaleDateString("en-US", { month: "long", year: "numeric" })}
-              </CustomTypography>
-            </div>
-          )
-        }
-    
-        {
-          work.productionPeriod && (
-            <div class="spec-block">
-              <CustomTypography as="h2" variant="title-small">
-                Timespan
-              </CustomTypography>
-              <CustomTypography>
-                {work.productionPeriod}
-              </CustomTypography>
-            </div>
-          )
-        }
-    
-        {
-          work.client && (
-            <div class="spec-block">
-              <CustomTypography as="h2" variant="title-small">
-                Client
-              </CustomTypography>
-              <CustomTypography>
-                {
-                  work.client.website ? (
-                    <a href={work.client.website} target="_blank" rel="noopener noreferrer">
-                      {work.client.name}
-                    </a>
-                  ) : (
-                    work.client.name
-                  )
-                }
-              </CustomTypography>
-            </div>
-          )
-        }
-    
-        {
-          work.partners && (
-            <div class="spec-block">
-              <CustomTypography as="h2" variant="title-small">
-                Partners
-              </CustomTypography>
-              <CustomList>
-                {
-                  work.partners.map((partner) => (
-                    <li>
-                      <CustomTypography>
-                        {
-                          partner.website ? (
-                            <a href={partner.website} target="_blank" rel="noopener noreferrer">
-                              {partner.name}
-                            </a>
-                          ) : (
-                            partner.name
-                          )
-                        }
-                      </CustomTypography>
-                    </li>
-                  ))
-                }
-              </CustomList>
-            </div>
-          )
-        }
-    
-        {
-          work.team && (
-            <div class="spec-block">
-              <CustomTypography as="h2" variant="title-small">
-                Team
-              </CustomTypography>
-              <CustomList>
-                {
-                  work.team.map((member) => (
-                    <li>
-                      <CustomTypography>
-                        <a href={`/about/${member.slug}`}>
-                          {member.name}
-                        </a>
-                      </CustomTypography>
-                    </li>
-                  ))
-                }
-              </CustomList>
-            </div>
-          )
-        }
-    
-        {
-          work.projectTypes && (
-            <div class="spec-block">
-              <CustomTypography as="h2" variant="title-small">
-                Project types
-              </CustomTypography>
-              <CustomList>
-                {
-                  work.projectTypes.map((projectType) => (
-                    <li>
-                      <CustomTypography>
-                        {projectType.name}
-                      </CustomTypography>
-                    </li>
-                  ))
-                }
-              </CustomList>
-            </div>
-          )
-        }
-    
-        {
-          work.domains && (
-            <div class="spec-block">
-              <CustomTypography as="h2" variant="title-small">
-                Our domains
-              </CustomTypography>
-              <ul class="tags">
-                {
-                  work.domains.map((domain) => (
-                    <li>
-                      <CustomTag>
-                        {domain.name}
-                      </CustomTag>
-                    </li>
-                  ))
-                }
-              </ul>
-            </div>
-          )
-        }
-    
-        {
-          work.technologyStacks && (
-            <div class="spec-block">
-              <CustomTypography as="h2" variant="title-small">
-                Tech stacks
-              </CustomTypography>
-              <ul class="tags">
-                {
-                  work.technologyStacks.map((technologyStack) => (
-                    <li>
-                      <CustomTag>
-                        {technologyStack.name}
-                      </CustomTag>
-                    </li>
-                  ))
-                }
-              </ul>
-            </div>
-          )
-        }
-      </div>
-    </div>
+    {
+      work.outline && (
+        <div class="outline">
+          <CustomTypography variant="body-large">
+            {work.outline}
+          </CustomTypography>
+        </div>
+      )
+    }
 
     {
       work.visuals &&  (
@@ -296,6 +109,170 @@ document.addEventListener("astro:after-swap", handleShowDetails);
         </div>
       )
     }
+
+    <div class="specs">
+      {
+        work.releaseDate && (
+          <div class="spec-block">
+            <CustomTypography as="h2" variant="title-small">
+              Published
+            </CustomTypography>
+            <CustomTypography>
+              {new Date(work.releaseDate).toLocaleDateString("en-US", { month: "long", year: "numeric" })}
+            </CustomTypography>
+          </div>
+        )
+      }
+
+      {
+        work.productionPeriod && (
+          <div class="spec-block">
+            <CustomTypography as="h2" variant="title-small">
+              Timespan
+            </CustomTypography>
+            <CustomTypography>
+              {work.productionPeriod}
+            </CustomTypography>
+          </div>
+        )
+      }
+
+      {
+        work.client && (
+          <div class="spec-block">
+            <CustomTypography as="h2" variant="title-small">
+              Client
+            </CustomTypography>
+            <CustomTypography>
+              {
+                work.client.website ? (
+                  <a href={work.client.website} target="_blank" rel="noopener noreferrer">
+                    {work.client.name}
+                  </a>
+                ) : (
+                  work.client.name
+                )
+              }
+            </CustomTypography>
+          </div>
+        )
+      }
+
+      {
+        work.partners && (
+          <div class="spec-block">
+            <CustomTypography as="h2" variant="title-small">
+              Partners
+            </CustomTypography>
+            <CustomList>
+              {
+                work.partners.map((partner) => (
+                  <li>
+                    <CustomTypography>
+                      {
+                        partner.website ? (
+                          <a href={partner.website} target="_blank" rel="noopener noreferrer">
+                            {partner.name}
+                          </a>
+                        ) : (
+                          partner.name
+                        )
+                      }
+                    </CustomTypography>
+                  </li>
+                ))
+              }
+            </CustomList>
+          </div>
+        )
+      }
+
+      {
+        work.team && (
+          <div class="spec-block">
+            <CustomTypography as="h2" variant="title-small">
+              Team
+            </CustomTypography>
+            <CustomList>
+              {
+                work.team.map((member) => (
+                  <li>
+                    <CustomTypography>
+                      <a href={`/about/${member.slug}`}>
+                        {member.name}
+                      </a>
+                    </CustomTypography>
+                  </li>
+                ))
+              }
+            </CustomList>
+          </div>
+        )
+      }
+
+      {
+        work.projectTypes && (
+          <div class="spec-block">
+            <CustomTypography as="h2" variant="title-small">
+              Project types
+            </CustomTypography>
+            <CustomList>
+              {
+                work.projectTypes.map((projectType) => (
+                  <li>
+                    <CustomTypography>
+                      {projectType.name}
+                    </CustomTypography>
+                  </li>
+                ))
+              }
+            </CustomList>
+          </div>
+        )
+      }
+
+      {
+        work.domains && (
+          <div class="spec-block">
+            <CustomTypography as="h2" variant="title-small">
+              Our domains
+            </CustomTypography>
+            <ul class="tags">
+              {
+                work.domains.map((domain) => (
+                  <li>
+                    <CustomTag>
+                      {domain.name}
+                    </CustomTag>
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+        )
+      }
+
+      {
+        work.technologyStacks && (
+          <div class="spec-block">
+            <CustomTypography as="h2" variant="title-small">
+              Tech stacks
+            </CustomTypography>
+            <ul class="tags">
+              {
+                work.technologyStacks.map((technologyStack) => (
+                  <li>
+                    <CustomTag>
+                      {technologyStack.name}
+                    </CustomTag>
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+        )
+      }
+    </div>
   </section>
 </BaseLayout>
 
@@ -353,14 +330,6 @@ img {
   grid-column-end: 3;
 }
 
-.detail {
-  display: flex;
-  flex-direction: column;
-  align-self: flex-start;
-  gap: var(--gap-md);
-  padding: var(--gap-md) 0;
-}
-
 .visuals {
   display: grid;
   gap: var(--gap-sm);
@@ -370,31 +339,20 @@ img {
 }
 
 .specs {
-  display: none;
-}
-
-.show-details .detail {
-  position: sticky;
-  top: var(--gap-md);
-}
-
-.show-details .visuals {
-  grid-column-start: 2;
-  grid-column-end: 3;
-  padding: var(--gap-sm) 0;
-  grid-template-columns: 1fr;
-}
-
-.show-details .specs {
   display: grid;
-  gap: var(--gap-sm);
+  gap: var(--gap-md);
+  grid-column-start: 1;
+  grid-column-end: 3;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  padding: var(--gap-md);
+  background-color: var(--bg-muted);
 }
 
 .outline {
   display: flex;
   flex-direction: column;
   gap: 2.4rem;
+  padding: var(--gap-sm) 0;
 }
 
 .label-show {
@@ -405,14 +363,6 @@ img {
 .label-hide {
   display: none;
   cursor: pointer;
-}
-
-.show-details .label-hide {
-  display: inline;
-}
-
-.show-details .label-show {
-  display: none;
 }
 
 .tags {
@@ -429,21 +379,6 @@ img {
   gap: 0.8rem;
 }
 
-.show-details-button {
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: var(--fg-accent);
-  text-decoration: underline;
-  padding: 0;
-  display: inline;
-  align-self: flex-start;
-}
-
-.show-details-button:hover {
-  text-decoration: none;
-}
-
 @media (max-width: 768px) {
   .header {
     grid-template-columns: 1fr;
@@ -452,12 +387,6 @@ img {
   .detail {
     grid-column-start: 1;
     grid-column-end: 3;
-    position: relative;
-    top: 0;
-  }
-
-  .show-details .detail {
-    position: relative;
     top: 0;
   }
 
@@ -467,13 +396,13 @@ img {
     grid-template-columns: 1fr;
   }
 
-  .show-details .visuals {
-    grid-column-start: 1;
-    grid-column-end: 3;
-  }
-
   .spec-block {
     gap: 0.4rem;
+  }
+
+  .outline {
+    grid-column-start: 1;
+    grid-column-end: 3;
   }
 }
 </style>

@@ -1,6 +1,128 @@
 ---
+import { newtApClient } from "@/api/newtApClient";
+import type { Domain } from "@/types/newt";
+
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import CustomTypography from "@/components/CustomTypography/index.astro";
+
+const client = newtApClient();
+
+const { items: domains } = await client.getContents<Domain>({
+  appUid: "website",
+  modelUid: "domain",
+	query: {
+		order: ["-_sys.customOrder"]
+	},
+});
 ---
 <BaseLayout title="Top">
-	<h1>Top</h1>
+	<section class="body">
+		<div class="hero">
+			<CustomTypography as="h1" variant="title-large">
+				Impressive makes your business better.
+			</CustomTypography>
+
+			<CustomTypography variant="display">
+				Coding the Success,<br>Designing Future.
+			</CustomTypography>
+		</div>
+	
+		<CustomTypography variant="title-small" class="lead">
+			Impressiveは、フロントエンド開発とUIデザインに特化した開発チームです。丁寧なコミュニケーションと高い技術力でお客様のビジネス課題を解決します。
+		</CustomTypography>
+
+		{
+			domains && domains.length > 0 && (
+				<div class="domains">
+					<CustomTypography as="h2" variant="title-large">
+						What we do
+					</CustomTypography>
+
+					<div class="domain-list">
+						{domains.map((domain) => (
+							<div class="domain-list-item">
+								<CustomTypography as="h3" variant="title-medium">
+									{domain.name}
+								</CustomTypography>
+			
+								<CustomTypography variant="body-large">
+									{domain.description}
+								</CustomTypography>
+							</div>
+						))}
+					</div>
+				</div>
+			)
+		}
+
+	</section>
 </BaseLayout>
+
+<style>
+.body {
+  display: block grid;
+	grid-template-columns: repeat(2, 1fr);
+	grid-template-areas:
+		"hero hero"
+		"lead ."
+		"domains domains"
+	;
+  gap: var(--gap-lg);
+  padding: var(--gap-lg) 0;
+}
+
+.hero {
+	padding: var(--gap-lg) 0;
+	grid-area: hero;
+	display: grid;
+	gap: var(--gap-md);
+}
+
+.lead {
+	grid-area: lead;
+}
+
+.domains {
+	grid-area: domains;
+	display: grid;
+	gap: var(--gap-sm);
+}
+
+.domain-list {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+	gap: var(--gap-sm);
+}
+
+.domain-list-item {
+	display: grid;
+	gap: 1.6rem;
+	grid-template-rows: subgrid;
+	grid-row: span 2;
+}
+
+@media (max-width: 1024px) {
+	.body {
+		grid-template-areas:
+			"hero hero"
+			"lead lead"
+			"domains domains"
+		;
+	}
+}
+
+@media (max-width: 768px) {
+	.body {
+		grid-template-columns: 1fr;
+		grid-template-areas:
+			"hero"
+			"lead"
+			"domains"
+		;
+	}
+
+	.domain-list-item {
+		gap: 0.8rem;
+	}
+}
+</style>
