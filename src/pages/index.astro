@@ -1,24 +1,36 @@
 ---
 import { newtApiClient } from "@/api/newtApiClient";
 import { getFeed } from "@/api/rssClient";
-import type { Domain } from "@/types/newt";
+import type { Work, Domain } from "@/types/newt";
 
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import CustomTypography from "@/components/CustomTypography/index.astro";
 
 const client = newtApiClient();
 
-const { items: domains } = await client.getContents<Domain>({
-  appUid: "website",
-  modelUid: "domain",
-	query: {
-		order: ["-_sys.customOrder"]
-	},
-});
+const [domainResponse, workResponse, feedResponse] = await Promise.all([
+	client.getContents<Domain>({
+		appUid: "website",
+		modelUid: "domain",
+		query: {
+			order: ["-_sys.customOrder"]
+		},
+	}),
+	client.getContents<Work>({
+		appUid: "website",
+		modelUid: "work",
+		query: {
+			limit: 12,
+		},
+	}),
+	getFeed({
+		limit: 5,
+	}),
+]);
 
-const { items: feed } = await getFeed({
-	limit: 5,
-})
+const { items: domains } = domainResponse;
+const { items: works } = workResponse;
+const { items: feed } = feedResponse;
 ---
 <BaseLayout title="Top">
 	<section class="body">
@@ -61,16 +73,37 @@ const { items: feed } = await getFeed({
 		}
 
 		{
+			works && works.length > 0 && (
+				<div class="works">
+					<CustomTypography as="h2" variant="title-large">
+						Works
+					</CustomTypography>
+
+					<div class="work-index">
+						{works.map((work) => (
+							<a href={`/works/${work.slug}`} class="work-index-item">
+								<div class="work-thumbnail">
+									<img src={work.coverImage.src} alt={work.coverImage.altText} width={work.coverImage.width} height={work.coverImage.height} />
+								</div>
+								<CustomTypography as="h2" variant="body-large">{work.title}</CustomTypography>
+							</a>
+						))}
+					</div>
+				</div>
+			)
+		}
+
+		{
 			feed && feed.length > 0 && (
 				<div class="podcasts">
 					<CustomTypography as="h2" variant="title-large">
-						Podcast
+						Podcasts
 					</CustomTypography>
 
 					<div class="podcast-list">
 						{feed.map((item) => (
 							<div class="podcast-list-item">
-								<CustomTypography as="h3" variant="title-medium">
+								<CustomTypography as="h3" variant="body-large">
 									<a href={item.link} target="_blank" rel="noopener noreferrer">
 										{item.title}
 									</a>
@@ -81,14 +114,13 @@ const { items: feed } = await getFeed({
 								</CustomTypography>
 							</div>
 						))}
-					</div>
 
-					<CustomTypography variant="body-large" as="a" href="https://podcasters.spotify.com/pod/show/impv-timz/" target="_blank" rel="noopener noreferrer" class="more-link">
-						Show more
-					</CustomTypography>
+						<CustomTypography variant="body-large" as="a" href="https://podcasters.spotify.com/pod/show/impv-timz/" target="_blank" rel="noopener noreferrer" class="more-link">
+							Show more
+						</CustomTypography>
+					</div>
 				</div>
 			)
-		
 		}
 
 	</section>
@@ -102,6 +134,7 @@ const { items: feed } = await getFeed({
 		"hero hero"
 		"lead ."
 		"domains domains"
+		"works works"
 		"podcasts podcasts"
 	;
   gap: var(--gap-lg);
@@ -148,7 +181,6 @@ const { items: feed } = await getFeed({
 
 .podcast-list {
 	display: grid;
-	border-bottom: 1px solid var(--border-default);
 }
 
 .podcast-list-item {
@@ -160,11 +192,60 @@ const { items: feed } = await getFeed({
 	grid-row: span 2;
 	padding: 2.4rem 0;
 	border-top: 1px solid var(--border-default);
+	border-bottom: 1px solid var(--border-default);
+	margin-top: -1px;
 	flex-wrap: wrap;
 }
 
 .more-link {
+	margin-top: 2.4rem;
 	justify-self: flex-end;
+}
+
+.works {
+	grid-area: works;
+	display: grid;
+	gap: var(--gap-sm);
+	padding: var(--gap-md) 0;
+}
+
+.work-index {
+	display: flex;
+	overflow-x: auto;
+	gap: var(--gap-md);
+	padding-right: 50dvw;
+	scroll-snap-type: x mandatory;
+}
+
+.work-thumbnail {
+  overflow: hidden;
+  aspect-ratio: 1 / 1;
+  padding: 3.6rem;
+  background-color: var(--bg-subtle);
+	width: 30dvw;
+	scroll-snap-align: start;
+}
+
+.work-index-item {
+	color: var(--fg-default);
+	text-decoration: none;
+	display: grid;
+	gap: 0.8rem;
+}
+
+.work-index-item:hover .work-thumbnail {
+  background-color: var(--fg-subtle-hover);
+}
+
+.work-index-item:hover {
+	color: var(--fg-default-hover);
+}
+
+.work-thumbnail img,
+.work-thumbnail video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 @media (max-width: 1024px) {
@@ -173,6 +254,7 @@ const { items: feed } = await getFeed({
 			"hero hero"
 			"lead lead"
 			"domains domains"
+			"works works"
 			"podcasts podcasts"
 		;
 	}
@@ -185,12 +267,18 @@ const { items: feed } = await getFeed({
 			"hero"
 			"lead"
 			"domains"
+			"works"
 			"podcasts"
 		;
 	}
 
 	.domain-list-item {
 		gap: 0.8rem;
+	}
+
+	.work-thumbnail {
+		width: 72dvw;
+		padding: 2.4rem;
 	}
 }
 </style>

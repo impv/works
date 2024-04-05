@@ -1,15 +1,29 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { newtApiClient } from "@/api/newtApiClient";
-import type { Member } from "@/types/newt";
+import type { Member, Client, Partner } from "@/types/newt";
 import CustomTypography from "@/components/CustomTypography/index.astro";
 
 const client = newtApiClient();
 
-const { items: members } = await client.getContents<Member>({
-  appUid: "website",
-  modelUid: "member",
-});
+const [partnerResponse, memberResponse, clientResponse] = await Promise.all([
+  client.getContents<Partner>({
+    appUid: "website",
+    modelUid: "partner",
+  }),
+  client.getContents<Member>({
+    appUid: "website",
+    modelUid: "member",
+  }),
+  client.getContents<Client>({
+    appUid: "website",
+    modelUid: "client",
+  }),
+]);
+
+const { items: members } = memberResponse;
+const { items: partners } = partnerResponse;
+const { items: clients } = clientResponse
 ---
 <BaseLayout title="About">
   <section class="body">
@@ -18,18 +32,65 @@ const { items: members } = await client.getContents<Member>({
       <CustomTypography variant="body-large">Impressiveは、フロントエンド開発とUIデザインに特化した開発チームです。丁寧なコミュニケーションと高い技術力でお客様のビジネス課題を解決します。</CustomTypography>
     </div>
 
-    <div class="member-index">
-      {
-        members.map((member) => (
-          <a href={`/about/${member.slug}`} class="member-index-item">
-            <div class="member-thumbnail">
-              <img src={`${member.portrait.src}?format=webp&width=380&height=380`} srcset={`${member.portrait.src}?format=webp&width=760&height=760`} alt={member.portrait.altText} width={member.portrait?.width} height={member.portrait.height} transition:name={`portrait-${member.slug}`} />
-            </div>
-            <CustomTypography as="h2" variant="body-large">{member.name}</CustomTypography>
-          </a>
-        ))
-      }
-    </div>
+    {
+      members && members.length > 0 && (
+        <div class="member-index">
+          {
+            members.map((member) => (
+              <a href={`/about/${member.slug}`} class="member-index-item">
+                <div class="member-thumbnail">
+                  <img src={`${member.portrait.src}?format=webp&width=380&height=380`} srcset={`${member.portrait.src}?format=webp&width=760&height=760`} alt={member.portrait.altText} width={member.portrait?.width} height={member.portrait.height} transition:name={`portrait-${member.slug}`} />
+                </div>
+                <CustomTypography as="h2" variant="body-large">{member.name}</CustomTypography>
+              </a>
+            ))
+          }
+        </div>
+      )
+    }
+
+    {
+      partners && partners.length > 0 && (
+        <section class="partners" id="partners">
+          <CustomTypography as="h2" variant="title-medium">Partners</CustomTypography>
+          <div class="partner-index">
+            {
+              partners.map((partner) => (
+                <CustomTypography class="partner-index-item">
+                  {
+                    partner.website && (
+                      <a href={partner.website} target="_blank" rel="noopener noreferrer">{partner.name}</a>
+                    ) || partner.name
+                  }
+                </CustomTypography>
+              ))
+            }
+          </div>
+        </section>
+      )
+    }
+
+    {
+      clients && clients.length > 0 && (
+        <section class="clients" id="clients">
+          <CustomTypography as="h2" variant="title-medium">Clients</CustomTypography>
+          <div class="client-index">
+            {
+              clients.map((client) => (
+                <CustomTypography class="client-index-item">
+                  {
+                    client.website && (
+                      <a href={client.website} target="_blank" rel="noopener noreferrer">{client.name}</a>
+                    ) || client.name
+                  }
+                </CustomTypography>
+              ))
+            }
+          </div>
+        </section>
+      )
+    }
+    
   </section>
 </BaseLayout>
 
@@ -45,6 +106,7 @@ const { items: members } = await client.getContents<Member>({
   gap: var(--gap-sm);
   list-style: none;
   grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+  padding: 0 0 var(--gap-sm);
 }
 
 .member-index-item {
@@ -91,6 +153,30 @@ const { items: members } = await client.getContents<Member>({
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: var(--gap-md);
+}
+
+.partners {
+  display: grid;
+  gap: var(--gap-sm);
+  padding: var(--gap-sm) 0;
+}
+
+.clients {
+  display: grid;
+  gap: var(--gap-sm);
+  padding: var(--gap-sm) 0;
+}
+
+.partner-index,
+.client-index {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+  gap: 0.8rem 1.6rem;
+}
+
+.partner-index-item,
+.client-index-item {
+  
 }
 
 @media (max-width: 768px) {
