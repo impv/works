@@ -19,7 +19,7 @@ const { items: works } = await client.getContents<Work>({
         works.map((work) => (
           <a href={`/works/${work.slug}`} class="work-index-item">
             <div class="work-thumbnail">
-              <img src={work.coverImage.src} alt={work.coverImage.altText} width={work.coverImage.width} height={work.coverImage.height} transition:name={`cover-${work.slug}`} />
+              <img src={`${work.coverImage.src}?format=webp&fit=inside&width=515&height=515`} srcset={`${work.coverImage?.src}?format=webp&fit=inside&width=1030&height=1030 2x`} alt={work.coverImage.altText} width={work.coverImage.width} height={work.coverImage.height} transition:name={`cover-${work.slug}`} />
             </div>
             <CustomTypography as="h2" variant="body-large">{work.title}</CustomTypography>
           </a>

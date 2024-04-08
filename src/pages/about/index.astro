@@ -39,7 +39,7 @@ const { items: clients } = clientResponse
             members.map((member) => (
               <a href={`/about/${member.slug}`} class="member-index-item">
                 <div class="member-thumbnail">
-                  <img src={`${member.portrait.src}?format=webp&width=380&height=380`} srcset={`${member.portrait.src}?format=webp&width=760&height=760`} alt={member.portrait.altText} width={member.portrait?.width} height={member.portrait.height} transition:name={`portrait-${member.slug}`} />
+                  <img src={`${member.portrait.src}?format=webp&width=563&height=563`} srcset={`${member.portrait.src}?format=webp&width=1126&height=1126`} alt={member.portrait.altText} width={member.portrait?.width} height={member.portrait.height} transition:name={`portrait-${member.slug}`} />
                 </div>
                 <CustomTypography as="h2" variant="body-large">{member.name}</CustomTypography>
               </a>
@@ -105,7 +105,7 @@ const { items: clients } = clientResponse
   display: grid;
   gap: var(--gap-sm);
   list-style: none;
-  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   padding: 0 0 var(--gap-sm);
 }
 
@@ -182,6 +182,10 @@ const { items: clients } = clientResponse
 @media (max-width: 768px) {
   .header {
     grid-template-columns: 1fr;
+  }
+
+  .member-index {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   }
 }
 </style>

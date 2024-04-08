@@ -75,7 +75,7 @@ const { work } = Astro.props;
             <source src={work.heroVisual?.src} type="video/mp4" />
           </video>
         ) : (
-          <img src={`${work.heroVisual?.src}?format=webm`} alt={work.heroVisual?.altText} width={work.heroVisual?.width} height={work.heroVisual?.height} />
+          <img src={`${work.heroVisual?.src}?format=webp`} srcset={`${work.heroVisual?.src}?format=webp`} alt={work.heroVisual?.altText} width={work.heroVisual?.width} height={work.heroVisual?.height} />
         )
       }
     </div>
@@ -101,7 +101,7 @@ const { work } = Astro.props;
                     <source src={visual.src} type="video/mp4" />
                   </video>
                 ) : (
-                  <img src={visual.src} alt={visual.altText} />
+                  <img src={`${visual.src}?format=webp&fit=outside&width=732`} srcset={`${visual.src}?format=webp&fit=outside&width=1464 2x`} alt={visual.altText} />
                 )
               }
             </div>
@@ -241,7 +241,7 @@ const { work } = Astro.props;
               {
                 work.domains.map((domain) => (
                   <li>
-                    <CustomTag>
+                    <CustomTag title={domain.description}>
                       {domain.name}
                     </CustomTag>
                   </li>
