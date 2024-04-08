@@ -4,6 +4,7 @@ import "@/styles/variables.css";
 import "@/styles/global.css";
 import { ViewTransitions } from 'astro:transitions';
 import CustomTypography from "@/components/CustomTypography/index.astro";
+import ExternalLinkIcon from "@/components/Icons/ExternalLinkIcon.astro";
 
 interface Props {
   title?: string;
@@ -15,7 +16,6 @@ const {
   description = "Impressive - Coding the success, designing the future.",
 }: Props = Astro.props;
 ---
-
 <html lang="ja">
   <head>
     <meta charset="utf-8">
@@ -42,8 +42,10 @@ const {
   <body>
     <div class="layout-base">
       <header class="header">
-        <a href="/" class="logo-wrapper">
-          <svg class="logo" width="132" height="24" viewBox="0 0 132 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <a href="/" class="logo-wrapper" title="Impressive">
+          <svg class="logo" width="132" height="24" viewBox="0 0 132 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-labelledby="Impressive">
+            <title>Impressive</title>
+            <desc id="logo-desc">Impressive logo</desc>
             <path d="M121.881 9.88213C121.717 8.99436 121.421 8.32031 120.993 7.85998C120.582 7.39965 119.949 7.16949 119.094 7.16949C118.535 7.16949 118.067 7.26813 117.689 7.46541C117.327 7.64626 117.031 7.87642 116.801 8.15591C116.587 8.43539 116.431 8.73131 116.332 9.04368C116.25 9.35605 116.201 9.63553 116.185 9.88213H121.881ZM116.185 12.1016C116.234 13.236 116.522 14.058 117.048 14.5676C117.574 15.0773 118.33 15.3321 119.316 15.3321C120.023 15.3321 120.632 15.1595 121.141 14.8142C121.651 14.4525 121.963 14.0744 122.078 13.6798H125.161C124.668 15.2088 123.911 16.3021 122.892 16.9597C121.873 17.6173 120.64 17.9461 119.193 17.9461C118.19 17.9461 117.286 17.7899 116.48 17.4775C115.675 17.1487 114.993 16.6884 114.434 16.0966C113.875 15.5047 113.439 14.7978 113.127 13.9758C112.831 13.1538 112.683 12.2495 112.683 11.2631C112.683 10.3096 112.839 9.42181 113.151 8.59979C113.464 7.77778 113.908 7.07085 114.483 6.479C115.058 5.87071 115.741 5.39394 116.53 5.04869C117.335 4.70345 118.223 4.53082 119.193 4.53082C120.278 4.53082 121.223 4.74455 122.029 5.17199C122.835 5.583 123.492 6.14197 124.002 6.8489C124.528 7.55583 124.906 8.36141 125.136 9.26562C125.366 10.1698 125.449 11.1152 125.383 12.1016H116.185Z" fill="currentColor"/>
             <path d="M107.54 17.6255H103.644L99.2791 4.87604H102.953L105.641 13.5812H105.691L108.379 4.87604H111.856L107.54 17.6255Z" fill="currentColor"/>
             <path d="M97.7301 2.90328H94.2283V0.0180054H97.7301V2.90328ZM94.2283 4.87611H97.7301V17.6256H94.2283V4.87611Z" fill="currentColor"/>
@@ -81,7 +83,10 @@ const {
 
         <nav class="sub-nav">
           <CustomTypography>
-            <a href="https://podcasters.spotify.com/pod/show/impv-timz/" target="_blank" rel="noopener noreferrer">Podcast</a>
+            <a href="https://podcasters.spotify.com/pod/show/impv-timz/" target="_blank" rel="noopener noreferrer">
+              Podcast
+              <ExternalLinkIcon />
+            </a>
           </CustomTypography>
 
           <CustomTypography>
@@ -145,10 +150,12 @@ body {
   max-width: var(--vw-max);
   padding: 0 var(--gap-sm);
   margin-inline: auto;
+  position: relative;
+  z-index: 10;
 }
 
 .site-footer {
-  color: var(--fg-muted);
+  color: var(--fg-subtle);
   padding: 2.4rem 0;
   display: flex;
   justify-content: space-between;
@@ -160,12 +167,12 @@ body {
 }
 
 .sub-nav a {
-  color: var(--fg-muted);
+  color: var(--fg-subtle);
   text-decoration: none;
 }
 
 .sub-nav a:hover {
-  color: var(--fg-muted-hover);
+  color: var(--fg-subtle-hover);
 }
 
 @media (min-width: 768px) {

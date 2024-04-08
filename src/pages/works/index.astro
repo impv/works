@@ -48,23 +48,23 @@ const { items: works } = await client.getContents<Work>({
   grid-template-rows: subgrid;
   gap: 0.8rem;
   grid-row: span 2;
-  color: var(--fg-default);
+  color: var(--fg-subtle);
   text-decoration: none;
 }
 
 .work-index-item:hover {
-  color: var(--fg-default-hover);
+  color: var(--fg-subtle-hover);
 }
 
 .work-thumbnail {
   overflow: hidden;
   aspect-ratio: 1 / 1;
   padding: 2.4rem;
-  background-color: var(--bg-subtle);
+  background-color: var(--bg-muted);
 }
 
 .work-index-item:hover .work-thumbnail {
-  background-color: var(--bg-muted);
+  background-color: var(--bg-muted-hover);
 }
 
 .work-thumbnail img,

@@ -5,6 +5,7 @@ import type { Work, Domain } from "@/types/newt";
 
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import CustomTypography from "@/components/CustomTypography/index.astro";
+import ExternalLinkIcon from "@/components/Icons/ExternalLinkIcon.astro";
 
 const client = newtApiClient();
 
@@ -39,7 +40,7 @@ const { items: feed } = feedResponse;
 				Impressive makes your business better.
 			</CustomTypography>
 
-			<CustomTypography variant="display">
+			<CustomTypography variant="display" class="text">
 				Coding the Success,<br>Designing Future.
 			</CustomTypography>
 		</div>
@@ -83,9 +84,9 @@ const { items: feed } = feedResponse;
 						{works.map((work) => (
 							<a href={`/works/${work.slug}`} class="work-index-item">
 								<div class="work-thumbnail">
-									<img src={work.coverImage.src} alt={work.coverImage.altText} width={work.coverImage.width} height={work.coverImage.height} />
+									<img src={`${work.coverImage.src}?format=webp&fit=outside&width=504&height=504`} srcset={`${work.coverImage.src}?format=webp&fit=outside&width=1008&height=1008`} alt={work.coverImage.altText} width={work.coverImage.width} height={work.coverImage.height} />
 								</div>
-								<CustomTypography as="h2" variant="body-large">{work.title}</CustomTypography>
+								<CustomTypography as="h2" variant="title-small">{work.title}</CustomTypography>
 							</a>
 						))}
 					</div>
@@ -102,17 +103,20 @@ const { items: feed } = feedResponse;
 
 					<div class="podcast-list">
 						{feed.map((item) => (
-							<div class="podcast-list-item">
-								<CustomTypography as="h3" variant="body-large">
-									<a href={item.link} target="_blank" rel="noopener noreferrer">
+							<a href={item.link} target="_blank" class="podcast-list-item" rel="noopener noreferrer">
+								<CustomTypography as="h3" variant="title-small">
 										{item.title}
-									</a>
+										<ExternalLinkIcon />
+								</CustomTypography>
+
+								<CustomTypography variant="body-large" class="podcast-list-item-description">
+									{item.contentSnippet}
 								</CustomTypography>
 			
-								<CustomTypography variant="body-large" class="domain-description">
+								<CustomTypography variant="body-large" class="podcast-list-item-date">
 									{new Date(item.pubDate).toLocaleDateString("en-US", { month: "long", year: "numeric", day: "numeric"})}
 								</CustomTypography>
-							</div>
+							</a>
 						))}
 
 						<CustomTypography variant="body-large" as="a" href="https://podcasters.spotify.com/pod/show/impv-timz/" target="_blank" rel="noopener noreferrer" class="more-link">
@@ -161,7 +165,7 @@ const { items: feed } = feedResponse;
 
 .domain-list {
 	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+	grid-template-columns: repeat(auto-fill, minmax(337px, 1fr));
 	gap: var(--gap-md);
 }
 
@@ -170,6 +174,10 @@ const { items: feed } = feedResponse;
 	gap: 1.6rem;
 	grid-template-rows: subgrid;
 	grid-row: span 2;
+}
+
+.domain-description {
+	color: var(--fg-subtle);
 }
 
 .podcasts {
@@ -184,17 +192,30 @@ const { items: feed } = feedResponse;
 }
 
 .podcast-list-item {
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
+	display: grid;
 	gap: 0.8rem;
-	grid-template-rows: subgrid;
-	grid-row: span 2;
-	padding: 2.4rem 0;
+	padding: 2.4rem;
 	border-top: 1px solid var(--border-default);
 	border-bottom: 1px solid var(--border-default);
 	margin-top: -1px;
 	flex-wrap: wrap;
+	text-decoration: none;
+	color: currentColor;
+}
+
+.podcast-list-item:hover {
+	background-color: var(--bg-default-hover);
+}
+
+.podcast-list-item-description {
+	color: var(--fg-subtle);
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.podcast-list-item-date {
+	color: var(--fg-subtle);
 }
 
 .more-link {
@@ -221,24 +242,24 @@ const { items: feed } = feedResponse;
   overflow: hidden;
   aspect-ratio: 1 / 1;
   padding: 3.6rem;
-  background-color: var(--bg-subtle);
+  background-color: var(--bg-muted);
 	width: 30dvw;
 	scroll-snap-align: start;
 }
 
 .work-index-item {
-	color: var(--fg-default);
+	color: var(--fg-subtle);
 	text-decoration: none;
 	display: grid;
 	gap: 0.8rem;
 }
 
 .work-index-item:hover .work-thumbnail {
-  background-color: var(--fg-subtle-hover);
+  background-color: var(--bg-muted-hover);
 }
 
 .work-index-item:hover {
-	color: var(--fg-default-hover);
+	color: var(--fg-subtle-hover);
 }
 
 .work-thumbnail img,
@@ -272,6 +293,10 @@ const { items: feed } = feedResponse;
 		;
 	}
 
+	.domain-list {
+		grid-template-columns: 1fr;
+	}
+
 	.domain-list-item {
 		gap: 0.8rem;
 	}
@@ -279,6 +304,17 @@ const { items: feed } = feedResponse;
 	.work-thumbnail {
 		width: 72dvw;
 		padding: 2.4rem;
+	}
+
+	.podcast-list-item {
+		padding: 1.6rem 0;
+	}
+
+	.podcast-list-item-description {
+		display: -webkit-box;
+		-webkit-line-clamp: 3;
+		-webkit-box-orient: vertical;
+		white-space: normal;
 	}
 }
 </style>

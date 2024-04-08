@@ -5,6 +5,7 @@ import type { Work } from "@/types/newt";
 import CustomTypography from "@/components/CustomTypography/index.astro";
 import CustomList from "@/components/CustomList/index.astro";
 import CustomTag from "@/components/CustomTag/index.astro";
+import ExternalLinkIcon from "@/components/Icons/ExternalLinkIcon.astro";
 
 export const getStaticPaths = async () => {
 	const client = newtApiClient(true);
@@ -53,6 +54,7 @@ const { work } = Astro.props;
             <CustomTypography>
               <a href={work.url} target="_blank" rel="noopener noreferrer">
                 Visit website
+                <ExternalLinkIcon />
               </a>
             </CustomTypography>
           )
@@ -71,7 +73,7 @@ const { work } = Astro.props;
     <div class="hero" transition:name={`cover-${work.slug}`}>
       {
         work.heroVisual?.fileType.match(/video/) ? (
-          <video loop muted autoplay width={work.heroVisual?.width} height={work.heroVisual?.height} poster={work.coverImage.src}>
+          <video loop muted autoplay width={work.heroVisual?.width} height={work.heroVisual?.height} poster={`${work.coverImage.src}?format=webp`}>
             <source src={work.heroVisual?.src} type="video/mp4" />
           </video>
         ) : (
@@ -97,11 +99,11 @@ const { work } = Astro.props;
             <div>
               {
                 visual.fileType.match(/video/) ? (
-                  <video loop muted autoplay>
+                  <video loop muted autoplay width={visual.width} height={visual.height}>
                     <source src={visual.src} type="video/mp4" />
                   </video>
                 ) : (
-                  <img src={`${visual.src}?format=webp&fit=outside&width=732`} srcset={`${visual.src}?format=webp&fit=outside&width=1464 2x`} alt={visual.altText} />
+                  <img src={`${visual.src}?format=webp&fit=outside&width=732`} srcset={`${visual.src}?format=webp&fit=outside&width=1464 2x`} width={visual.width} height={visual.height} alt={visual.altText} />
                 )
               }
             </div>
@@ -148,6 +150,7 @@ const { work } = Astro.props;
                 work.client.website ? (
                   <a href={work.client.website} target="_blank" rel="noopener noreferrer">
                     {work.client.name}
+                    <ExternalLinkIcon />
                   </a>
                 ) : (
                   work.client.name
@@ -173,6 +176,7 @@ const { work } = Astro.props;
                         partner.website ? (
                           <a href={partner.website} target="_blank" rel="noopener noreferrer">
                             {partner.name}
+                            <ExternalLinkIcon />
                           </a>
                         ) : (
                           partner.name
@@ -277,14 +281,10 @@ const { work } = Astro.props;
 </BaseLayout>
 
 <style>
+img,
 video {
   width: 100%;
-  box-shadow: var(--shadow-lv-1);
-}
-
-img {
-  width: 100%;
-  box-shadow: var(--shadow-lv-1);
+  aspect-ratio: attr(width) / attr(height);
 }
 
 .body {
@@ -311,7 +311,7 @@ img {
   display: flex;
   gap: 0.8rem;
   list-style-type: none;
-  color: var(--fg-muted);
+  color: var(--fg-subtle);
   flex-wrap: wrap;
 }
 
@@ -336,6 +336,13 @@ img {
   grid-column-start: 1;
   grid-column-end: 3;
   grid-template-columns: repeat(2, 1fr);
+}
+
+.visuals video,
+.visuals img {
+  object-fit: contain;
+  width: 100%;
+  height: auto;
 }
 
 .specs {

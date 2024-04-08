@@ -5,6 +5,7 @@ import { getFeed, filterItemsByMemberSlugs } from "@/api/rssClient";
 import type { Member, Work } from "@/types/newt";
 import CustomTypography from "@/components/CustomTypography/index.astro";
 import CustomTag from "@/components/CustomTag/index.astro";
+import ExternalLinkIcon from "@/components/Icons/ExternalLinkIcon.astro";
 
 export const getStaticPaths = async () => {
 	const client = newtApiClient();
@@ -127,17 +128,20 @@ const { member, works, podcasts } = Astro.props;
 					<div class="podcast-list">
 						{
 							podcasts.map((podcast) => (
-								<div class="podcast-list-item">
+								<a href={podcast.link} target="_blank" rel="noopener noreferrer" class="podcast-list-item">
 									<CustomTypography as="h3" variant="title-small">
-										<a href={podcast.link} target="_blank" rel="noopener noreferrer">
-											{podcast.title}
-										</a>
+										{podcast.title}
+										<ExternalLinkIcon />
+									</CustomTypography>
+
+									<CustomTypography variant="body-large" class="podcast-list-item-description">
+										{podcast.contentSnippet}
 									</CustomTypography>
 				
 									<CustomTypography variant="body-large" class="podcast-list-item-date">
 										{new Date(podcast.pubDate).toLocaleDateString("en-US", { month: "long", year: "numeric", day: "numeric"})}
 									</CustomTypography>
-								</div>
+								</a>
 							))
 						}
 					</div>
@@ -167,7 +171,7 @@ const { member, works, podcasts } = Astro.props;
   display: flex;
   gap: 0.8rem;
   list-style-type: none;
-  color: var(--fg-muted);
+  color: var(--fg-subtle);
   flex-wrap: wrap;
 }
 
@@ -273,18 +277,31 @@ const { member, works, podcasts } = Astro.props;
 }
 
 .podcast-list-item {
-	display: grid;
+	display: flex;
+	flex-direction: column;
 	gap: 0.4rem;
-	grid-template-rows: subgrid;
-	grid-row: span 2;
-	padding: 1.6rem 0;
+	padding: 2.4rem;
 	border-top: 1px solid var(--border-default);
 	border-bottom: 1px solid var(--border-default);
 	margin-top: -1px;
+	text-decoration: none;
+	color: currentColor;
+}
+
+.podcast-list-item:hover {
+	background-color: var(--bg-default-hover);
+}
+
+.podcast-list-item-description {
+	color: var(--fg-subtle);
+	overflow: hidden;
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
 }
 
 .podcast-list-item-date {
-	color: var(--fg-muted);
+	color: var(--fg-subtle);
 }
 
 .more-link {
@@ -304,6 +321,10 @@ const { member, works, podcasts } = Astro.props;
 
 	.podcast-list {
 		grid-template-columns: 1fr;
+	}
+
+	.podcast-list-item {
+		padding: 1.6rem 0;
 	}
 }
 </style>
