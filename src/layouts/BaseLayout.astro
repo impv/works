@@ -5,6 +5,8 @@ import "@/styles/global.css";
 import { ViewTransitions } from 'astro:transitions';
 import CustomTypography from "@/components/CustomTypography/index.astro";
 import ExternalLinkIcon from "@/components/Icons/ExternalLinkIcon.astro";
+import MenuIcon from "@/components/Icons/MenuIcon.astro";
+import CloseIcon from "@/components/Icons/CloseIcon.astro";
 
 interface Props {
   title?: string;
@@ -16,6 +18,26 @@ const {
   description = "Impressive - Coding the success, designing the future.",
 }: Props = Astro.props;
 ---
+<script is:inline>
+document.addEventListener('astro:page-load', () => {
+  // menu-buttonをクリックした時にsite-navにactiveクラスを付与する
+  document.querySelector('.menu-button').addEventListener('click', () => {
+    document.querySelector('.site-nav').classList.add('active');
+  });
+  
+  // close-buttonをクリックした時にsite-navからactiveクラスを削除する
+  document.querySelector('.close-button').addEventListener('click', () => {
+    document.querySelector('.site-nav').classList.remove('active');
+  });
+
+  // site-navの背景をクリックした時にsite-navからactiveクラスを削除する
+  document.querySelector('.site-nav').addEventListener('click', (e) => {
+    if (e.target === document.querySelector('.site-nav')) {
+      document.querySelector('.site-nav').classList.remove('active');
+    }
+  });
+});
+</script>
 <html lang="ja">
   <head>
     <meta charset="utf-8">
@@ -62,14 +84,28 @@ const {
         </a>
 
         <nav class="site-nav">
-          <CustomTypography variant="body-large">
-            <a href="/works" class={Astro.url.pathname.match("works") && "active"}>Works</a>
-          </CustomTypography>
+          <a href="/works" class:list={[
+            "site-nav-item",
+            Astro.url.pathname.match("works") && "active"
+          ]}>
+            Works
+          </a>
 
-          <CustomTypography variant="body-large">
-            <a href="/about" class={Astro.url.pathname.match("about") && "active"}>About</a>
-          </CustomTypography>
+          <a href="/about" class:list={[
+            "site-nav-item",
+            Astro.url.pathname.match("about") && "active"
+          ]}>
+            About
+          </a>
         </nav>
+
+        <button aria-label="Menu" class="menu-button">
+          <MenuIcon />
+        </button>
+
+        <button aria-label="Menu" class="close-button">
+          <CloseIcon />
+        </button>
       </header>
       
       <main class="main">
@@ -132,20 +168,82 @@ body {
 }
 
 .site-nav {
-  display: flex;
+  position: fixed;
   gap: 2.4rem;
+  width: 100dvw;
+  height: 100dvh;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(10px);
+  background-color: var(--backdrop);
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s, opacity 0.3s;
 }
 
-.site-nav a {
+.menu-button,
+.close-button {
+  position: fixed;
+  top: 1.6rem;
+  right: 1.6rem;
+  z-index: 20;
+  background: none;
+  border: none;
+  font-size: 3.6rem;
   color: var(--fg-subtle);
-  text-decoration: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 4.8rem;
+  height: 4.8rem;
 }
 
-.site-nav a.active {
+.menu-button svg,
+.close-button svg {
+  vertical-align: bottom;
+}
+
+.menu-button:hover,
+.close-button:hover {
   color: var(--fg-subtle-hover);
 }
 
-.site-nav a:hover {
+.site-nav.active {
+  visibility: visible;
+  opacity: 1;
+}
+
+.header:has(:not(.site-nav.active)) .menu-button {
+  display: flex;
+}
+
+.header:has(:not(.site-nav.active)) .close-button {
+  display: none;
+}
+
+.header:has(.site-nav.active) .menu-button {
+  display: none;
+}
+
+.header:has(.site-nav.active) .close-button {
+  display: flex;
+}
+
+.site-nav-item {
+  color: var(--fg-subtle);
+  text-decoration: none;
+  font-size: var(--font-size-display);
+}
+
+.site-nav-item.active {
+  color: var(--fg-subtle-hover);
+}
+
+.site-nav-item:hover {
   color: var(--fg-subtle-hover);
 }
 
@@ -184,6 +282,25 @@ body {
 @media (min-width: 768px) {
   .site-nav {
     gap: 3.2rem;
+    flex-direction: row;
+    position: revert;
+    width: revert;
+    height: revert;
+    inset: revert;
+    z-index: 10;
+    backdrop-filter: revert;
+    background-color: revert;
+    visibility: visible;
+    opacity: 1;
+  }
+
+  .site-nav-item {
+    font-size: var(--font-size-body-large);
+  }
+
+  .menu-button,
+  .close-button {
+    display: none!important;
   }
 
   .logo {
