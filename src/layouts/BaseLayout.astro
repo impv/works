@@ -63,11 +63,11 @@ const {
 
         <nav class="site-nav">
           <CustomTypography variant="body-large">
-            <a href="/works">Works</a>
+            <a href="/works" class={Astro.url.pathname.match("works") && "active"}>Works</a>
           </CustomTypography>
 
           <CustomTypography variant="body-large">
-            <a href="/about">About</a>
+            <a href="/about" class={Astro.url.pathname.match("about") && "active"}>About</a>
           </CustomTypography>
         </nav>
       </header>
@@ -137,12 +137,16 @@ body {
 }
 
 .site-nav a {
-  color: var(--fg-default);
+  color: var(--fg-subtle);
   text-decoration: none;
 }
 
+.site-nav a.active {
+  color: var(--fg-subtle-hover);
+}
+
 .site-nav a:hover {
-  color: var(--fg-default-hover);
+  color: var(--fg-subtle-hover);
 }
 
 .layout-base {
@@ -159,11 +163,13 @@ body {
   padding: 2.4rem 0;
   display: flex;
   justify-content: space-between;
+  gap: 2.4rem;
 }
 
 .sub-nav {
   display: flex;
-  gap: 2.4rem;
+  flex-direction: column;
+  gap: 0.8rem;
 }
 
 .sub-nav a {
@@ -182,6 +188,11 @@ body {
 
   .logo {
     height: 24px;
+  }
+
+  .sub-nav {
+    gap: 2.4rem;
+    flex-direction: row;
   }
 }
 
