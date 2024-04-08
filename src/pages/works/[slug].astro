@@ -74,7 +74,7 @@ const { work } = Astro.props;
       {
         work.heroVisual?.fileType.match(/video/) ? (
           <video loop muted autoplay width={work.heroVisual?.width} height={work.heroVisual?.height} poster={`${work.coverImage.src}?format=webp`}>
-            <source src={work.heroVisual?.src} type="video/mp4" />
+            <source src={`${work.heroVisual?.src}?format=webm&size=1520`} type="video/webm" />
           </video>
         ) : (
           <img src={`${work.heroVisual?.src}?format=webp`} srcset={`${work.heroVisual?.src}?format=webp`} alt={work.heroVisual?.altText} width={work.heroVisual?.width} height={work.heroVisual?.height} />
