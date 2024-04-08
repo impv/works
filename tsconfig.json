@@ -2,10 +2,16 @@
   "extends": "astro/tsconfigs/strict",
   "compilerOptions": {
     "rootDir": "src",
-    "baseUrl": ".",
+    "baseUrl": "/Users/takehitokita/Project/works",
     "paths": {
-      "@/*": ["src/*"]
-    }
+      "@/*": [
+        "src/*"
+      ]
+    },
+    "jsx": "react-jsx",
+    "jsxImportSource": "react"
   },
-  "include": ["src/**/*"],
+  "include": [
+    "src/**/*"
+  ]
 }
