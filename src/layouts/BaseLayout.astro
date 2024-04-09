@@ -97,6 +97,13 @@ document.addEventListener('astro:page-load', () => {
           ]} data-astro-prefetch>
             About
           </a>
+
+          <a href="/contact" class:list={[
+            "site-nav-item",
+            Astro.url.pathname.match("contact") && "active"
+          ]} data-astro-prefetch>
+            Contact
+          </a>
         </nav>
 
         <button aria-label="Menu" class="menu-button">

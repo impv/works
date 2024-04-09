@@ -1,0 +1,65 @@
+---
+import ContentPageLayout from "@/layouts/ContentPageLayout.astro";
+import CustomTypography from "@/components/CustomTypography/index.astro";
+import MessageIcon from "@/components/Icons/MessageIcon.astro";
+---
+<ContentPageLayout title="Contact">
+  <section class="body">
+    <div class="description">
+      <CustomTypography as="h1" variant="title-large" transition:name="works-title">Contact us</CustomTypography>
+
+      <CustomTypography variant="body-large">
+        〒151-0063<br />
+        東京都渋谷区富ヶ谷2-22-12 ヴィトレ代々木パーク 4F
+      </CustomTypography>
+
+      <CustomTypography variant="body-large">
+        <a href="mailto:i_inquiry_from_corpor-aaaab7j564nph4lr22oeavwcnu@impv.slack.com?body=お名前 :%0A会社名 :%0A問い合わせ内容 :">
+          Send message
+          <MessageIcon />
+        </a>
+      </CustomTypography>
+    </div>
+
+    <div class="map-container">
+      <iframe class="map" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3241.5838642454896!2d139.685639!3d35.662623!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60188c962208545f%3A0xc271fc104e6031f0!2z5qCq5byP5Lya56S-44Kk44Oz44OX44Os44OD44K344OW!5e0!3m2!1sja!2sus!4v1712676835506!5m2!1sja!2sus" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+  </section>
+</ContentPageLayout>
+
+<style>
+.body {
+  display: block grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--gap-large);
+  grid-template-areas:
+    "description map";
+}
+
+.description {
+  grid-area: description;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-small);
+}
+
+.map-container {
+  grid-area: map;
+}
+
+.map {
+  width: 100%;
+  height: 100%;
+  border: none;
+  aspect-ratio: 1 / 1;
+}
+
+@media (max-width: 768px) {
+  .body {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "description"
+      "map";
+  }
+}
+</style>
