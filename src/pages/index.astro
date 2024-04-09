@@ -82,7 +82,7 @@ const { items: feed } = feedResponse;
 
 					<div class="work-index">
 						{works.map((work) => (
-							<a href={`/works/${work.slug}`} class="work-index-item">
+							<a href={`/works/${work.slug}`} class="work-index-item" data-astro-prefetch>
 								<div class="work-thumbnail">
 									<img src={`${work.coverImage.src}?format=webp&fit=outside&width=504&height=504`} srcset={`${work.coverImage.src}?format=webp&fit=outside&width=1008&height=1008`} alt={work.coverImage.altText} width={work.coverImage.width} height={work.coverImage.height} />
 								</div>

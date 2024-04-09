@@ -38,7 +38,7 @@ const { items: clients } = clientResponse
         <div class="member-index">
           {
             members.map((member) => (
-              <a href={`/about/${member.slug}`} class="member-index-item">
+              <a href={`/about/${member.slug}`} class="member-index-item" data-astro-prefetch>
                 <div class="member-thumbnail">
                   <img src={`${member.portrait.src}?format=webp&width=724&height=724`} srcset={`${member.portrait.src}?format=webp&width=1448&height=1448`} alt={member.portrait.altText} width={member.portrait?.width} height={member.portrait.height} transition:name={`portrait-${member.slug}`} transition:persist />
                 </div>

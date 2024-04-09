@@ -105,7 +105,7 @@ const { member, works, podcasts } = Astro.props;
 					<div class="work-index">
 						{
 							works.map((work) => (
-								<a href={`/works/${work.slug}`} class="work-index-item">
+								<a href={`/works/${work.slug}`} class="work-index-item" data-astro-prefetch>
 									<div class="work-thumbnail">
 										<img src={work.coverImage.src} alt={work.coverImage.altText} width={work.coverImage.width} height={work.coverImage.height} />
 									</div>

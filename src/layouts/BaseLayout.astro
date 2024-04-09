@@ -64,7 +64,7 @@ document.addEventListener('astro:page-load', () => {
   <body>
     <div class="layout-base">
       <header class="site-header">
-        <a href="/" class="logo-wrapper" title="Impressive">
+        <a href="/" class="logo-wrapper" title="Impressive" data-astro-prefetch>
           <svg class="logo" width="132" height="24" viewBox="0 0 132 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-labelledby="Impressive">
             <title>Impressive</title>
             <desc id="logo-desc">Impressive logo</desc>
@@ -87,14 +87,14 @@ document.addEventListener('astro:page-load', () => {
           <a href="/works" class:list={[
             "site-nav-item",
             Astro.url.pathname.match("works") && "active"
-          ]}>
+          ]} data-astro-prefetch>
             Works
           </a>
 
           <a href="/about" class:list={[
             "site-nav-item",
             Astro.url.pathname.match("about") && "active"
-          ]}>
+          ]} data-astro-prefetch>
             About
           </a>
         </nav>

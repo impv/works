@@ -201,7 +201,7 @@ const { work } = Astro.props;
                 work.team.map((member) => (
                   <li>
                     <CustomTypography>
-                      <a href={`/about/${member.slug}`}>
+                      <a href={`/about/${member.slug}`} data-astro-prefetch>
                         {member.name}
                       </a>
                     </CustomTypography>
