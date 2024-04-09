@@ -126,7 +126,6 @@ const { items: feed } = feedResponse;
 				</div>
 			)
 		}
-
 	</section>
 </BaseLayout>
 
@@ -141,15 +140,15 @@ const { items: feed } = feedResponse;
 		"works works"
 		"podcasts podcasts"
 	;
-  gap: var(--gap-lg);
-  padding: var(--gap-lg) 0;
+  gap: var(--gap-large);
+  padding: var(--gap-large) 0;
 }
 
 .hero {
-	padding: var(--gap-lg) 0;
+	padding: var(--gap-large) 0;
 	grid-area: hero;
 	display: grid;
-	gap: var(--gap-md);
+	gap: var(--gap-medium);
 }
 
 .lead {
@@ -159,14 +158,14 @@ const { items: feed } = feedResponse;
 .domains {
 	grid-area: domains;
 	display: grid;
-	gap: var(--gap-sm);
-	padding: var(--gap-md) 0;
+	gap: var(--gap-small);
+	padding: var(--gap-medium) 0;
 }
 
 .domain-list {
 	display: grid;
 	grid-template-columns: repeat(auto-fill, minmax(337px, 1fr));
-	gap: var(--gap-md);
+	gap: var(--gap-medium);
 }
 
 .domain-list-item {
@@ -183,8 +182,8 @@ const { items: feed } = feedResponse;
 .podcasts {
 	grid-area: podcasts;
 	display: grid;
-	gap: var(--gap-sm);
-	padding: var(--gap-md) 0;
+	gap: var(--gap-small);
+	padding: var(--gap-medium) 0;
 }
 
 .podcast-list {
@@ -226,14 +225,14 @@ const { items: feed } = feedResponse;
 .works {
 	grid-area: works;
 	display: grid;
-	gap: var(--gap-sm);
-	padding: var(--gap-md) 0;
+	gap: var(--gap-small);
+	padding: var(--gap-medium) 0;
 }
 
 .work-index {
 	display: flex;
 	overflow-x: auto;
-	gap: var(--gap-md);
+	gap: var(--gap-medium);
 	padding-right: 50dvw;
 	scroll-snap-type: x mandatory;
 }

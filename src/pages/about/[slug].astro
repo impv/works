@@ -1,5 +1,5 @@
 ---
-import BaseLayout from "@/layouts/BaseLayout.astro";
+import ContentPageLayout from "@/layouts/ContentPageLayout.astro";
 import { newtApiClient } from "@/api/newtApiClient";
 import { getFeed, filterItemsByMemberSlugs } from "@/api/rssClient";
 import type { Member, Work } from "@/types/newt";
@@ -46,7 +46,7 @@ export const getStaticPaths = async () => {
 
 const { member, works, podcasts } = Astro.props;
 ---
-<BaseLayout title={member.name}>
+<ContentPageLayout title={member.name}>
 	<section class="body">
 		<div class="header">
 			<div class="profile">
@@ -150,16 +150,15 @@ const { member, works, podcasts } = Astro.props;
 		
 		}
 	</section>
-</BaseLayout>
+</ContentPageLayout>
 
 <style>
 .body {
 	display: block grid;
-  gap: var(--gap-md);
+  gap: var(--gap-medium);
   grid-template-columns: repeat(2, 1fr);
 	grid-auto-rows: auto;
 	align-content: start;
-  padding: var(--gap-lg) 0;
 	grid-template-areas:
 		"header portrait"
 		"works works"
@@ -188,7 +187,7 @@ const { member, works, podcasts } = Astro.props;
 .header {
   display: flex;
 	flex-direction: column;
-  gap: var(--gap-sm);
+  gap: var(--gap-small);
 	grid-area: header;
 }
 
@@ -228,7 +227,7 @@ const { member, works, podcasts } = Astro.props;
 
 .work-index {
   display: grid;
-  gap: var(--gap-sm);
+  gap: var(--gap-small);
   list-style: none;
   grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
 }
@@ -273,7 +272,7 @@ const { member, works, podcasts } = Astro.props;
 .podcast-list {
 	display: grid;
 	grid-template-columns: repeat(auto-fill, minmax(40%, 1fr));
-	gap: 0 var(--gap-sm);
+	gap: 0 var(--gap-small);
 }
 
 .podcast-list-item {

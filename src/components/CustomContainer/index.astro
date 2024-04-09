@@ -1,0 +1,89 @@
+---
+enum Space {
+  Large = "large",
+  Medium = "medium",
+  Small = "small"
+}
+
+interface Padding {
+  top?: Space | string;
+  right?: Space | string;
+  bottom?: Space | string;
+  left?: Space | string;
+}
+
+interface Props {
+  class?: string;
+  padding?: Padding | Space | string;
+}
+
+const {
+  class: className,
+  padding = "0px",
+  ...props
+}: Props = Astro.props;
+
+const isSpaceValue = (value: any): value is Space => {
+  return Object.values(Space).includes(value);
+};
+
+const getSpaceValue = (value?: Space | string) => {
+  if (!value) {
+    return '0px';
+  }
+
+  if (isSpaceValue(value)) {
+    return `var(--gap-${value})`;
+  } else {
+    return value;
+  }
+};
+
+// paddingを解析してCSSの値を返す関数
+const getPaddingValues = (padding: Padding | Space | string) => {
+  if (isSpaceValue(padding)) {
+    return {
+      flexBoxPaddingTop: getSpaceValue(padding),
+      flexBoxPaddingRight: getSpaceValue(padding),
+      flexBoxPaddingBottom: getSpaceValue(padding),
+      flexBoxPaddingLeft: getSpaceValue(padding)
+    }
+  } else if (typeof padding === 'string') {
+    return {
+      flexBoxPaddingTop: padding,
+      flexBoxPaddingRight: padding,
+      flexBoxPaddingBottom: padding,
+      flexBoxPaddingLeft: padding
+    }
+  } else {
+    return {
+      flexBoxPaddingTop: padding.top ? getSpaceValue(padding.top) : '0px',
+      flexBoxPaddingRight: padding.right ? getSpaceValue(padding.right) : '0px',
+      flexBoxPaddingBottom: padding.bottom ? getSpaceValue(padding.bottom) : '0px',
+      flexBoxPaddingLeft: padding.left ? getSpaceValue(padding.left) : '0px',
+    }
+  }
+};
+
+const cssValues = {
+  ...getPaddingValues(padding),
+}
+---
+<div
+  class:list={[
+    "container",
+    className,
+  ]}
+  {...props}
+>
+  <slot/>
+</div>
+
+<style define:vars={cssValues}>
+.container {
+  padding-top: var(--flexBoxPaddingTop);
+  padding-right: var(--flexBoxPaddingRight);
+  padding-bottom: var(--flexBoxPaddingBottom);
+  padding-left: var(--flexBoxPaddingLeft);
+}
+</style>

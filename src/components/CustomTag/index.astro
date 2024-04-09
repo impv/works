@@ -10,7 +10,7 @@ interface Props {
 const {
   as = "span",
   class: className = "",
-  ...rest
+  ...props
 }: Props = Astro.props;
 
 const Element = as;
@@ -19,7 +19,7 @@ const Element = as;
 <Element class:list={[
   className,
   "tag",
-]} {...rest}>
+]} {...props}>
   <CustomTypography variant="body-small">
     <slot />
   </CustomTypography>

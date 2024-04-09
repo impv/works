@@ -1,0 +1,26 @@
+---
+import BaseLaoyout from "@/layouts/BaseLayout.astro";
+import CustomContainer from "@/components/CustomContainer/index.astro";
+
+interface Props {
+  title?: string;
+  description?: string;
+  class?: string;
+}
+
+const {
+  title,
+  description,
+}: Props = Astro.props;
+---
+
+<BaseLaoyout title={title} description={description}>
+  <CustomContainer
+    padding={{
+      top: "large",
+      bottom: "large",
+    }}
+  >
+    <slot/>
+  </CustomContainer>
+</BaseLaoyout>

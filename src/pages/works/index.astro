@@ -1,5 +1,5 @@
 ---
-import BaseLayout from "@/layouts/BaseLayout.astro";
+import ContentPageLayout from "@/layouts/ContentPageLayout.astro";
 import { newtApiClient } from "@/api/newtApiClient";
 import type { Work } from "@/types/newt";
 import CustomTypography from "@/components/CustomTypography/index.astro";
@@ -10,7 +10,7 @@ const { items: works } = await client.getContents<Work>({
   modelUid: "work",
 });
 ---
-<BaseLayout title="Works">
+<ContentPageLayout title="Works">
   <section class="body">
     <CustomTypography as="h1" variant="title-large" transition:name="works-title">Works</CustomTypography>
 
@@ -27,18 +27,17 @@ const { items: works } = await client.getContents<Work>({
       }
     </div>
   </section>
-</BaseLayout>
+</ContentPageLayout>
 
 <style>
 .body {
   display: block grid;
-  gap: var(--gap-md);
-  padding: var(--gap-lg) 0;
+  gap: var(--gap-medium);
 }
 
 .work-index {
   display: grid;
-  gap: var(--gap-sm);
+  gap: var(--gap-small);
   list-style: none;
   grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
 }

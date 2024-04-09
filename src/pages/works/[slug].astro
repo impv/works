@@ -1,5 +1,5 @@
 ---
-import BaseLayout from "@/layouts/BaseLayout.astro";
+import ContentPageLayout from "@/layouts/ContentPageLayout.astro";
 import { newtApiClient } from "@/api/newtApiClient";
 import type { Work } from "@/types/newt";
 import CustomTypography from "@/components/CustomTypography/index.astro";
@@ -23,8 +23,7 @@ export const getStaticPaths = async () => {
 
 const { work } = Astro.props;
 ---
-
-<BaseLayout title={work.title}>
+<ContentPageLayout title={work.title}>
   <section class="body">
 
     <div class="header">
@@ -278,7 +277,7 @@ const { work } = Astro.props;
       }
     </div>
   </section>
-</BaseLayout>
+</ContentPageLayout>
 
 <style>
 img,
@@ -289,15 +288,14 @@ video {
 
 .body {
   display: block grid;
-  gap: var(--gap-md);
+  gap: var(--gap-medium);
   grid-template-columns: repeat(2, 1fr);
-  padding: var(--gap-lg) 0;
 }
 
 .header {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: var(--gap-md);
+  gap: var(--gap-medium);
   grid-column-start: 1;
   grid-column-end: 3;
 }
@@ -332,7 +330,7 @@ video {
 
 .visuals {
   display: grid;
-  gap: var(--gap-sm);
+  gap: var(--gap-small);
   grid-column-start: 1;
   grid-column-end: 3;
   grid-template-columns: repeat(2, 1fr);
@@ -347,11 +345,11 @@ video {
 
 .specs {
   display: grid;
-  gap: var(--gap-md);
+  gap: var(--gap-medium);
   grid-column-start: 1;
   grid-column-end: 3;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  padding: var(--gap-md);
+  padding: var(--gap-medium);
   background-color: var(--bg-muted);
 }
 
@@ -359,7 +357,7 @@ video {
   display: flex;
   flex-direction: column;
   gap: 2.4rem;
-  padding: var(--gap-sm) 0;
+  padding: var(--gap-small) 0;
 }
 
 .label-show {

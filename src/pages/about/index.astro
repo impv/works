@@ -1,5 +1,5 @@
 ---
-import BaseLayout from "@/layouts/BaseLayout.astro";
+import ContentPageLayout from "@/layouts/ContentPageLayout.astro";
 import { newtApiClient } from "@/api/newtApiClient";
 import type { Member, Client, Partner } from "@/types/newt";
 import CustomTypography from "@/components/CustomTypography/index.astro";
@@ -25,7 +25,7 @@ const { items: members } = memberResponse;
 const { items: partners } = partnerResponse;
 const { items: clients } = clientResponse
 ---
-<BaseLayout title="About">
+<ContentPageLayout title="About">
   <section class="body">
     <div class="header">
       <CustomTypography as="h1" variant="title-large">About Impressive</CustomTypography>
@@ -92,21 +92,20 @@ const { items: clients } = clientResponse
     }
     
   </section>
-</BaseLayout>
+</ContentPageLayout>
 
 <style>
 .body {
   display: block grid;
-  gap: var(--gap-md);
-  padding: var(--gap-lg) 0;
+  gap: var(--gap-medium);
 }
 
 .member-index {
   display: grid;
-  gap: var(--gap-sm);
+  gap: var(--gap-small);
   list-style: none;
   grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  padding: 0 0 var(--gap-sm);
+  padding: 0 0 var(--gap-small);
 }
 
 .member-index-item {
@@ -152,19 +151,19 @@ const { items: clients } = clientResponse
 .header {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: var(--gap-md);
+  gap: var(--gap-medium);
 }
 
 .partners {
   display: grid;
-  gap: var(--gap-sm);
-  padding: var(--gap-sm) 0;
+  gap: var(--gap-small);
+  padding: var(--gap-small) 0;
 }
 
 .clients {
   display: grid;
-  gap: var(--gap-sm);
-  padding: var(--gap-sm) 0;
+  gap: var(--gap-small);
+  padding: var(--gap-small) 0;
 }
 
 .partner-index,

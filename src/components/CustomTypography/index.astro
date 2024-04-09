@@ -14,7 +14,7 @@ const {
   variant = "body-medium",
   bold = false,
   class: className,
-  ...rest
+  ...props
 }: Props = Astro.props;
 
 const Element = as;
@@ -25,7 +25,7 @@ const Element = as;
   variant,
   { "bold": bold },
   "typography",
-]} {...rest}>
+]} {...props}>
   <slot />
 </Element>
 
