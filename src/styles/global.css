@@ -13,11 +13,13 @@ html {
 
 html {
   font-size: 10px;
+  scroll-padding-top: 9.6rem;
 }
 
 body {
   font-size: 1.6rem;
   line-height: 1.6;
+  scroll-padding-top: 9.6rem;
 }
 
 a {

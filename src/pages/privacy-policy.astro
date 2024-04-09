@@ -1,0 +1,82 @@
+---
+import ContentPageLayout from "@/layouts/ContentPageLayout.astro";
+import CustomTypography from "@/components/CustomTypography/index.astro";
+import CustomList from "@/components/CustomList/index.astro";
+---
+<ContentPageLayout title="Privacy Policy">
+  <section class="body">
+    <CustomTypography as="h1" variant="title-large" transition:name="works-title">Privacy policy</CustomTypography>
+
+    <section class="section" id="基本方針">
+      <CustomTypography
+        as="h2"
+        variant="title-medium"
+      >
+        <a href="#基本方針">基本方針</a>
+      </CustomTypography>
+
+      <CustomList>
+        <li>株式会社インプレッシブ(以下当社)は、個人情報保護法および関連するその他の法令・規範を遵守します。</li>
+        <li>当社は、個人情報保護に関する管理体制を確立し、その徹底に努めます。</li>
+        <li>当社は、個人情報をお客様に明示した利用目的の範囲内で取り扱います。また、当社はお客様からご提供いただいた個人情報を、お客様の同意がある場合または正当な理由がある場合を除き、第三者に開示または提供しません。</li>
+        <li>当社は、個人情報を正確かつ最新の状態に保つとともに、個人情報への不正アクセス、個人情報の紛失、破壊、改ざんおよび漏えい等の予防に努めます。</li>
+        <li>当社は、お客様からの個人情報に関するお問い合わせ、開示等のご請求に誠実かつ迅速に対応します。</li>
+      </CustomList>
+    </section>
+
+    <section class="section" id="個人情報の利用目的">
+      <CustomTypography
+        as="h2"
+        variant="title-medium"
+      >
+        <a href="#個人情報の利用目的">個人情報の利用目的</a>
+      </CustomTypography>
+
+      <CustomList>
+        <li>当社は、お客様から個人情報をご提供いただく場合、あらかじめ個人情報の利用目的を明示し、その利用目的の範囲内で利用します。</li>
+        <li>あらかじめ明示した利用目的の範囲を超えて、お客様の個人情報を利用する必要が生じた場合は、お客様にその旨をご連絡し、お客様の同意をいただいた上で利用します。</li>
+      </CustomList>
+    </section>
+
+    <section class="section" id="その他">
+      <CustomTypography
+        as="h2"
+        variant="title-medium"
+      >
+        <a href="#その他">その他</a>
+      </CustomTypography>
+
+      <CustomList>
+        <li>当社がご提供する一部のサービス（当社が運営するウェブサイトのサービスなど）で、お客様から個人情報をご提供いただけない場合はご利用できない事がございます。あらかじめご了承ください。</li>
+        <li>16歳未満のお客様は、必ず保護者の方の同意を得た上で、個人情報をご提供いただきますようお願いします。</li>
+        <li>当社はウェブサイトにおけるより良いサービス提供のため、クッキーおよびWebビーコンを使用することがあります。</li>
+        <li>当社のウェブサイトにリンクしている他社のウェブサイトにおけるお客様の個人情報の安全確保については、当社が責任を負うことはできません。</li>
+        <li>当社では、より良くお客様の個人情報の保護を図るために、または、関係法令の変更に伴い、個人情報保護方針を改定することがあります。</li>
+      </CustomList>
+    </section>
+
+    <section class="section">
+      <CustomTypography>
+        最終更新日: 2021年03月29日
+      </CustomTypography>
+
+      <CustomTypography>
+        株式会社インプレッシブ<br/>代表取締役社長 藤田 洋
+      </CustomTypography>
+    </section>
+  </section>
+</ContentPageLayout>
+
+<style>
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-large);
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-small);
+}
+</style>
