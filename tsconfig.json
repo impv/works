@@ -2,7 +2,7 @@
   "extends": "astro/tsconfigs/strict",
   "compilerOptions": {
     "rootDir": "src",
-    "baseUrl": "/Users/takehitokita/Project/works",
+    "baseUrl": ".",
     "paths": {
       "@/*": [
         "src/*"
