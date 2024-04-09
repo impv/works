@@ -11,6 +11,7 @@ const {
   as = "ul",
   type = "disc",
   class: className = "",
+  ...props
 }: Props = Astro.props;
 
 const Element = as ;
@@ -20,7 +21,7 @@ const Element = as ;
   "list",
   type,
   className,
-]}>
+]} {...props}>
   <slot />
 </Element>
 
