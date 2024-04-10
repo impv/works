@@ -43,8 +43,8 @@ const { items: works } = await client.getContents<Work>({
 }
 
 .work-index-item {
-  display: grid;
-  grid-template-rows: subgrid;
+  display: flex;
+  flex-direction: column;
   gap: 0.8rem;
   grid-row: span 2;
   color: var(--fg-subtle);
