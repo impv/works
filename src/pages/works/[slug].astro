@@ -72,7 +72,7 @@ const { work } = Astro.props;
     <div class="hero" transition:name={`cover-${work.slug}`}>
       {
         work.heroVisual?.fileType.match(/video/) ? (
-          <video loop muted autoplay width={work.heroVisual?.width} height={work.heroVisual?.height} poster={`${work.coverImage.src}?format=webp`}>
+          <video loop muted autoplay playsinline width={work.heroVisual?.width} height={work.heroVisual?.height} poster={`${work.coverImage.src}?format=webp`}>
             <source src={`${work.heroVisual?.src}?format=webm&size=1520`} type="video/webm" />
           </video>
         ) : (
