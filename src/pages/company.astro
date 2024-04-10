@@ -353,7 +353,7 @@ import CustomList from "@/components/CustomList/index.astro";
 .principles-list {
   display: grid;
   gap: var(--gap-medium);
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(4, 1fr);
 }
 
 .principles-item {
@@ -366,8 +366,18 @@ import CustomList from "@/components/CustomList/index.astro";
   display: block;
 }
 
+@media (max-width: 1280px) {
+  .principles-list {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
 @media (max-width: 768px) {
   .profile-section {
+    grid-template-columns: 1fr;
+  }
+
+  .principles-list {
     grid-template-columns: 1fr;
   }
 }

@@ -104,6 +104,13 @@ document.addEventListener('astro:page-load', () => {
             About
           </a>
 
+          <a href="/company" class:list={[
+            "site-nav-item",
+            Astro.url.pathname.match("company") && "active"
+          ]} data-astro-prefetch>
+            Company
+          </a>
+
           <a href="/contact" class:list={[
             "site-nav-item",
             Astro.url.pathname.match("contact") && "active"
@@ -136,10 +143,6 @@ document.addEventListener('astro:page-load', () => {
               Podcast
               <ExternalLinkIcon />
             </a>
-          </CustomTypography>
-
-          <CustomTypography>
-            <a href="/company">Company</a>
           </CustomTypography>
 
           <CustomTypography>
