@@ -1,6 +1,7 @@
 ---
 import ContentPageLayout from "@/layouts/ContentPageLayout.astro";
 import CustomTypography from "@/components/CustomTypography/index.astro";
+import CustomList from "@/components/CustomList/index.astro";
 ---
 <ContentPageLayout title="Company">
   <section class="body">
@@ -9,7 +10,7 @@ import CustomTypography from "@/components/CustomTypography/index.astro";
     <section class="content-section" id="Philosophy">
       <CustomTypography class="section-title" as="h2" variant="title-medium">Philosophy</CustomTypography>
 
-      <CustomTypography variant="title-large">
+      <CustomTypography variant="title-medium">
         ヒトを大切に、想いをカタチに、価値ある未来を創造する
       </CustomTypography>
     </section>
@@ -17,7 +18,7 @@ import CustomTypography from "@/components/CustomTypography/index.astro";
     <section class="content-section" id="Mission">
       <CustomTypography class="section-title" as="h2" variant="title-medium">Mission</CustomTypography>
 
-      <CustomTypography variant="title-large">
+      <CustomTypography variant="title-medium">
         顧客の要望を最良の形で実現すること<br />
         クリエイティブで世の中を豊かにすること<br />
         繋がる全ての人に感動を与えること
@@ -27,9 +28,52 @@ import CustomTypography from "@/components/CustomTypography/index.astro";
     <section class="content-section" id="Value">
       <CustomTypography class="section-title" as="h2" variant="title-medium">Value</CustomTypography>
 
-      <CustomTypography variant="title-large">
+      <CustomTypography variant="title-medium">
         人の価値を最大化し、世の中の価値に転換する
       </CustomTypography>
+    </section>
+
+    <section class="content-section" id="Value">
+      <CustomTypography class="section-title" as="h2" variant="title-medium">Principles</CustomTypography>
+      <CustomTypography variant="title-medium">信頼を得る</CustomTypography>
+
+      <CustomList>
+        <CustomTypography as="li" variant="title-small">
+          顧客を知る
+        </CustomTypography>
+        
+        <CustomTypography as="li" variant="title-small">
+          顧客の期待を上回る努力をする
+        </CustomTypography>
+        
+        <CustomTypography as="li" variant="title-small">
+          自己に責任を持つ
+        </CustomTypography>
+        
+        <CustomTypography as="li" variant="title-small">
+          他人任せにしない
+        </CustomTypography>
+        
+        <CustomTypography as="li" variant="title-small">
+          仲間を理解し助け合う
+        </CustomTypography>
+        
+        <CustomTypography as="li" variant="title-small">
+          先を見越して行動する
+        </CustomTypography>
+        
+        <CustomTypography as="li" variant="title-small">
+          素早く行動する
+        </CustomTypography>
+        
+        <CustomTypography as="li" variant="title-small">
+          自信を持って行動する
+        </CustomTypography>
+        
+        <CustomTypography as="li" variant="title-small">
+          常に感謝の気持ちを持つ
+        </CustomTypography>
+      </CustomList>
     </section>
 
     <section class="content-section" id="Profile">
