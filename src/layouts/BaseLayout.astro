@@ -23,17 +23,23 @@ document.addEventListener('astro:page-load', () => {
   // menu-buttonをクリックした時にsite-navにactiveクラスを付与する
   document.querySelector('.menu-button').addEventListener('click', () => {
     document.querySelector('.site-nav').classList.add('active');
+    // bodyにoverflow-hiddenクラスを付与する
+    document.querySelector('body').classList.add('overflow-hidden');
   });
   
   // close-buttonをクリックした時にsite-navからactiveクラスを削除する
   document.querySelector('.close-button').addEventListener('click', () => {
     document.querySelector('.site-nav').classList.remove('active');
+    // bodyからoverflow-hiddenクラスを削除する
+    document.querySelector('body').classList.remove('overflow-hidden');
   });
 
   // site-navの背景をクリックした時にsite-navからactiveクラスを削除する
   document.querySelector('.site-nav').addEventListener('click', (e) => {
     if (e.target === document.querySelector('.site-nav')) {
       document.querySelector('.site-nav').classList.remove('active');
+      // bodyからoverflow-hiddenクラスを削除する
+      document.querySelector('body').classList.remove('overflow-hidden');
     }
   });
 });
@@ -106,11 +112,11 @@ document.addEventListener('astro:page-load', () => {
           </a>
         </nav>
 
-        <button aria-label="Menu" class="menu-button">
+        <button aria-label="Open Menu" aria-expanded="false" class="menu-button">
           <MenuIcon />
         </button>
 
-        <button aria-label="Menu" class="close-button">
+        <button aria-label="Close Menu" aria-expanded="true" class="close-button">
           <CloseIcon />
         </button>
       </header>
@@ -303,6 +309,10 @@ body {
 
 .sub-nav a:hover {
   color: var(--fg-subtle-hover);
+}
+
+.overflow-hidden {
+  overflow: hidden;
 }
 
 @media (min-width: 768px) {

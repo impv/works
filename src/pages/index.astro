@@ -224,7 +224,8 @@ const { items: feed } = feedResponse;
 
 .works {
 	grid-area: works;
-	display: grid;
+	display: flex;
+	flex-direction: column;
 	gap: var(--gap-small);
 	padding: var(--gap-medium) 0;
 }
@@ -233,8 +234,9 @@ const { items: feed } = feedResponse;
 	display: flex;
 	overflow-x: auto;
 	gap: var(--gap-medium);
-	padding-right: 50dvw;
+	padding-right: 9.6rem;
 	scroll-snap-type: x mandatory;
+	position: relative;
 }
 
 .work-thumbnail {
