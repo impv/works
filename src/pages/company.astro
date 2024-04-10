@@ -2,86 +2,125 @@
 import ContentPageLayout from "@/layouts/ContentPageLayout.astro";
 import CustomTypography from "@/components/CustomTypography/index.astro";
 ---
-<ContentPageLayout title="Company profile">
+<ContentPageLayout title="Company">
   <section class="body">
-    <CustomTypography as="h1" variant="title-large">Company profile</CustomTypography>
+    <CustomTypography as="h1" variant="title-large">Company</CustomTypography>
 
-    <section class="profile-table">
-      <section class="profile-section">
-        <CustomTypography variant="title-small">
-          会社名
-        </CustomTypography>
-        <CustomTypography variant="body-large">
-          株式会社インプレッシブ
-        </CustomTypography>
-      </section>
+    <section class="content-section" id="Philosophy">
+      <CustomTypography class="section-title" as="h2" variant="title-medium">Philosophy</CustomTypography>
 
-      <section class="profile-section">
-        <CustomTypography variant="title-small">
-          所在地
-        </CustomTypography>
-        <CustomTypography variant="body-large">
-          〒151-0063<br />
-          東京都渋谷区富ヶ谷2-22-12 ヴィトレ代々木パーク 4F
-        </CustomTypography>
-      </section>
+      <CustomTypography variant="title-large">
+        ヒトを大切に、想いをカタチに、価値ある未来を創造する
+      </CustomTypography>
+    </section>
 
-      <section class="profile-section">
-        <CustomTypography variant="title-small">
-          設立
-        </CustomTypography>
-        <CustomTypography variant="body-large">
-          2004年01月09日
-        </CustomTypography>
-      </section>
+    <section class="content-section" id="Mission">
+      <CustomTypography class="section-title" as="h2" variant="title-medium">Mission</CustomTypography>
 
-      <section class="profile-section">
-        <CustomTypography variant="title-small">
-          役員構成
-        </CustomTypography>
-        <CustomTypography variant="body-large">
-          藤田 洋 (代表取締役社長)<br />
-          中野 浩一 (取締役副社長)<br />
-          喜田 豪人 (取締役)
-        </CustomTypography>
-      </section>
+      <CustomTypography variant="title-large">
+        顧客の要望を最良の形で実現すること<br />
+        クリエイティブで世の中を豊かにすること<br />
+        繋がる全ての人に感動を与えること
+      </CustomTypography>
+    </section>
 
-      <section class="profile-section">
-        <CustomTypography variant="title-small">
-          資本金
-        </CustomTypography>
-        <CustomTypography variant="body-large">
-          10,000,000円
-        </CustomTypography>
-      </section>
+    <section class="content-section" id="Value">
+      <CustomTypography class="section-title" as="h2" variant="title-medium">Value</CustomTypography>
 
-      <section class="profile-section">
-        <CustomTypography variant="title-small">
-          従業員数
-        </CustomTypography>
-        <CustomTypography variant="body-large">
-          18名 (取締役3名含む)
-        </CustomTypography>
-      </section>
+      <CustomTypography variant="title-large">
+        人の価値を最大化し、世の中の価値に転換する
+      </CustomTypography>
+    </section>
 
-      <section class="profile-section">
-        <CustomTypography variant="title-small">
-          顧問弁護士
-        </CustomTypography>
-        <CustomTypography variant="body-large">
-          佐々木勝洋法律事務所
-        </CustomTypography>
-      </section>
+    <section class="content-section" id="Profile">
+      <CustomTypography class="section-title" as="h2" variant="title-medium">Profile</CustomTypography>
 
-      <section class="profile-section">
-        <CustomTypography variant="title-small">
-          顧問税理士
-        </CustomTypography>
-        <CustomTypography variant="body-large">
-          IXS会計事務所
-        </CustomTypography>
-      </section>
-    </div>
+      <div class="profile-table">
+        <section class="profile-section" id="会社名">
+          <CustomTypography variant="title-small">
+            会社名
+          </CustomTypography>
+          <CustomTypography variant="body-large">
+            株式会社インプレッシブ
+          </CustomTypography>
+        </section>
+    
+        <section class="profile-section" id="所在地">
+          <CustomTypography variant="title-small">
+            所在地
+          </CustomTypography>
+          <CustomTypography variant="body-large">
+            〒151-0063<br />
+            東京都渋谷区富ヶ谷2-22-12 ヴィトレ代々木パーク 4F
+          </CustomTypography>
+        </section>
+    
+        <section class="profile-section">
+          <CustomTypography variant="title-small" id="設立">
+            設立
+          </CustomTypography>
+          <CustomTypography variant="body-large">
+            2004年01月09日
+          </CustomTypography>
+        </section>
+    
+        <section class="profile-section" id="役員構成">
+          <CustomTypography variant="title-small">
+            役員構成
+          </CustomTypography>
+          <CustomTypography variant="body-large">
+            藤田 洋 (代表取締役社長)<br />
+            中野 浩一 (取締役副社長)<br />
+            喜田 豪人 (取締役)
+          </CustomTypography>
+        </section>
+    
+        <section class="profile-section" id="資本金">
+          <CustomTypography variant="title-small">
+            資本金
+          </CustomTypography>
+          <CustomTypography variant="body-large">
+            10,000,000円
+          </CustomTypography>
+        </section>
+    
+        <section class="profile-section" id="従業員数">
+          <CustomTypography variant="title-small">
+            従業員数
+          </CustomTypography>
+          <CustomTypography variant="body-large">
+            18名 (取締役3名含む)
+          </CustomTypography>
+        </section>
+    
+        <section class="profile-section" id="顧問弁護士">
+          <CustomTypography variant="title-small">
+            顧問弁護士
+          </CustomTypography>
+          <CustomTypography variant="body-large">
+            佐々木勝洋法律事務所
+          </CustomTypography>
+        </section>
+    
+        <section class="profile-section" id="顧問税理士">
+          <CustomTypography variant="title-small">
+            顧問税理士
+          </CustomTypography>
+          <CustomTypography variant="body-large">
+            IXS会計事務所
+          </CustomTypography>
+        </section>
+    
+        <section class="profile-section" id="適格請求書発行事業者登録番号">
+          <CustomTypography variant="title-small">
+            適格請求書発行事業者登録番号
+          </CustomTypography>
+          <CustomTypography variant="body-large">
+            T1011001072670
+          </CustomTypography>
+        </section>
+      </div>
+    </section>
   </section>
 </ContentPageLayout>
 
@@ -92,14 +131,19 @@ import CustomTypography from "@/components/CustomTypography/index.astro";
   gap: var(--gap-large);
 }
 
-.profile {
+.content-section {
   display: flex;
   flex-direction: column;
   gap: var(--gap-small);
+  padding: var(--gap-medium) 0;
 }
 
 .profile-table {
   border-top: 1px solid var(--border-default);
+}
+
+.section-title {
+  color: var(--fg-subtle);
 }
 
 .profile-section {
