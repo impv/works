@@ -19,6 +19,18 @@ const {
 }: Props = Astro.props;
 ---
 <script is:inline>
+function faviconChange() {
+  const darkMode = window.matchMedia('(prefers-color-scheme: dark)');
+  const favicon = document.querySelector('link[rel="icon"]');
+  darkMode.addEventListener('change', () => {
+    if (darkMode.matches) {
+      favicon.href = '/favicon-white.svg';
+    } else {
+      favicon.href = '/favicon-black.svg';
+    }
+  });
+}
+
 document.addEventListener('astro:page-load', () => {
   // menu-buttonをクリックした時にsite-navにactiveクラスを付与する
   document.querySelector('.menu-button').addEventListener('click', () => {
@@ -40,17 +52,6 @@ document.addEventListener('astro:page-load', () => {
       document.querySelector('.site-nav').classList.remove('active');
       // bodyからoverflow-hiddenクラスを削除する
       document.querySelector('body').classList.remove('overflow-hidden');
-    }
-  });
-
-  // カラーモードがダークだった場合にfaviconをfavicon-white.svgに変更する
-  const darkMode = window.matchMedia('(prefers-color-scheme: dark)');
-  const favicon = document.querySelector('link[rel="icon"]');
-  darkMode.addEventListener('change', () => {
-    if (darkMode.matches) {
-      favicon.href = '/favicon-white.svg';
-    } else {
-      favicon.href = '/favicon-black.svg';
     }
   });
 });
@@ -76,10 +77,11 @@ document.addEventListener('astro:page-load', () => {
     <meta name="twitter:description" content={description}>
     <meta name="twitter:url" content={Astro.request.url}>
     <meta name="author" content="Impressive">
-    <link rel="icon" href="/favicon-black.svg" sizes="any" type="image/svg+xml">
+    <link rel="icon" href="/favicon-black.svg" type="image/svg+xml" media="(prefers-color-scheme: light)">
+    <link rel="icon" href="/favicon-white.svg" type="image/svg+xml" media="(prefers-color-scheme: dark)">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
     <link rel="manifest" href="/site.webmanifest">
-    <meta name="theme-color" content="#4a4a4a">
+    <meta name="theme-color" content="#1C2128">
     <ViewTransitions />
   </head> 
   <body>
