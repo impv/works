@@ -19,18 +19,6 @@ const {
 }: Props = Astro.props;
 ---
 <script is:inline>
-function faviconChange() {
-  const darkMode = window.matchMedia('(prefers-color-scheme: dark)');
-  const favicon = document.querySelector('link[rel="icon"]');
-  darkMode.addEventListener('change', () => {
-    if (darkMode.matches) {
-      favicon.href = '/favicon-white.svg';
-    } else {
-      favicon.href = '/favicon-black.svg';
-    }
-  });
-}
-
 document.addEventListener('astro:page-load', () => {
   // menu-buttonをクリックした時にsite-navにactiveクラスを付与する
   document.querySelector('.menu-button').addEventListener('click', () => {
