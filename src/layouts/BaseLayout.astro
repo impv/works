@@ -42,6 +42,17 @@ document.addEventListener('astro:page-load', () => {
       document.querySelector('body').classList.remove('overflow-hidden');
     }
   });
+
+  // カラーモードがダークだった場合にfaviconをfavicon-white.svgに変更する
+  const darkMode = window.matchMedia('(prefers-color-scheme: dark)');
+  const favicon = document.querySelector('link[rel="icon"]');
+  darkMode.addEventListener('change', () => {
+    if (darkMode.matches) {
+      favicon.href = '/favicon-white.svg';
+    } else {
+      favicon.href = '/favicon-black.svg';
+    }
+  });
 });
 </script>
 <html lang="ja">
@@ -65,6 +76,10 @@ document.addEventListener('astro:page-load', () => {
     <meta name="twitter:description" content={description}>
     <meta name="twitter:url" content={Astro.request.url}>
     <meta name="author" content="Impressive">
+    <link rel="icon" href="/favicon-black.svg" sizes="any" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <meta name="theme-color" content="#4a4a4a">
     <ViewTransitions />
   </head> 
   <body>
