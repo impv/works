@@ -40,6 +40,14 @@ const hundleMenuState = () => {
       body?.classList.remove('overflow-hidden');
     }
   });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      trap.deactivate();
+      siteNav?.classList.remove('active');
+      body?.classList.remove('overflow-hidden');
+    }
+  });
 }
 
 document.addEventListener('astro:page-load', hundleMenuState), { once: true };
