@@ -115,6 +115,13 @@ document.addEventListener('astro:page-load', hundleMenuState), { once: true };
             About
           </a>
 
+          <a href="/join" class:list={[
+            "site-nav-item",
+            Astro.url.pathname.match("join") && "active"
+          ]} data-astro-prefetch>
+            Join
+          </a>
+
           <a href="/company" class:list={[
             "site-nav-item",
             Astro.url.pathname.match("company") && "active"

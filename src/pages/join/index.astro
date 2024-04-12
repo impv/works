@@ -1,0 +1,495 @@
+---
+import ContentPageLayout from "@/layouts/ContentPageLayout.astro";
+import CustomTypography from "@/components/CustomTypography/index.astro";
+import CustomList from "@/components/CustomList/index.astro";
+import MessageIcon from "@/components/Icons/MessageIcon.astro";
+---
+<ContentPageLayout title="Join us">
+  <section class="body">
+    <div class="header">
+      <CustomTypography as="h1" variant="title-large">Join us</CustomTypography>
+  
+      <CustomTypography variant="body-large">
+        私たちは、各個人が持つ多様な背景、文化、視点を大切にしています。そんな私たちと共に働くことに興味をお持ちの方はぜひご連絡ください。
+      </CustomTypography>
+    </div>
+
+    <img src="/images/office.jpg" alt="Join us" />
+
+    <section class="content-section culture" id="culture">
+      <CustomTypography class="culture-title" as="h2" variant="title-medium">Culture</CustomTypography>
+
+      <CustomTypography class="culture-lead" variant="body-large">
+        私たちの会社では、各個人が持つ多様な背景、文化、視点を大切にし、ライフスタイルに合わせ快適に働ける環境の構築を目指しています。
+      </CustomTypography>
+      
+      <div class="culture-details">
+        <section class="culture-section">
+          <CustomTypography as="h3" variant="title-small">コミュニケーション</CustomTypography>
+          <CustomTypography>
+            クライアントとのやり取りも社内のコミュニケーションも、Slackを中心に行います。また、個々の成長とメンタルの健康を重視しており、1on1ミーティングを定期的に実施しています。
+          </CustomTypography>
+        </section>
+
+        <section class="culture-section">
+          <CustomTypography as="h3" variant="title-small">キャリア</CustomTypography>
+          <CustomTypography>
+            部署や役職をにとらわれず、能力に応じてプロジェクトを担当することで、個々のスキルアップをサポートしています。また、能力向上のための資料購入やツールの導入を積極的に行っています。
+          </CustomTypography>
+        </section>
+
+        <section class="culture-section">
+          <CustomTypography as="h3" variant="title-small">品質</CustomTypography>
+          <CustomTypography>
+            コードレビューとデザインレビューを徹底し、アウトプットの品質を担保しています。社内での勉強会やペアプログラミングを通じて、新しい技術の習得や最新の知識の共有にも力を入れています。
+          </CustomTypography>
+        </section>
+
+        <section class="culture-section">
+          <CustomTypography as="h3" variant="title-small">ワークスタイル</CustomTypography>
+          <CustomTypography>
+            リモートワークとフレックスタイム制を採用しています。自身のライフスタイルに合わせた働き方を選択できます。年に数回、社内イベントを開催し、社員同士の交流を深める機会を設けています。
+          </CustomTypography>
+        </section>
+      </div>
+    </section>
+
+    <section class="content-section">
+      <CustomTypography as="h2" variant="title-medium">募集要項</CustomTypography>
+
+      <div class="content-lead">
+        <CustomTypography variant="body-large">
+          以下の職種について、常時募集しております。実務経験は歓迎しますが、重要視はしません。リモートワーク化でも他者とコミュニケーションが取れることと、新しい技術や知識を学びたいという意欲を持っている方を歓迎します。
+        </CustomTypography>
+      </div>
+
+      <div class="recruitments">
+        <section class="recruitments-item">
+          <CustomTypography as="h3" variant="title-small">
+            デザイナー
+          </CustomTypography>
+
+          <CustomTypography variant="body-large">
+            給与20万〜40万
+          </CustomTypography>
+
+          <CustomTypography class="subtle">
+            ウェブサイト、ウェブアプリケーションのデザインとコーディング業務を担当していただきます。デザインツール（Figma、Sketch、Adobe XD）の使用経験がある方を歓迎します。
+          </CustomTypography>
+
+          <CustomTypography variant="body-large">
+            <a href="mailto:i_inquiry_from_corpor-aaaab7j564nph4lr22oeavwcnu@impv.slack.com?subject=デザイナー採用の応募&body=お名前 :%0A%0Aフリガナ :%0A%0A自己紹介 :%0A%0A志望動機 :">
+              応募する
+              <MessageIcon />
+            </a>
+          </CustomTypography>
+        </section>
+
+        <section class="recruitments-item">
+          <CustomTypography as="h3" variant="title-small">
+            フロントエンドエンジニア
+          </CustomTypography>
+
+          <CustomTypography variant="body-large">
+            給与20万〜40万
+          </CustomTypography>
+
+          <CustomTypography class="subtle">
+            フロントエンドフレームワークを使ったWebアプリケーションの開発業務を担当していただきます。Reactでの開発経験がある方を歓迎します。
+          </CustomTypography>
+
+          <CustomTypography variant="body-large">
+            <a href="mailto:i_inquiry_from_corpor-aaaab7j564nph4lr22oeavwcnu@impv.slack.com?subject=フロントエンドエンジニア採用の応募&body=お名前 :%0A%0Aフリガナ :%0A%0A自己紹介 :%0A%0A志望動機 :">
+              応募する
+              <MessageIcon />
+            </a>
+          </CustomTypography>
+        </section>
+      </div>
+    </section>
+
+    <section class="content-section">
+      <CustomTypography as="h2" variant="title-medium">
+        選考プロセス
+      </CustomTypography>
+
+      <div class="steps">
+        <section class="steps-item">
+          <CustomTypography as="h3" variant="title-small" class="steps-item-title">
+            ステップ1
+          </CustomTypography>
+          <CustomTypography variant="body-large" class="steps-item-body">
+            応募要項にある書類を提出していただきます。
+          </CustomTypography>
+        </section>
+  
+        <section class="steps-item">
+          <CustomTypography as="h3" variant="title-small" class="steps-item-title">
+            ステップ2
+          </CustomTypography>
+          <CustomTypography variant="body-large" class="steps-item-body">
+            書類選考を行います。
+          </CustomTypography>
+        </section>
+  
+        <section class="steps-item">
+          <CustomTypography as="h3" variant="title-small" class="steps-item-title">
+            ステップ3
+          </CustomTypography>
+          <CustomTypography variant="body-large" class="steps-item-body">
+            メンバーによる一次面接を行います。
+          </CustomTypography>
+        </section>
+  
+        <section class="steps-item">
+          <CustomTypography as="h3" variant="title-small" class="steps-item-title">
+            ステップ4
+          </CustomTypography>
+          <CustomTypography variant="body-large" class="steps-item-body">
+            役員による二次面接を行います。
+          </CustomTypography>
+        </section>
+      </div>
+    </section>
+
+    <section class="content-section">
+      <CustomTypography as="h2" variant="title-medium">
+        働く環境
+      </CustomTypography>
+
+      <div class="table">
+        <section class="table-row">
+          <CustomTypography as="h3" variant="title-small">
+            勤務地
+          </CustomTypography>
+          <CustomTypography variant="body-large">
+            自由
+          </CustomTypography>
+        </section>
+  
+        <section class="table-row">
+          <CustomTypography as="h3" variant="title-small">
+            オフィス
+          </CustomTypography>
+          <CustomTypography variant="body-large">
+            東京都渋谷区富ヶ谷2-22-12 ヴィトレ代々木パーク 4F
+          </CustomTypography>
+        </section>
+  
+        <section class="table-row">
+          <CustomTypography as="h3" variant="title-small">
+            最寄り駅
+          </CustomTypography>
+          <CustomList>
+            <li>
+              <CustomTypography variant="body-large">
+                渋谷駅から徒歩15分
+              </CustomTypography>
+            </li>
+            <li>
+              <CustomTypography variant="body-large">
+                代々木八幡駅から徒歩13分
+              </CustomTypography>
+            </li>
+            <li>
+              <CustomTypography variant="body-large">
+                駒場東大前駅から徒歩10分
+              </CustomTypography>
+            </li>
+          </CustomList>
+        </section>
+  
+        <section class="table-row">
+          <CustomTypography as="h3" variant="title-small">
+            休日
+          </CustomTypography>
+          <div class="content-sub-section">
+            <CustomTypography variant="body-large">
+              土日祝日休み
+            </CustomTypography>
+            <CustomList>
+              <li>
+                夏季休暇として8月〜9月の間で3日間の休暇を取得できます
+              </li>
+              <li>
+                年末年始は12月29日〜1月3日まで休暇を取得できます
+              </li>
+            </CustomList>
+          </div>
+        </section>
+  
+        <section class="table-row">
+          <CustomTypography as="h3" variant="title-small">
+            勤務時間
+          </CustomTypography>
+          <div class="content-sub-section">
+            <CustomTypography variant="body-large">
+              フレックスタイム制
+            </CustomTypography>
+            <CustomList>
+              <li>
+                コアタイムの11:00 ~ 17:00以外は自由に勤務時間を選択できます
+              </li>
+              <li>
+                コアタイムに稼働できない場合は、事前に申請が必要です
+              </li>
+            </CustomList>
+          </div>
+        </section>
+  
+        <section class="table-row">
+          <CustomTypography as="h3" variant="title-small">
+            社会保険
+          </CustomTypography>
+          <div class="content-sub-section">
+            <CustomTypography variant="body-large">
+              完備
+            </CustomTypography>
+          </div>
+        </section>
+  
+        <section class="table-row">
+          <CustomTypography as="h3" variant="title-small">
+            有給休暇
+          </CustomTypography>
+          <div class="content-sub-section">
+            <CustomTypography variant="body-large">
+              入社後6ヶ月経過後に10日付与
+            </CustomTypography>
+          </div>
+        </section>
+  
+        <section class="table-row">
+          <CustomTypography as="h3" variant="title-small">
+            その他の休暇
+          </CustomTypography>
+          <div class="content-sub-section">
+            <CustomTypography variant="body-large">
+              各種法定休暇を取得できます
+            </CustomTypography>
+
+            <CustomTypography class="subtle">
+              年次有給休暇 / 産前産後休暇 / 生理休暇 / 育児休暇 / 介護休暇 / 子供の看病休暇 / 裁判員休暇
+            </CustomTypography>
+          </div>
+        </section>
+  
+        <section class="table-row">
+          <CustomTypography as="h3" variant="title-small">
+            補助・福利厚生
+          </CustomTypography>
+          <div class="content-sub-section">
+            <section class="content-sub-sub-section">
+              <CustomTypography as="h4" variant="body-large">
+                作業PCの購入補助
+              </CustomTypography>
+              <CustomTypography class="subtle">
+                PC購入金額の半額（上限10万円）を補助します
+              </CustomTypography>
+            </section>
+
+            <section class="content-sub-sub-section">
+              <CustomTypography as="h4" variant="body-large">
+                リモート手当
+              </CustomTypography>
+              <CustomTypography class="subtle">
+                自宅の業務環境の改善のために毎月5,000円を支給します
+              </CustomTypography>
+            </section>
+
+            <section class="content-sub-sub-section">
+              <CustomTypography as="h4" variant="body-large">
+                決算賞与
+              </CustomTypography>
+              <CustomTypography class="subtle">
+                決算時の業績に応じて、純利益の25%を全体賞与コストとして、当期のスタッフ評価に応じて支給します
+              </CustomTypography>
+            </section>
+
+            <section class="content-sub-sub-section">
+              <CustomTypography as="h4" variant="body-large">
+                結婚祝い / 出産祝い
+              </CustomTypography>
+              <CustomTypography class="subtle">
+                お祝い金として50,000円を支給します
+              </CustomTypography>
+            </section>
+
+            <section class="content-sub-sub-section">
+              <CustomTypography as="h4" variant="body-large">
+                時制や環境の変化に応じた補助
+              </CustomTypography>
+              <CustomTypography class="subtle">
+                国際的な時制や環境の変化に応じて、補助金を支給することがあります
+              </CustomTypography>
+              <CustomTypography class="subtle">
+                過去の補助例 : 円安による給与補助金100,000円、コロナによるリモートワーク補助金100,000円など
+              </CustomTypography>
+            </section>
+          </div>
+        </section>
+      </div>
+    </section>
+  </section>
+</ContentPageLayout>
+
+<style>
+img {
+  width: 100%;
+  height: auto;
+}
+
+.subtle {
+  color: var(--fg-subtle);
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-large);
+}
+
+.header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--gap-medium);
+}
+
+.content-section {
+  display: grid;
+  gap: var(--gap-small);
+  padding: var(--gap-medium) 0;
+}
+
+.content-sub-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+}
+
+.content-sub-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.culture {
+  display: grid;
+  grid-template-columns: repat(2, 1fr);
+  grid-template-areas: 
+    "culture-title ."
+    "culture-lead ."
+    "culture-details culture-details";
+}
+
+.culture-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+}
+
+.culture-title {
+  grid-area: culture-title;
+}
+
+.culture-lead {
+  grid-area: culture-lead;
+}
+
+.culture-details {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--gap-medium);
+  grid-area: culture-details;
+}
+
+.table {
+  border-top: 1px solid var(--border-default);
+}
+
+.table-row {
+  display: grid;
+  flex-direction: column;
+  gap: 1.6rem;
+  grid-template-columns: 1fr 3fr;
+  padding: 2.4rem 0;
+  border-bottom: 1px solid var(--border-default);
+}
+
+.steps {
+  display: grid;
+  gap: var(--gap-small);
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.steps-item {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-muted);
+}
+
+.steps-item-title {
+  background-color: var(--bg-subtle);
+  padding: 2.4rem;
+}
+
+.steps-item-body {
+  padding: 2.4rem;
+}
+
+.recruitments {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--gap-medium);
+}
+
+.recruitments-item {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+  padding: 2.4rem;
+  background-color: var(--bg-muted);
+}
+
+.content-lead {
+  display: grid;
+  gap: var(--gap-medium);
+  grid-template-columns: repeat(2, 1fr);
+}
+
+@media (max-width: 1024px) {
+  .culture {
+    grid-template-columns: 1fr;
+  }
+
+  .culture-details {
+    grid-template-columns: 1fr;
+  }
+
+  .steps {
+    grid-template-columns: 1fr;
+  }
+
+  .content-lead {
+    grid-template-columns: 1fr;
+  }
+
+  .recruitments {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .header {
+    grid-template-columns: 1fr;
+  }
+
+  .culture {
+    grid-template-columns: 1fr;
+  }
+
+  .table-row {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
