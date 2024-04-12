@@ -18,31 +18,31 @@ const {
   description = "Impressive - Coding the success, designing the future.",
 }: Props = Astro.props;
 ---
-<script is:inline>
-document.addEventListener('astro:page-load', () => {
-  // menu-buttonをクリックした時にsite-navにactiveクラスを付与する
-  document.querySelector('.menu-button').addEventListener('click', () => {
-    document.querySelector('.site-nav').classList.add('active');
-    // bodyにoverflow-hiddenクラスを付与する
-    document.querySelector('body').classList.add('overflow-hidden');
-  });
-  
-  // close-buttonをクリックした時にsite-navからactiveクラスを削除する
-  document.querySelector('.close-button').addEventListener('click', () => {
-    document.querySelector('.site-nav').classList.remove('active');
-    // bodyからoverflow-hiddenクラスを削除する
-    document.querySelector('body').classList.remove('overflow-hidden');
+<script>
+import * as focusTrap from 'focus-trap';
+
+const hundleMenuState = () => {
+  const siteNav = document.querySelector('.site-nav');
+  const menuButton = document.querySelector('.menu-button');
+  const body = document.querySelector('body')
+  const trap = focusTrap.createFocusTrap('.site-nav');
+
+  menuButton?.addEventListener('click', () => {
+    siteNav?.classList.add('active');
+    document.body.classList.add('overflow-hidden');
+    trap.activate();
   });
 
-  // site-navの背景をクリックした時にsite-navからactiveクラスを削除する
-  document.querySelector('.site-nav').addEventListener('click', (e) => {
+  siteNav?.addEventListener('click', (e) => {
+    trap.deactivate();
     if (e.target === document.querySelector('.site-nav')) {
-      document.querySelector('.site-nav').classList.remove('active');
-      // bodyからoverflow-hiddenクラスを削除する
-      document.querySelector('body').classList.remove('overflow-hidden');
+      siteNav.classList.remove('active');
+      body?.classList.remove('overflow-hidden');
     }
   });
-});
+}
+
+document.addEventListener('astro:page-load', hundleMenuState), { once: true };
 </script>
 <html lang="ja">
   <head>
@@ -126,10 +126,6 @@ document.addEventListener('astro:page-load', () => {
 
         <button aria-label="Open Menu" aria-expanded="false" class="menu-button">
           <MenuIcon />
-        </button>
-
-        <button aria-label="Close Menu" aria-expanded="true" class="close-button">
-          <CloseIcon />
         </button>
       </header>
       
@@ -253,6 +249,7 @@ body {
 }
 
 .site-nav.active {
+  overscroll-behavior-y: none;
   visibility: visible;
   opacity: 1;
 }
