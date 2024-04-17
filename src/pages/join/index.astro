@@ -14,7 +14,23 @@ import MessageIcon from "@/components/Icons/MessageIcon.astro";
       </CustomTypography>
     </div>
 
-    <img src="/images/office.jpg" alt="Join us" />
+    <div class="images">
+      <div class="image">
+        <img src="/images/office_1.jpg" alt="Join us" />
+      </div>
+      <div class="image">
+        <img src="/images/office_2.jpg" alt="Join us" />
+      </div>
+      <div class="image">
+        <img src="/images/office_3.jpg" alt="Join us" />
+      </div>
+      <div class="image">
+        <img src="/images/office_4.jpg" alt="Join us" />
+      </div>
+      <div class="image">
+        <img src="/images/office_5.jpg" alt="Join us" />
+      </div>
+    </div>
 
     <section class="content-section culture" id="culture">
       <CustomTypography class="culture-title" as="h2" variant="title-medium">会社概要</CustomTypography>
@@ -497,6 +513,27 @@ img {
   display: grid;
   gap: var(--gap-medium);
   grid-template-columns: repeat(2, 1fr);
+}
+
+.images {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--gap-small);
+}
+
+.image {
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+}
+
+.image:nth-child(1) {
+  grid-column: 1 / 3;
+}
+
+.image img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
 }
 
 @media (max-width: 1024px) {
