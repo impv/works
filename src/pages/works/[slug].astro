@@ -205,7 +205,7 @@ const { work } = Astro.props;
                   <li>
                     <CustomTypography>
                       <a class="member" href={`/about/${member.slug}`} data-astro-prefetch>
-                        <img class="member_avatar" src={`${member.portrait.src}?format=webp&width=30&height=30`} srcset={`${member.portrait.src}?format=webp&width=62&height=62`} alt={member.portrait.altText} width="30" height="30" transition:name={`portrait-${member.slug}`} />
+                        <img class="member_avatar" src={`${member.portrait.src}?format=webp&width=30&height=30`} srcset={`${member.portrait.src}?format=webp&width=62&height=62`} alt={member.portrait.altText} width="30" height="30" />
                         {member.name}
                       </a>
                     </CustomTypography>
