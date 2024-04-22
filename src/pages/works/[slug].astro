@@ -13,6 +13,9 @@ export const getStaticPaths = async () => {
   const { items: works } = await client.getContents<Work>({
     appUid: "website",
     modelUid: "work",
+    query: {
+      depth: 2
+    },
   });
 
   return works.map((work) => ({
@@ -196,19 +199,20 @@ const { work } = Astro.props;
             <CustomTypography as="h2" variant="title-small">
               Team
             </CustomTypography>
-            <CustomList>
+            <ul class="member_list">
               {
                 work.team.map((member) => (
                   <li>
                     <CustomTypography>
-                      <a href={`/about/${member.slug}`} data-astro-prefetch>
+                      <a class="member" href={`/about/${member.slug}`} data-astro-prefetch>
+                        <img class="member_avatar" src={`${member.portrait.src}?format=webp&width=30&height=30`} srcset={`${member.portrait.src}?format=webp&width=62&height=62`} alt={member.portrait.altText} width="30" height="30" transition:name={`portrait-${member.slug}`} />
                         {member.name}
                       </a>
                     </CustomTypography>
                   </li>
                 ))
               }
-            </CustomList>
+            </ul>
           </div>
         )
       }
@@ -382,6 +386,29 @@ video {
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
+}
+
+.member_avatar {
+  border: 1px solid var(--border-default);
+  width: 30px;
+  height: 30px;
+  border-radius: 32px;
+}
+
+.member {
+  display: flex;
+  gap: 0.6rem;
+}
+
+.member_list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.member:hover .member_avatar {
+  border-color: var(--border-accent);
 }
 
 @media (max-width: 768px) {
