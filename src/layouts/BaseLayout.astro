@@ -73,6 +73,7 @@ document.addEventListener('astro:page-load', hundleMenuState), { once: true };
           title: title,
           type: type,
           image: ogImage,
+          url: import.meta.env.SITE_URL,
         }
       }}
       extend={{
