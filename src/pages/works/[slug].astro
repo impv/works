@@ -116,19 +116,6 @@ const { work } = Astro.props;
 
     <div class="specs">
       {
-        work.releaseDate && (
-          <div class="spec-block">
-            <CustomTypography as="h2" variant="title-small">
-              Published
-            </CustomTypography>
-            <CustomTypography>
-              {new Date(work.releaseDate).toLocaleDateString("en-US", { month: "long", year: "numeric" })}
-            </CustomTypography>
-          </div>
-        )
-      }
-
-      {
         work.productionPeriod && (
           <div class="spec-block">
             <CustomTypography as="h2" variant="title-small">
@@ -194,30 +181,6 @@ const { work } = Astro.props;
       }
 
       {
-        work.team && (
-          <div class="spec-block">
-            <CustomTypography as="h2" variant="title-small">
-              Team
-            </CustomTypography>
-            <ul class="member_list">
-              {
-                work.team.map((member) => (
-                  <li>
-                    <CustomTypography>
-                      <a class="member" href={`/about/${member.slug}`} data-astro-prefetch>
-                        <img class="member_avatar" src={`${member.portrait.src}?format=webp&width=30&height=30`} srcset={`${member.portrait.src}?format=webp&width=62&height=62`} alt={member.portrait.altText} width="30" height="30" />
-                        {member.name}
-                      </a>
-                    </CustomTypography>
-                  </li>
-                ))
-              }
-            </ul>
-          </div>
-        )
-      }
-
-      {
         work.projectTypes && (
           <div class="spec-block">
             <CustomTypography as="h2" variant="title-small">
@@ -272,6 +235,30 @@ const { work } = Astro.props;
                     <CustomTag>
                       {technologyStack.name}
                     </CustomTag>
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+        )
+      }
+
+      {
+        work.team && (
+          <div class="spec-block">
+            <CustomTypography as="h2" variant="title-small">
+              Team
+            </CustomTypography>
+            <ul class="member_list">
+              {
+                work.team.map((member) => (
+                  <li>
+                    <CustomTypography>
+                      <a class="member" href={`/culture/${member.slug}`} data-astro-prefetch>
+                        <img class="member_avatar" src={`${member.portrait.src}?format=webp&width=30&height=30`} srcset={`${member.portrait.src}?format=webp&width=62&height=62`} alt={member.portrait.altText} width="30" height="30" />
+                        {member.name}
+                      </a>
+                    </CustomTypography>
                   </li>
                 ))
               }

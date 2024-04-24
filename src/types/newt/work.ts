@@ -51,11 +51,6 @@ export interface Work extends Content {
   url?: string;
 
   /**
-   * リリース日時
-   */
-  releaseDate?: string;
-
-  /**
    * 開発期間
    */
   productionPeriod?: string;

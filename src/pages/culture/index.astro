@@ -29,10 +29,10 @@ const { items: members } = memberResponse;
 const { items: partners } = partnerResponse;
 const { items: clients } = clientResponse;
 ---
-<ContentPageLayout title="About">
+<ContentPageLayout title="Culture">
   <section class="body">
     <div class="header">
-      <CustomTypography as="h1" variant="title-large">About Impressive</CustomTypography>
+      <CustomTypography as="h1" variant="title-large">Our Culture</CustomTypography>
       <CustomTypography variant="body-large">Impressiveは、フロントエンド開発とUIデザインに特化した開発チームです。丁寧なコミュニケーションと高い技術力でお客様のビジネス課題を解決します。</CustomTypography>
     </div>
 
@@ -41,7 +41,7 @@ const { items: clients } = clientResponse;
         <div class="member-index">
           {
             members.map((member) => (
-              <a href={`/about/${member.slug}`} class="member-index-item" data-astro-prefetch>
+              <a href={`/culture/${member.slug}`} class="member-index-item" data-astro-prefetch>
                 <div class="member-thumbnail">
                   <img src={`${member.portrait.src}?format=webp&width=724&height=724`} srcset={`${member.portrait.src}?format=webp&width=1448&height=1448`} alt={member.portrait.altText} width={member.portrait?.width} height={member.portrait.height} transition:name={`portrait-${member.slug}`} transition:persist />
                 </div>

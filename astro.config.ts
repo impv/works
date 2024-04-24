@@ -1,10 +1,19 @@
 import { defineConfig } from 'astro/config';
 import mdx from "@astrojs/mdx";
 import react from "@astrojs/react";
+import { createOGImage } from "./src/integrations/ogimage/index.tsx";
 
-// https://astro.build/config
 export default defineConfig({
-  integrations: [mdx(), react()],
+  output: "hybrid",
+  integrations: [
+    mdx(),
+    react(),
+    createOGImage({
+      config: {
+        path: "/culture",
+      },
+    })
+  ],
   prefetch: true,
   devToolbar: {
     enabled: false,
