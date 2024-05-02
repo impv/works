@@ -3,7 +3,7 @@ import mdx from "@astrojs/mdx";
 import react from "@astrojs/react";
 
 export default defineConfig({
-  output: "hybrid",
+  output: "static",
   integrations: [
     mdx(),
     react(),
