@@ -4,10 +4,11 @@ import { newtApiClient } from "@/api/newtApiClient";
 import type { Member, Client, Partner } from "@/types/newt";
 import CustomTypography from "@/components/CustomTypography/index.astro";
 import ExternalLinkIcon from "@/components/Icons/ExternalLinkIcon.astro";
+import { getFeed } from "@/api/rssClient";
 
 const client = newtApiClient();
 
-const [partnerResponse, memberResponse, clientResponse] = await Promise.all([
+const [partnerResponse, memberResponse, clientResponse, podcastResponse] = await Promise.all([
   client.getContents<Partner>({
     appUid: "website",
     modelUid: "partner",
@@ -23,16 +24,20 @@ const [partnerResponse, memberResponse, clientResponse] = await Promise.all([
     appUid: "website",
     modelUid: "client",
   }),
+  getFeed({
+    limit: 10,
+  }),
 ]);
 
 const { items: members } = memberResponse;
 const { items: partners } = partnerResponse;
 const { items: clients } = clientResponse;
+const { items: podcasts } = podcastResponse;
 ---
 <ContentPageLayout title="Culture">
   <section class="body">
     <div class="header">
-      <CustomTypography as="h1" variant="title-large">Our Culture</CustomTypography>
+      <CustomTypography as="h1" variant="title-large">Our culture</CustomTypography>
       <CustomTypography variant="body-large">Impressiveは関わる人の多様な背景、文化、視点を大切にしています。それぞれの経験、才能、スキルが交わることで、チーム全体で豊かな創造力が育まれています。</CustomTypography>
     </div>
 
@@ -73,50 +78,41 @@ const { items: clients } = clientResponse;
     }
 
     {
-      partners && partners.length > 0 && (
-        <section class="partners" id="partners">
-          <CustomTypography as="h2" variant="title-medium">Partners</CustomTypography>
-          <div class="partner-index">
-            {
-              partners.map((partner) => (
-                <CustomTypography class="partner-index-item">
-                  {
-                    partner.website && (
-                      <a href={partner.website} target="_blank" rel="noopener noreferrer">
-                        {partner.name}
-                        <ExternalLinkIcon />
-                      </a>
-                    ) || partner.name
-                  }
-                </CustomTypography>
-              ))
-            }
-          </div>
-        </section>
-      )
-    }
+      podcasts && podcasts.length > 0 && (
+        <div class="podcasts" id="podcasts">
+          <CustomTypography as="h2" variant="title-medium">
+            Podcasts
+          </CustomTypography>
 
-    {
-      clients && clients.length > 0 && (
-        <section class="clients" id="clients">
-          <CustomTypography as="h2" variant="title-medium">Clients</CustomTypography>
-          <div class="client-index">
+          <CustomTypography variant="body-large">
+            Impressiveの社風やメンバーの声をお届けするPodcastを配信しています。
+          </CustomTypography>
+
+          <div class="podcast-list">
             {
-              clients.map((client) => (
-                <CustomTypography class="client-index-item">
-                  {
-                    client.website && (
-                      <a href={client.website} target="_blank" rel="noopener noreferrer">
-                        {client.name}
-                        <ExternalLinkIcon />
-                      </a>
-                    ) || client.name
-                  }
-                </CustomTypography>
+              podcasts.map((podcast) => (
+                <a href={podcast.link} target="_blank" rel="noopener noreferrer" class="podcast-list-item">
+                  <CustomTypography as="h3" variant="title-small">
+                    {podcast.title}
+                    <ExternalLinkIcon />
+                  </CustomTypography>
+
+                  <CustomTypography variant="body-large" class="podcast-list-item-description">
+                    {podcast.contentSnippet}
+                  </CustomTypography>
+        
+                  <CustomTypography variant="body-large" class="podcast-list-item-date">
+                    {new Date(podcast.pubDate).toLocaleDateString("en-US", { month: "long", year: "numeric", day: "numeric"})}
+                  </CustomTypography>
+                </a>
               ))
             }
           </div>
-        </section>
+
+          <CustomTypography variant="body-large" as="a" href="https://podcasters.spotify.com/pod/show/impv-timz/" target="_blank" rel="noopener noreferrer" class="more-link">
+            Show more
+          </CustomTypography>
+        </div>
       )
     }
     
@@ -222,6 +218,50 @@ const { items: clients } = clientResponse;
 .positions-item:not(:first-child):before {
   content: "/";
   padding: 0 0.2rem;
+}
+
+.podcasts {
+	display: grid;
+  gap: var(--gap-small);
+  padding: var(--gap-small) 0;
+}
+
+.podcast-list {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(40%, 1fr));
+	gap: 0 var(--gap-small);
+}
+
+.podcast-list-item {
+	display: flex;
+	flex-direction: column;
+	gap: 0.4rem;
+	padding: 2.4rem;
+	border-top: 1px solid var(--border-default);
+	border-bottom: 1px solid var(--border-default);
+	margin-top: -1px;
+	text-decoration: none;
+	color: currentColor;
+}
+
+.podcast-list-item:hover {
+	background-color: var(--bg-default-hover);
+}
+
+.podcast-list-item-description {
+	color: var(--fg-subtle);
+	overflow: hidden;
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+}
+
+.podcast-list-item-date {
+	color: var(--fg-subtle);
+}
+
+.more-link {
+	justify-self: flex-end;
 }
 
 @media (max-width: 1280px) {

@@ -53,14 +53,16 @@ const { items: feed } = feedResponse;
 			domains && domains.length > 0 && (
 				<div class="domains">
 					<CustomTypography as="h2" variant="title-large">
-						What we do
+						<a href={`/domains`}>What we do</a>
 					</CustomTypography>
 
 					<div class="domain-list">
 						{domains.map((domain) => (
 							<div class="domain-list-item">
 								<CustomTypography as="h3" variant="title-medium">
-									{domain.name}
+									<a href={`/domains/#${domain.slug}`}>
+										{domain.name}
+									</a>
 								</CustomTypography>
 			
 								<CustomTypography variant="body-large" class="domain-description">
@@ -77,7 +79,7 @@ const { items: feed } = feedResponse;
 			works && works.length > 0 && (
 				<div class="works">
 					<CustomTypography as="h2" variant="title-large">
-						Works
+						<a href={`/works`}>Works</a>
 					</CustomTypography>
 
 					<div class="work-index">
@@ -98,7 +100,7 @@ const { items: feed } = feedResponse;
 			feed && feed.length > 0 && (
 				<div class="podcasts">
 					<CustomTypography as="h2" variant="title-large">
-						Podcasts
+						<a href="culture/#podcasts">Podcasts</a>
 					</CustomTypography>
 
 					<div class="podcast-list">

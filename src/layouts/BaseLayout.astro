@@ -113,6 +113,13 @@ document.addEventListener('astro:page-load', hundleMenuState), { once: true };
         </a>
 
         <nav class="site-nav">
+          <a href="/domains" class:list={[
+            "site-nav-item",
+            Astro.url.pathname.match("domains") && "active"
+          ]} data-astro-prefetch>
+            What we do
+          </a>
+
           <a href="/works" class:list={[
             "site-nav-item",
             Astro.url.pathname.match("works") && "active"
@@ -124,7 +131,7 @@ document.addEventListener('astro:page-load', hundleMenuState), { once: true };
             "site-nav-item",
             Astro.url.pathname.match("culture") && "active"
           ]} data-astro-prefetch>
-            Our Culture
+            Our culture
           </a>
 
           <a href="/join" class:list={[
@@ -164,13 +171,6 @@ document.addEventListener('astro:page-load', hundleMenuState), { once: true };
         </CustomTypography>
 
         <nav class="sub-nav">
-          <CustomTypography>
-            <a href="https://podcasters.spotify.com/pod/show/impv-timz/" target="_blank" rel="noopener noreferrer">
-              Podcast
-              <ExternalLinkIcon />
-            </a>
-          </CustomTypography>
-
           <CustomTypography>
             <a href="/privacy-policy">Privacy policy</a>
           </CustomTypography>

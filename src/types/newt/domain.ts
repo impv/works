@@ -1,5 +1,7 @@
 import type { Content } from 'newt-client-js';
 
+import type { Ability } from './ability';
+
 /**
  * 業務領域
  */
@@ -17,5 +19,10 @@ export interface Domain extends Content {
   /**
    * 説明
    */
-  description: string;
+  description?: string;
+
+  /**
+   * 能力
+   */
+  abilities?: Ability[];
 }

@@ -1,0 +1,113 @@
+---
+import { newtApiClient } from "@/api/newtApiClient";
+import type { Domain } from "@/types/newt";
+import ContentPageLayout from "@/layouts/ContentPageLayout.astro";
+import CustomTypography from "@/components/CustomTypography/index.astro";
+import CustomList from "@/components/CustomList/index.astro";
+
+const client = newtApiClient();
+
+const { items: domains } = await client.getContents<Domain>({
+  appUid: "website",
+  modelUid: "domain",
+  query: {
+    order: ["-_sys.customOrder"]
+  },
+})
+---
+<ContentPageLayout title="What we do">
+  <section class="body">
+    <div class="header">
+      <CustomTypography as="h1" variant="title-large">What we do</CustomTypography>
+  
+      <CustomTypography variant="body-large">
+        私たちは小規模なウェブサイトから大規模なウェブアプリケーションまで、幅広いプロジェクトを手がけています。新しい技術や知識を積極的に取り入れ、クライアントのビジネス課題を解決するための最適なソリューションを提供しています。
+      </CustomTypography>
+    </div>
+    
+    {
+      domains && domains.map((domain) => (
+        <div class="content-section" id={domain.slug}>
+          <CustomTypography as="h2" variant="title-medium">{domain.name}</CustomTypography>
+          <div class="content-sub-section">
+            <CustomTypography variant="body-large">{domain.description}</CustomTypography>
+
+            {
+              domain.abilities && (
+                <section class="outputs" id="outputs">
+                  {
+                    domain.abilities?.map((ability) => (
+                      <div class="outputs-item" id={ability.slug}>
+                        <CustomTypography as="h3" variant="title-small">{ability.name}</CustomTypography>
+                        <CustomTypography class="outputs-item-description">{ability.description}</CustomTypography>
+                      </div>
+                    ))
+                  }
+                </section>
+              )
+            }
+          </div>
+        </div>
+      ))
+    }
+  </section>
+</ContentPageLayout>
+
+<style>
+img {
+  width: 100%;
+  height: auto;
+}
+
+.subtle {
+  color: var(--fg-subtle);
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-large);
+}
+
+.header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--gap-medium);
+}
+
+.content-section {
+  display: grid;
+  gap: var(--gap-small);
+  padding: var(--gap-medium) 0;
+}
+
+.content-sub-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+  gap: var(--gap-small);
+}
+
+.outputs {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: var(--gap-small);
+}
+
+.outputs-item {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+  border-left: 4px solid var(--fg-subtle);
+  padding-left: 2.4rem;
+}
+
+.outputs-item-description {
+  color: var(--fg-subtle);
+}
+
+@media (max-width: 768px) {
+  .header {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
