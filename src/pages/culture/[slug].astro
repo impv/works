@@ -53,12 +53,28 @@ const { member, works, podcasts } = Astro.props;
 				<CustomTypography as="h1" variant="title-large">{member.name}</CustomTypography>
 
 				{
+					member.positions && (
+						<ul class="title-tags">
+							{
+								member.positions.map((position) => (
+									<li class="title-tags-item">
+										<CustomTypography variant="body-large" title={position.description}>
+											{position.name}
+										</CustomTypography>
+									</li>
+								))
+							}
+						</ul>
+					)
+				}
+
+				{
 					member.domains && (
 						<ul class="title-tags">
 							{
 								member.domains.map((domain) => (
 									<li class="title-tags-item">
-										<CustomTypography variant="body-large" title={domain.description}>
+										<CustomTypography title={domain.description}>
 											{domain.name}
 										</CustomTypography>
 									</li>

@@ -33,11 +33,16 @@ const { items: clients } = clientResponse;
   <section class="body">
     <div class="header">
       <CustomTypography as="h1" variant="title-large">Our Culture</CustomTypography>
-      <CustomTypography variant="body-large">Impressiveは、フロントエンド開発とUIデザインに特化した開発チームです。丁寧なコミュニケーションと高い技術力でお客様のビジネス課題を解決します。</CustomTypography>
+      <CustomTypography variant="body-large">Impressiveは関わる人の多様な背景、文化、視点を大切にしています。それぞれの経験、才能、スキルが交わることで、チーム全体で豊かな創造力が育まれています。</CustomTypography>
     </div>
 
     {
       members && members.length > 0 && (
+      <section class="members" id="members">
+        <CustomTypography as="h2" variant="title-medium">Members</CustomTypography>
+
+        <CustomTypography variant="body-large">Impressiveで働く個性豊かなメンバーを紹介します。</CustomTypography>
+
         <div class="member-index">
           {
             members.map((member) => (
@@ -45,11 +50,25 @@ const { items: clients } = clientResponse;
                 <div class="member-thumbnail">
                   <img src={`${member.portrait.src}?format=webp&width=724&height=724`} srcset={`${member.portrait.src}?format=webp&width=1448&height=1448`} alt={member.portrait.altText} width={member.portrait?.width} height={member.portrait.height} transition:name={`portrait-${member.slug}`} transition:persist />
                 </div>
-                <CustomTypography as="h2" variant="body-large">{member.name}</CustomTypography>
+                <div class="member-caption">
+                  <CustomTypography as="h2" variant="body-large">{member.name}</CustomTypography>
+                  {
+                    member.positions && member.positions.length > 0 && (
+                      <ul class="positions">
+                        {member.positions.map((position) => (
+                          <>
+                            <CustomTypography class="positions-item" as="li" variant="body-small">{position.name}</CustomTypography>
+                          </>
+                        ))}
+                      </ul>
+                    )
+                  }
+                </div>
               </a>
             ))
           }
         </div>
+      </section>
       )
     }
 
@@ -162,6 +181,12 @@ const { items: clients } = clientResponse;
   gap: var(--gap-medium);
 }
 
+.members {
+  display: grid;
+  gap: var(--gap-small);
+  padding: var(--gap-small) 0;
+}
+
 .partners {
   display: grid;
   gap: var(--gap-small);
@@ -183,6 +208,20 @@ const { items: clients } = clientResponse;
 .partner-index-item,
 .client-index-item {
   padding-right: var(--gap-small);
+}
+
+.positions {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  gap: 0.5rem;
+  white-space: nowrap;
+  flex-wrap: wrap;
+}
+
+.positions-item:not(:first-child):before {
+  content: "/";
+  padding: 0 0.2rem;
 }
 
 @media (max-width: 1280px) {

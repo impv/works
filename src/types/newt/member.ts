@@ -1,5 +1,6 @@
 import type { Content, Image } from 'newt-client-js';
 import type { Domain } from './domain';
+import type { Position } from './position';
 import type { TechnologyStack } from './technologyStack';
 
 /**
@@ -20,6 +21,11 @@ export interface Member extends Content {
    * 専門領域
    */
   domains?: Domain[];
+
+  /**
+   * 役職
+   */
+  positions?: Position[];
 
   /**
    * 技術スタック
