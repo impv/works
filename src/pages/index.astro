@@ -233,11 +233,10 @@ const { items: feed } = feedResponse;
 }
 
 .work-index {
-	display: flex;
-	overflow-x: auto;
+	display: grid;
 	gap: var(--gap-medium);
-	scroll-snap-type: x mandatory;
 	position: relative;
+	grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
 }
 
 .work-thumbnail {
@@ -245,7 +244,6 @@ const { items: feed } = feedResponse;
   aspect-ratio: 1 / 1;
   padding: 3.6rem;
   background-color: var(--bg-muted);
-	width: 30dvw;
 	scroll-snap-align: start;
 }
 
@@ -282,6 +280,10 @@ const { items: feed } = feedResponse;
 			"podcasts podcasts"
 		;
 	}
+
+	.work-index {
+		grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+	}
 }
 
 @media (max-width: 768px) {
@@ -296,6 +298,10 @@ const { items: feed } = feedResponse;
 		;
 	}
 
+	.work-index {
+		grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+	}
+
 	.domain-list {
 		grid-template-columns: 1fr;
 	}
@@ -305,7 +311,6 @@ const { items: feed } = feedResponse;
 	}
 
 	.work-thumbnail {
-		width: 72dvw;
 		padding: 2.4rem;
 	}
 
