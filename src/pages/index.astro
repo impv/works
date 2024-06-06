@@ -53,14 +53,14 @@ const { items: feed } = feedResponse;
 			domains && domains.length > 0 && (
 				<div class="domains">
 					<CustomTypography as="h2" variant="title-large">
-						<a href={`/domains`}>What we do</a>
+						<a href={`/what-we-do`}>What we do</a>
 					</CustomTypography>
 
 					<div class="domain-list">
 						{domains.map((domain) => (
 							<div class="domain-list-item">
 								<CustomTypography as="h3" variant="title-medium">
-									<a href={`/domains/#${domain.slug}`}>
+									<a href={`/what-we-do/#${domain.slug}`}>
 										{domain.name}
 									</a>
 								</CustomTypography>

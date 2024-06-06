@@ -4,7 +4,6 @@ import { newtApiClient } from "@/api/newtApiClient";
 import { getFeed, filterItemsByMemberSlugs } from "@/api/rssClient";
 import type { Member, Work } from "@/types/newt";
 import CustomTypography from "@/components/CustomTypography/index.astro";
-import CustomTag from "@/components/CustomTag/index.astro";
 import ExternalLinkIcon from "@/components/Icons/ExternalLinkIcon.astro";
 
 export const getStaticPaths = async () => {
@@ -50,15 +49,15 @@ const { member, works, podcasts } = Astro.props;
 	<section class="body">
 		<div class="header">
 			<div class="profile">
-				<CustomTypography as="h1" variant="title-large">{member.name}</CustomTypography>
+				<CustomTypography as="h1" variant="display">{member.name}</CustomTypography>
 
 				{
 					member.positions && (
-						<ul class="title-tags">
+						<ul class="positions">
 							{
 								member.positions.map((position) => (
-									<li class="title-tags-item">
-										<CustomTypography variant="body-large" title={position.description}>
+									<li>
+										<CustomTypography variant="title-small" title={position.description}>
 											{position.name}
 										</CustomTypography>
 									</li>
@@ -74,7 +73,7 @@ const { member, works, podcasts } = Astro.props;
 							{
 								member.domains.map((domain) => (
 									<li class="title-tags-item">
-										<CustomTypography title={domain.description}>
+										<CustomTypography title={domain.description} color="subtle">
 											{domain.name}
 										</CustomTypography>
 									</li>
@@ -165,18 +164,18 @@ const { member, works, podcasts } = Astro.props;
   display: flex;
   gap: 0.8rem;
   list-style-type: none;
-  color: var(--fg-subtle);
   flex-wrap: wrap;
 }
 
 .title-tags-item {
   display: flex;
-  gap: 0.8rem;
+  gap: 0.6rem;
   align-items: center;
 }
 
-.title-tags-item + .title-tags-item::before {
+.title-tags-item:not(:nth-last-child(1))::after {
   content: "/";
+	color: var(--fg-muted);
 }
 
 .header {
@@ -184,6 +183,11 @@ const { member, works, podcasts } = Astro.props;
 	flex-direction: column;
   gap: var(--gap-small);
 	grid-area: header;
+	justify-content: center;
+}
+
+.positions {
+	list-style-type: none;
 }
 
 .profile {

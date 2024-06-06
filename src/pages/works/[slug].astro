@@ -228,7 +228,7 @@ const { work } = Astro.props;
         work.domains && (
           <div class="spec-block">
             <CustomTypography as="h2" variant="title-small">
-              Our domains
+              What we did
             </CustomTypography>
             <CustomList>
               {
@@ -407,7 +407,7 @@ video {
   gap: 0.6rem;
 }
 
-.techstacks li:nth-child(n+2)::before {
+.techstacks li:not(:nth-last-child(1))::after {
   content: "/";
   color: var(--fg-muted);
 }

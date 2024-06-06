@@ -112,9 +112,9 @@ document.addEventListener('astro:page-load', hundleMenuState), { once: true };
         </a>
 
         <nav class="site-nav">
-          <a href="/domains" class:list={[
+          <a href="/what-we-do" class:list={[
             "site-nav-item",
-            Astro.url.pathname.match("domains") && "active"
+            Astro.url.pathname.match("what-we-do") && "active"
           ]} data-astro-prefetch>
             What we do
           </a>
@@ -133,9 +133,9 @@ document.addEventListener('astro:page-load', hundleMenuState), { once: true };
             About us
           </a>
 
-          <a href="/join" class:list={[
+          <a href="/join-us" class:list={[
             "site-nav-item",
-            Astro.url.pathname.match("join") && "active"
+            Astro.url.pathname.match("join-us") && "active"
           ]} data-astro-prefetch>
             Join us
           </a>
@@ -147,9 +147,9 @@ document.addEventListener('astro:page-load', hundleMenuState), { once: true };
             Company
           </a>
 
-          <a href="/contact" class:list={[
+          <a href="/contact-us" class:list={[
             "site-nav-item",
-            Astro.url.pathname.match("contact") && "active"
+            Astro.url.pathname.match("contact-us") && "active"
           ]} data-astro-prefetch>
             Contact us
           </a>
