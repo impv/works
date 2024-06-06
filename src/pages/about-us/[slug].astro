@@ -87,6 +87,11 @@ const { member, works, podcasts } = Astro.props;
 
 		<div class="portrait">
 			<img class="portrait-image" src={`${member.portrait.src}?format=webp&width=724&height=724`} srcset={`${member.portrait.src}?format=webp&width=1448&height=1448`} alt={member.portrait.altText} width={member.portrait.width} height={member.portrait.height} transition:name={`portrait-${member.slug}`} />
+			{
+				member.portraitEyesClosed && (
+					<img class="portrait-eyes-closed-image" src={`${member.portraitEyesClosed.src}?format=webp&width=724&height=724`} srcset={`${member.portraitEyesClosed.src}?format=webp&width=1448&height=1448`} alt={member.portraitEyesClosed.altText} width={member.portraitEyesClosed.width} height={member.portraitEyesClosed.height} transition:name={`portrait-${member.slug}`} />
+				)
+			}
 		</div>
 
 		{
@@ -212,11 +217,31 @@ const { member, works, podcasts } = Astro.props;
 
 .portrait {
 	grid-area: portrait;
+	display: grid;
 }
 
-.portrait-image {
+.portrait-image,
+.portrait-eyes-closed-image {
 	width: 100%;
 	height: auto;
+	grid-column: 1 / 2;
+	grid-row: 1 / 2;
+}
+
+
+.portrait-eyes-closed-image {
+	animation: blink 8s infinite;
+	pointer-events: none;
+}
+
+@keyframes blink {
+	0%, 49%, 51%, 95%, 97%, 98% {
+		visibility: hidden;
+	}
+
+	50%, 96%, 100% {
+		visibility: visible;
+	}
 }
 
 .works {

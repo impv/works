@@ -36,4 +36,9 @@ export interface Member extends Content {
    * プロフィール画像
    */
   portrait: Image;
+
+  /**
+   * 目を閉じた状態のプロフィール画像
+   */
+  portraitEyesClosed?: Image;
 }
