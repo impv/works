@@ -84,27 +84,6 @@ const { member, works, podcasts } = Astro.props;
 					)
 				}
 			</div>
-
-			{
-				member.technologyStacks && member.technologyStacks.length > 0 && (
-					<div class="tech-stacks">
-						<CustomTypography as="h2" variant="title-medium">
-							Tech stacks
-						</CustomTypography>
-						<ul class="tags">
-							{
-								member.technologyStacks.map((technologyStack) => (
-									<li>
-										<CustomTag>
-											{technologyStack.name}
-										</CustomTag>
-									</li>
-								))
-							}
-						</ul>
-					</div>
-				)
-			}
 		</div>
 
 		<div class="portrait">

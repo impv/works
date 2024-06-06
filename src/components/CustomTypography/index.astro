@@ -6,12 +6,14 @@ interface Props {
   variant?: "display" | "title-large" | "title-medium" | "title-small" | "body-large" | "body-medium" | "body-small" | "caption";
   bold?: boolean;
   class?: string;
+  color?: "default" | "subtle" | "muted" | "inverted" | "disabled" | "accent" | "success" | "attention" | "danger";
 }
 
 const {
   as = "p",
   variant = "body-medium",
   bold = false,
+  color = "default",
   class: className,
   ...props
 }: Props = Astro.props;
@@ -23,6 +25,7 @@ const Element = as;
   className,
   variant,
   { "bold": bold },
+  { [`color-${color}`]: color !== "default" },
   "typography",
 ]} {...props}>
   <slot />
@@ -77,5 +80,41 @@ const Element = as;
 
 .bold {
   font-weight: bold;
+}
+
+.color-default {
+  color: var(--fg-default);
+}
+
+.color-subtle {
+  color: var(--fg-subtle);
+}
+
+.color-muted {
+  color: var(--fg-muted);
+}
+
+.color-inverted {
+  color: var(--fg-inverted);
+}
+
+.color-disabled {
+  color: var(--fg-disabled);
+}
+
+.color-accent {
+  color: var(--fg-accent);
+}
+
+.color-success {
+  color: var(--fg-success);
+}
+
+.color-attention {
+  color: var(--fg-attention);
+}
+
+.color-danger {
+  color: var(--fg-danger);
 }
 </style>

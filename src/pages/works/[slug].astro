@@ -4,7 +4,6 @@ import { newtApiClient } from "@/api/newtApiClient";
 import type { Work } from "@/types/newt";
 import CustomTypography from "@/components/CustomTypography/index.astro";
 import CustomList from "@/components/CustomList/index.astro";
-import CustomTag from "@/components/CustomTag/index.astro";
 import ExternalLinkIcon from "@/components/Icons/ExternalLinkIcon.astro";
 
 export const getStaticPaths = async () => {
@@ -181,6 +180,30 @@ const { work } = Astro.props;
       }
 
       {
+        work.team && (
+          <div class="spec-block">
+            <CustomTypography as="h2" variant="title-small">
+              Team
+            </CustomTypography>
+            <ul class="member_list">
+              {
+                work.team.map((member) => (
+                  <li>
+                    <CustomTypography>
+                      <a class="member" href={`/about-us/${member.slug}`} data-astro-prefetch>
+                        <img class="member_avatar" src={`${member.portrait.src}?format=webp&width=30&height=30`} srcset={`${member.portrait.src}?format=webp&width=62&height=62`} alt={member.portrait.altText} width="30" height="30" />
+                        {member.name}
+                      </a>
+                    </CustomTypography>
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+        )
+      }
+
+      {
         work.projectTypes && (
           <div class="spec-block">
             <CustomTypography as="h2" variant="title-small">
@@ -190,7 +213,7 @@ const { work } = Astro.props;
               {
                 work.projectTypes.map((projectType) => (
                   <li>
-                    <CustomTypography>
+                    <CustomTypography color="subtle">
                       {projectType.name}
                     </CustomTypography>
                   </li>
@@ -207,17 +230,17 @@ const { work } = Astro.props;
             <CustomTypography as="h2" variant="title-small">
               Our domains
             </CustomTypography>
-            <ul class="tags">
+            <CustomList>
               {
                 work.domains.map((domain) => (
                   <li>
-                    <CustomTag title={domain.description}>
-                      {domain.name}
-                    </CustomTag>
+                    <CustomTypography color="subtle" title={domain.description}>
+                        {domain.name}
+                    </CustomTypography>
                   </li>
                 ))
               }
-            </ul>
+            </CustomList>
           </div>
         )
       }
@@ -228,36 +251,12 @@ const { work } = Astro.props;
             <CustomTypography as="h2" variant="title-small">
               Tech stacks
             </CustomTypography>
-            <ul class="tags">
+            <ul class="techstacks">
               {
                 work.technologyStacks.map((technologyStack) => (
                   <li>
-                    <CustomTag>
+                    <CustomTypography color="subtle">
                       {technologyStack.name}
-                    </CustomTag>
-                  </li>
-                ))
-              }
-            </ul>
-          </div>
-        )
-      }
-
-      {
-        work.team && (
-          <div class="spec-block">
-            <CustomTypography as="h2" variant="title-small">
-              Team
-            </CustomTypography>
-            <ul class="member_list">
-              {
-                work.team.map((member) => (
-                  <li>
-                    <CustomTypography>
-                      <a class="member" href={`/culture/${member.slug}`} data-astro-prefetch>
-                        <img class="member_avatar" src={`${member.portrait.src}?format=webp&width=30&height=30`} srcset={`${member.portrait.src}?format=webp&width=62&height=62`} alt={member.portrait.altText} width="30" height="30" />
-                        {member.name}
-                      </a>
                     </CustomTypography>
                   </li>
                 ))
@@ -394,6 +393,23 @@ video {
 
 .member:hover .member_avatar {
   border-color: var(--border-accent);
+}
+
+.techstacks {
+  list-style-type: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.techstacks li {
+  display: flex;
+  gap: 0.6rem;
+}
+
+.techstacks li:nth-child(n+2)::before {
+  content: "/";
+  color: var(--fg-muted);
 }
 
 @media (max-width: 768px) {
